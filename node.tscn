@@ -1,0 +1,392 @@
+[gd_scene load_steps=8 format=3 uid="uid://dmu0q0b0jwa"]
+
+[ext_resource type="Script" path="res://ws_new.gd" id="1_scix4"]
+[ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="2_7yoce"]
+[ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_uwe2s"]
+
+[sub_resource type="Theme" id="Theme_rdguh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlhf1"]
+bg_color = Color(0.666667, 0.666667, 0.666667, 1)
+border_width_left = 2
+border_width_top = 4
+corner_radius_top_left = 18
+corner_radius_top_right = 11
+corner_radius_bottom_right = 21
+corner_radius_bottom_left = 8
+shadow_color = Color(1, 0.733333, 0.972549, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ter70"]
+corner_radius_top_left = 18
+corner_radius_top_right = 11
+corner_radius_bottom_right = 21
+corner_radius_bottom_left = 8
+shadow_color = Color(1, 0.733333, 0.972549, 0.6)
+
+[sub_resource type="Theme" id="Theme_bytfd"]
+Button/styles/hover = SubResource("StyleBoxFlat_vlhf1")
+Button/styles/normal = ExtResource("2_7yoce")
+Button/styles/pressed = SubResource("StyleBoxFlat_ter70")
+
+[node name="Node" type="Node"]
+script = ExtResource("1_scix4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = -1
+anchor_right = 17.969
+anchor_bottom = 9.969
+offset_right = -0.015625
+offset_bottom = 0.0151367
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 22.0
+offset_right = 263.0
+offset_bottom = 343.0
+
+[node name="Hbox-p1" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p1"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Name
+"
+
+[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p1"]
+layout_mode = 2
+
+[node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p1"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "SLAP
+"
+
+[node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p1"]
+layout_mode = 2
+
+[node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p1"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Gate
+"
+
+[node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p1"]
+layout_mode = 2
+
+[node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p1"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Delta"
+
+[node name="ProgressBar-p1" type="ProgressBar" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rdguh")
+value = 42.08
+show_percentage = false
+
+[node name="HSeparator" type="HSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Hbox-p2" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p2"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Name
+"
+
+[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p2"]
+layout_mode = 2
+
+[node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p2"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "SLAP
+"
+
+[node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p2"]
+layout_mode = 2
+
+[node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p2"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Gate
+"
+
+[node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p2"]
+layout_mode = 2
+
+[node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p2"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Delta"
+
+[node name="ProgressBar-p2" type="ProgressBar" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rdguh")
+value = 42.08
+show_percentage = false
+
+[node name="HSeparator2" type="HSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Hbox-p3" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p3"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Name
+"
+
+[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p3"]
+layout_mode = 2
+
+[node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p3"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "SLAP
+"
+
+[node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p3"]
+layout_mode = 2
+
+[node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p3"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Gate
+"
+
+[node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p3"]
+layout_mode = 2
+
+[node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p3"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Delta"
+
+[node name="ProgressBar-p3" type="ProgressBar" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rdguh")
+value = 42.08
+show_percentage = false
+
+[node name="HSeparator3" type="HSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Hbox-p4" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p4"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Name
+"
+
+[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p4"]
+layout_mode = 2
+
+[node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p4"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "SLAP
+"
+
+[node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p4"]
+layout_mode = 2
+
+[node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p4"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Gate
+"
+
+[node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p4"]
+layout_mode = 2
+
+[node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p4"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Delta"
+
+[node name="ProgressBar-p4" type="ProgressBar" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rdguh")
+value = 42.08
+show_percentage = false
+
+[node name="HSeparator4" type="HSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Hbox-p5" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p5"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Name
+"
+
+[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p5"]
+layout_mode = 2
+
+[node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p5"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "SLAP
+"
+
+[node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p5"]
+layout_mode = 2
+
+[node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p5"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Gate
+"
+
+[node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p5"]
+layout_mode = 2
+
+[node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p5"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Delta"
+
+[node name="ProgressBar-p5" type="ProgressBar" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rdguh")
+value = 42.08
+show_percentage = false
+
+[node name="HSeparator5" type="HSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Hbox-p6" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p6"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Name
+"
+
+[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p6"]
+layout_mode = 2
+
+[node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p6"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "SLAP
+"
+
+[node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p6"]
+layout_mode = 2
+
+[node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p6"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Gate
+"
+
+[node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p6"]
+layout_mode = 2
+
+[node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p6"]
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Delta"
+
+[node name="ProgressBar-p6" type="ProgressBar" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rdguh")
+value = 42.08
+show_percentage = false
+
+[node name="IP_Input" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.782
+anchor_top = 0.758
+anchor_right = 0.89
+anchor_bottom = 0.806
+offset_left = 0.135925
+offset_top = -0.184021
+offset_right = -0.280029
+offset_bottom = -0.288025
+placeholder_text = "Local IP"
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.788
+anchor_top = 0.94
+anchor_right = 0.852
+anchor_bottom = 0.988
+offset_left = 0.223938
+offset_top = -0.120056
+offset_right = -0.504089
+offset_bottom = -0.223999
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_bytfd")
+text = "Submit"
+
+[node name="Gate Count" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.784
+anchor_top = 0.826
+anchor_right = 0.866
+anchor_bottom = 0.937
+offset_left = 1.83197
+offset_top = 37.752
+offset_right = 10.3679
+offset_bottom = -3.17603
+placeholder_text = "Gate Count"
+
+[node name="Sector Gate" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.784
+anchor_top = 0.826
+anchor_right = 0.872
+anchor_bottom = 0.877
+offset_left = 0.83197
+offset_top = -0.248047
+offset_right = 0.455933
+offset_bottom = -2.29602
+placeholder_text = "Sector Gate"
+
+[node name="HeartbeatTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="pressed" from="Control/Button" to="." method="_on_Button_pressed"]
+[connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
