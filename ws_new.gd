@@ -56,11 +56,13 @@ var display_list = ""
 var sector_gate = 1
 var gate_count = 30
 
+var ip_complete = false
+
 func _ready():
 	
-	var url = "ws://192.168.1.156:60003/velocidrone"
+	# var url = "ws://192.168.1.156:60003/velocidrone"
 	
-	ws.connect_to_url(url)
+	# ws.connect_to_url(url)
 	
 	$HeartbeatTimer.start()
 	
@@ -111,67 +113,69 @@ func _ready():
 
 
 func _process(delta):
-	ws.poll()
-	
-	var state = ws.get_ready_state()
-	
-	if state == WebSocketPeer.STATE_OPEN:
-		while ws.get_available_packet_count() > 0:
-			var packet = ws.get_packet()
-			var packet_string = packet.get_string_from_utf8()
-			var json = JSON.new()
-			var pilotdata = json.parse_string(packet_string)  # Correct method to parse JSON string
-			#print(pilotdata)
-		# Now you can check the keys and access the data
-			if "racestatus" in pilotdata:
-				#print(pilotdata["racestatus"]["raceAction"])
-				if pilotdata["racestatus"]["raceAction"] == "start":
-					heatData = {}
-					pilots = []
-			elif "racetype" in pilotdata:
-				pass  # Handle racetype data
-			if "racedata" in pilotdata:
-				for pilot_name in pilotdata["racedata"]:
-					_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
+	if ip_complete:
+		
+		ws.poll()
+		
+		var state = ws.get_ready_state()
+		
+		if state == WebSocketPeer.STATE_OPEN:
+			while ws.get_available_packet_count() > 0:
+				var packet = ws.get_packet()
+				var packet_string = packet.get_string_from_utf8()
+				var json = JSON.new()
+				var pilotdata = json.parse_string(packet_string)  # Correct method to parse JSON string
+				#print(pilotdata)
+			# Now you can check the keys and access the data
+				if "racestatus" in pilotdata:
+					#print(pilotdata["racestatus"]["raceAction"])
+					if pilotdata["racestatus"]["raceAction"] == "start":
+						heatData = {}
+						pilots = []
+				elif "racetype" in pilotdata:
+					pass  # Handle racetype data
+				if "racedata" in pilotdata:
+					for pilot_name in pilotdata["racedata"]:
+						_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
 
-	elif state == WebSocketPeer.STATE_CLOSING:
-		# Keep polling to achieve proper close.
-		pass
+		elif state == WebSocketPeer.STATE_CLOSING:
+			# Keep polling to achieve proper close.
+			pass
 
-	elif state == WebSocketPeer.STATE_CLOSED:
-		var code = ws.get_close_code()
-		var reason = ws.get_close_reason()
-		print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
-		set_process(false) # Stop processing.
-	make_leaderboard()
+		elif state == WebSocketPeer.STATE_CLOSED:
+			var code = ws.get_close_code()
+			var reason = ws.get_close_reason()
+			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
+			set_process(false) # Stop processing.
+		make_leaderboard()
 
 func update_pilot_data(new_data, pilotname):
-	# new_data is a dictionary like the one you provided
-	for pilot_name in new_data.keys():
-		var found = false
-		for pilot in pilots:
-			if pilot["name"] == pilotname:
-			# Update existing pilot data
-				pilot["data"] = new_data
-				found = true
-				break
-		if not found:
-			# Add new pilot
-			pilots.append({"name": pilotname, "data": new_data})
-
+		# new_data is a dictionary like the one you provided
+		for pilot_name in new_data.keys():
+			var found = false
+			for pilot in pilots:
+				if pilot["name"] == pilotname:
+				# Update existing pilot data
+					if new_data["gate"] != pilot["data"]["gate"]:
+						pilot["gate_list"].append([int(new_data["lap"]), int(new_data["gate"]), float(new_data["time"])] )
+					
+					pilot["data"] = new_data
+					
+					found = true
+					
+					print(pilot["gate_list"])
+					#var gate_details = [int(pilot["data"]["lap"]), int(pilot["data"]["gate"]), float(pilot["data"]["time"]]
+					break
+			if not found:
+				# Add new pilot
+				
+				pilots.append({"name": pilotname, "data": new_data, "gate_list": [int(new_data["lap"]), int(new_data["gate"]), float(new_data["time"])]})
+				
 
 func sort_pilots():
 	pilots.sort_custom(func(a, b):
-		var lap_a = int(a["data"]["lap"])
-		var lap_b = int(b["data"]["lap"])
-		if lap_a == lap_b:
-			var gate_a = int(a["data"]["gate"])
-			var gate_b = int(b["data"]["gate"])
-			if gate_a == gate_b:
-				var time_a = float(a["data"]["time"])
-				var time_b = float(b["data"]["time"])
-				return time_a > time_b
-			return gate_a < gate_b
+		var lap_a = int(a["data"]["position"])
+		var lap_b = int(b["data"]["position"])
 		return lap_a < lap_b
 	)
 
@@ -188,9 +192,6 @@ func _on_new_pilot_data_received(new_data, pilotname):
 
 # Assuming the Label node is named "MyLabel" and is a direct child of this node
 
-
-
-
 func make_leaderboard():
 	var index = 0
 	# print(pilots)
@@ -203,6 +204,8 @@ func make_leaderboard():
 		display_list[index][1].text = pilot["data"]["lap"]
 		display_list[index][2].text = pilot["data"]["gate"]
 		display_list[index][3].text = pilot["data"]["time"] # this needs to become delta
+		if index != 0:
+			pass #handle gate delta here
 		index += 1
 
 	#print(pilots)
@@ -214,6 +217,7 @@ func _on_Button_pressed():
 	var url = "ws://%s:60003/velocidrone" % ip_input
 	ws.connect_to_url(url)
 	print("Attempting to connect to WebSocket server at " + url)
+	ip_complete = true
 	sector_gate = int($"Control/Sector Gate".text)
 	gate_count = int($"Control/Gate Count".text)
 	print(sector_gate,gate_count)
