@@ -254,7 +254,6 @@ func _on_timer_timeout():
 
 
 func _on_check_button_toggled(toggled_on):
-	print(toggled_on)
 	if toggled_on:
 		bg_rect.color = Color(Color.GREEN)
 	else:
