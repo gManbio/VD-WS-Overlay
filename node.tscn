@@ -37,6 +37,7 @@ LineEdit/styles/normal = ExtResource("3_l8i8u")
 
 [node name="Node" type="Node"]
 script = ExtResource("1_scix4")
+metadata/_edit_horizontal_guides_ = [530.0, 561.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = -1
@@ -50,19 +51,77 @@ color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchor_right = 0.339
 anchor_bottom = 1.0
-offset_right = -1.0
+offset_right = 0.471985
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Hbox-Titles" type="HBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+offset_left = 60.0
+offset_top = 12.0
+offset_right = 328.0
+offset_bottom = 37.0
+alignment = 2
+
+[node name="Name" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(115.86, 25)
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Pilot
+"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="Sector _ Lap" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(25.005, 25)
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "L
+"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="Gate" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 25)
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "G
+"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="VSeparator3" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="Delta" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
+layout_mode = 2
+theme = ExtResource("2_uwe2s")
+text = "Delta"
+clip_text = true
+text_overrun_behavior = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 22.0
-offset_right = 263.0
-offset_bottom = 343.0
+offset_left = 62.0
+offset_top = 50.0
+offset_right = 328.0
+offset_bottom = 371.0
 
 [node name="Hbox-p1" type="HBoxContainer" parent="Control/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
@@ -71,39 +130,51 @@ layout_mode = 2
 alignment = 2
 
 [node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p1"]
+clip_contents = true
+custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "NameNameNa
-"
+text = "---"
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p1"]
 layout_mode = 2
 
 [node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p1"]
+clip_contents = true
+custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "SLAP
+text = "---
 "
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p1"]
 layout_mode = 2
 
 [node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p1"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Gate
-"
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p1"]
 layout_mode = 2
 
 [node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p1"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Delta"
-
-[node name="Control" type="Control" parent="Control/VBoxContainer/Hbox-p1"]
-layout_mode = 2
+text = "---"
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="ProgressBar-p1" type="ProgressBar" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -121,36 +192,51 @@ layout_mode = 2
 alignment = 2
 
 [node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p2"]
+clip_contents = true
+custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "NameNameNa
-"
+text = "---"
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p2"]
 layout_mode = 2
 
 [node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p2"]
+clip_contents = true
+custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "SLAP
+text = "---
 "
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p2"]
 layout_mode = 2
 
 [node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p2"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Gate
-"
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p2"]
 layout_mode = 2
 
 [node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p2"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Delta"
+text = "---"
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="ProgressBar-p2" type="ProgressBar" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -168,36 +254,51 @@ layout_mode = 2
 alignment = 2
 
 [node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p3"]
+clip_contents = true
+custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "NameNameNa
-"
+text = "---"
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p3"]
 layout_mode = 2
 
 [node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p3"]
+clip_contents = true
+custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "SLAP
+text = "---
 "
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p3"]
 layout_mode = 2
 
 [node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p3"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Gate
-"
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p3"]
 layout_mode = 2
 
 [node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p3"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Delta"
+text = "---"
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="ProgressBar-p3" type="ProgressBar" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -215,36 +316,51 @@ layout_mode = 2
 alignment = 2
 
 [node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p4"]
+clip_contents = true
+custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "NameNameNa
-"
+text = "---"
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p4"]
 layout_mode = 2
 
 [node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p4"]
+clip_contents = true
+custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "SLAP
+text = "---
 "
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p4"]
 layout_mode = 2
 
 [node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p4"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Gate
-"
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p4"]
 layout_mode = 2
 
 [node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p4"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Delta"
+text = "---"
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="ProgressBar-p4" type="ProgressBar" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -262,36 +378,51 @@ layout_mode = 2
 alignment = 2
 
 [node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p5"]
+clip_contents = true
+custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "NameNameNa
-"
+text = "---"
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p5"]
 layout_mode = 2
 
 [node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p5"]
+clip_contents = true
+custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "SLAP
+text = "---
 "
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p5"]
 layout_mode = 2
 
 [node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p5"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Gate
-"
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p5"]
 layout_mode = 2
 
 [node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p5"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Delta"
+text = "---"
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="ProgressBar-p5" type="ProgressBar" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -309,36 +440,51 @@ layout_mode = 2
 alignment = 2
 
 [node name="Name" type="Label" parent="Control/VBoxContainer/Hbox-p6"]
+clip_contents = true
+custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "NameNameNa
-"
+text = "---"
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Hbox-p6"]
 layout_mode = 2
 
 [node name="Sector _ Lap" type="Label" parent="Control/VBoxContainer/Hbox-p6"]
+clip_contents = true
+custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "SLAP
+text = "---
 "
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="VSeparator2" type="VSeparator" parent="Control/VBoxContainer/Hbox-p6"]
 layout_mode = 2
 
 [node name="Gate" type="Label" parent="Control/VBoxContainer/Hbox-p6"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Gate
-"
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="VSeparator3" type="VSeparator" parent="Control/VBoxContainer/Hbox-p6"]
 layout_mode = 2
 
 [node name="Delta" type="Label" parent="Control/VBoxContainer/Hbox-p6"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
 theme = ExtResource("2_uwe2s")
-text = "Delta"
+text = "---"
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="ProgressBar-p6" type="ProgressBar" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -349,28 +495,24 @@ show_percentage = false
 [node name="IP_Input" type="LineEdit" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.782
-anchor_top = 0.758
-anchor_right = 0.89
-anchor_bottom = 0.806
-offset_left = 0.135925
-offset_top = -0.184021
-offset_right = -0.280029
-offset_bottom = -0.288025
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = -118.0
+offset_right = 155.0
+offset_bottom = -87.0
 theme = SubResource("Theme_0k7v3")
 placeholder_text = "Local IP"
 
 [node name="Button" type="Button" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.908
-anchor_top = 0.833
-anchor_right = 0.971
-anchor_bottom = 0.881
-offset_left = -0.0161133
-offset_top = 0.215942
-offset_right = 0.407959
-offset_bottom = 0.112061
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 54.0
+offset_top = -74.0
+offset_right = 130.0
+offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_bytfd")
@@ -379,14 +521,12 @@ text = "Submit"
 [node name="Gate Count" type="LineEdit" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.784
-anchor_top = 0.821
-anchor_right = 0.873
-anchor_bottom = 0.869
-offset_left = -0.167969
-offset_top = -0.00799561
-offset_right = 0.303955
-offset_bottom = -0.112
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 178.0
+offset_top = -118.0
+offset_right = 271.0
+offset_bottom = -87.0
 theme = SubResource("Theme_h14tp")
 placeholder_text = "Gate Count"
 

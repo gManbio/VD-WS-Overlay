@@ -203,6 +203,8 @@ func make_leaderboard():
 	#print(display_list)
 	#print(pilots)
 	for pilot in pilots:
+		if index > 6:
+			break
 		var hex_color = pilot["data"]["colour"]
 		var color = Color("#" + hex_color)
 		display_list[index][0].text = pilot["name"]
@@ -217,9 +219,16 @@ func make_leaderboard():
 			if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
 				var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
 				var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
-				display_list[index][3].text = str(leader_time - pilot_time)
+				if pilot["data"]["finished"] == "True":
+					display_list[index][3].text = str(pilot["data"]["time"])
+				else:
+					display_list[index][3].text = str(leader_time - pilot_time)
+				
 		else:
-			display_list[index][3].text = "0.000"
+			if pilot["data"]["finished"] == "True":
+				display_list[index][3].text = str(pilot["data"]["time"])
+			else:
+				display_list[index][3].text = "0.000"
 			#for each in pilots[index - 1]["data"]["gate_details"]:
 		index += 1
 
@@ -231,8 +240,10 @@ func reset_leaderboard():
 		for each in display:
 			if count < 4:
 				each.text = "---"
+				each.modulate = Color(Color.WHITE)
 			else:
 				each.value = 0
+				each.modulate = Color(Color.WHITE)
 			count += 1
 			
 			
