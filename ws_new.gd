@@ -5,7 +5,6 @@ var ws = WebSocketPeer.new()
 var heartbeat = ""
 
 var heatData = []
-var pilot_list = []
 var pilots = []
 
 var name_p1 = ""
@@ -52,8 +51,6 @@ var p6_list = ""
 
 var display_list = ""
 
-
-var sector_gate = 1
 var gate_count = 30
 
 var ip_complete = false
@@ -132,6 +129,8 @@ func _process(delta):
 					if pilotdata["racestatus"]["raceAction"] == "start":
 						heatData = {}
 						pilots = []
+						reset_leaderboard()
+						
 				elif "racetype" in pilotdata:
 					pass  # Handle racetype data
 				if "racedata" in pilotdata:
@@ -202,7 +201,7 @@ func make_leaderboard():
 	var index = 0
 	# print(pilots)
 	#print(display_list)
-	print(pilots)
+	#print(pilots)
 	for pilot in pilots:
 		var hex_color = pilot["data"]["colour"]
 		var color = Color("#" + hex_color)
@@ -210,13 +209,15 @@ func make_leaderboard():
 		display_list[index][0].modulate = color
 		display_list[index][1].text = pilot["data"]["lap"]
 		display_list[index][2].text = pilot["data"]["gate"]
+		display_list[index][4].modulate = color
+		display_list[index][4].value = len(pilot["gate_dict"].keys())
 		#display_list[index][3].text = pilot["data"]["time"] # this needs to become delta
-		print(index)
+		#print(index)
 		if index != 0:
 			if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
 				var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
 				var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
-				display_list[index][3].text = str("-",pilot_time - leader_time)
+				display_list[index][3].text = str(leader_time - pilot_time)
 		else:
 			display_list[index][3].text = "0.000"
 			#for each in pilots[index - 1]["data"]["gate_details"]:
@@ -224,17 +225,27 @@ func make_leaderboard():
 
 	#print(pilots)
 
-
-
+func reset_leaderboard():
+	for display in display_list:
+		var count = 0
+		for each in display:
+			if count < 4:
+				each.text = "---"
+			else:
+				each.value = 0
+			count += 1
+			
+			
 func _on_Button_pressed():
 	var ip_input = $Control/IP_Input.text
 	var url = "ws://%s:60003/velocidrone" % ip_input
 	ws.connect_to_url(url)
 	print("Attempting to connect to WebSocket server at " + url)
 	ip_complete = true
-	sector_gate = int($"Control/Sector Gate".text)
 	gate_count = int($"Control/Gate Count".text)
-	print(sector_gate,gate_count)
+	for each in display_list:
+		each[4].min_value = 0
+		each[4].max_value = gate_count * 3
 
 
 func _on_timer_timeout():
