@@ -530,8 +530,17 @@ offset_bottom = -87.0
 theme = SubResource("Theme_h14tp")
 placeholder_text = "Gate Count"
 
+[node name="CheckButton" type="CheckButton" parent="Control"]
+layout_mode = 0
+offset_left = 178.0
+offset_top = 584.0
+offset_right = 271.0
+offset_bottom = 615.0
+text = "green"
+
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 5.0
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_Button_pressed"]
+[connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]

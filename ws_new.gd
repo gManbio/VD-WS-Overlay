@@ -55,6 +55,8 @@ var gate_count = 30
 
 var ip_complete = false
 
+var bg_rect = ""
+
 func _ready():
 	
 	# var url = "ws://192.168.1.156:60003/velocidrone"
@@ -107,6 +109,7 @@ func _ready():
 	
 	display_list = [p1_list, p2_list, p3_list, p4_list, p5_list, p6_list]
 	
+	bg_rect = $ColorRect
 
 
 func _process(delta):
@@ -122,8 +125,7 @@ func _process(delta):
 				var packet_string = packet.get_string_from_utf8()
 				var json = JSON.new()
 				var pilotdata = json.parse_string(packet_string)  # Correct method to parse JSON string
-				#print(pilotdata)
-			# Now you can check the keys and access the data
+				
 				if "racestatus" in pilotdata:
 					#print(pilotdata["racestatus"]["raceAction"])
 					if pilotdata["racestatus"]["raceAction"] == "start":
@@ -174,7 +176,7 @@ func update_pilot_data(new_data, pilotname):
 				var lap_gate_key = lap+gate
 				var gd = {lap_gate_key: float(new_data["time"])}
 				pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
-				
+
 
 func sort_pilots():
 	pilots.sort_custom(func(a, b):
@@ -188,20 +190,11 @@ func _on_new_pilot_data_received(new_data, pilotname):
 	update_pilot_data(new_data, pilotname)
 	sort_pilots()
 	make_leaderboard()
-	#print(pilots)
-	# Now, pilots[] is sorted according to the criteria. Use it as needed.
 
-# var p6_list = [name_p6, gate_p6, delta_p6, slap_p6, prog_p6]
-# [{ "name": "gman <3 Zella", "data": { "position": "1", "lap": "1", "gate": "1", "time": "18.249", "finished": "False", "colour": "9F42FF" } }]
-# var display_list = [p1_list, p2_list, p3_list, p4_list, p5_list, p6_list]
-
-# Assuming the Label node is named "MyLabel" and is a direct child of this node
 
 func make_leaderboard():
 	var index = 0
-	# print(pilots)
-	#print(display_list)
-	#print(pilots)
+	
 	for pilot in pilots:
 		if index > 6:
 			break
@@ -213,8 +206,7 @@ func make_leaderboard():
 		display_list[index][2].text = pilot["data"]["gate"]
 		display_list[index][4].modulate = color
 		display_list[index][4].value = len(pilot["gate_dict"].keys())
-		#display_list[index][3].text = pilot["data"]["time"] # this needs to become delta
-		#print(index)
+		
 		if index != 0:
 			if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
 				var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
@@ -229,10 +221,8 @@ func make_leaderboard():
 				display_list[index][3].text = str(pilot["data"]["time"])
 			else:
 				display_list[index][3].text = "0.000"
-			#for each in pilots[index - 1]["data"]["gate_details"]:
 		index += 1
 
-	#print(pilots)
 
 func reset_leaderboard():
 	for display in display_list:
@@ -245,8 +235,8 @@ func reset_leaderboard():
 				each.value = 0
 				each.modulate = Color(Color.WHITE)
 			count += 1
-			
-			
+
+
 func _on_Button_pressed():
 	var ip_input = $Control/IP_Input.text
 	var url = "ws://%s:60003/velocidrone" % ip_input
@@ -262,3 +252,10 @@ func _on_Button_pressed():
 func _on_timer_timeout():
 	ws.send_text("heartbeat")
 
+
+func _on_check_button_toggled(toggled_on):
+	print(toggled_on)
+	if toggled_on:
+		bg_rect.color = Color(Color.GREEN)
+	else:
+		bg_rect.color = Color(Color.BLACK)
