@@ -147,7 +147,7 @@ func _process(delta):
 			var reason = ws.get_close_reason()
 			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
 			set_process(false) # Stop processing.
-		make_leaderboard()
+
 
 func update_pilot_data(new_data, pilotname):
 		# new_data is a dictionary like the one you provided
@@ -157,19 +157,24 @@ func update_pilot_data(new_data, pilotname):
 				if pilot["name"] == pilotname:
 				# Update existing pilot data
 					if new_data["gate"] != pilot["data"]["gate"]:
-						pilot["gate_list"].append([int(new_data["lap"]), int(new_data["gate"]), float(new_data["time"])] )
-					
+						var lap = str(new_data["lap"])
+						var gate = str(new_data["gate"])
+						var lap_gate_key = lap+gate
+						pilot["gate_dict"][lap_gate_key] = float(new_data["time"])
+						pilot["gate_key"] = lap_gate_key
 					pilot["data"] = new_data
 					
 					found = true
-					
-					print(pilot["gate_list"])
+					#print(pilot["gate_list"])
 					#var gate_details = [int(pilot["data"]["lap"]), int(pilot["data"]["gate"]), float(pilot["data"]["time"]]
 					break
 			if not found:
 				# Add new pilot
-				
-				pilots.append({"name": pilotname, "data": new_data, "gate_list": [int(new_data["lap"]), int(new_data["gate"]), float(new_data["time"])]})
+				var lap = str(new_data["lap"])
+				var gate = str(new_data["gate"])
+				var lap_gate_key = lap+gate
+				var gd = {lap_gate_key: float(new_data["time"])}
+				pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
 				
 
 func sort_pilots():
@@ -183,6 +188,7 @@ func sort_pilots():
 func _on_new_pilot_data_received(new_data, pilotname):
 	update_pilot_data(new_data, pilotname)
 	sort_pilots()
+	make_leaderboard()
 	#print(pilots)
 	# Now, pilots[] is sorted according to the criteria. Use it as needed.
 
@@ -196,6 +202,7 @@ func make_leaderboard():
 	var index = 0
 	# print(pilots)
 	#print(display_list)
+	print(pilots)
 	for pilot in pilots:
 		var hex_color = pilot["data"]["colour"]
 		var color = Color("#" + hex_color)
@@ -203,9 +210,16 @@ func make_leaderboard():
 		display_list[index][0].modulate = color
 		display_list[index][1].text = pilot["data"]["lap"]
 		display_list[index][2].text = pilot["data"]["gate"]
-		display_list[index][3].text = pilot["data"]["time"] # this needs to become delta
+		#display_list[index][3].text = pilot["data"]["time"] # this needs to become delta
+		print(index)
 		if index != 0:
-			pass #handle gate delta here
+			if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
+				var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
+				var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
+				display_list[index][3].text = str("-",pilot_time - leader_time)
+		else:
+			display_list[index][3].text = "0.000"
+			#for each in pilots[index - 1]["data"]["gate_details"]:
 		index += 1
 
 	#print(pilots)
