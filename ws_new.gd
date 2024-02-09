@@ -258,3 +258,11 @@ func _on_check_button_toggled(toggled_on):
 		bg_rect.color = Color(Color.GREEN)
 	else:
 		bg_rect.color = Color(Color.BLACK)
+
+
+func _on_disconnect_pressed():
+	ws.close()
+	ws = WebSocketPeer.new()
+	ip_complete = false
+	reset_leaderboard()
+	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmu0q0b0jwa"]
+[gd_scene load_steps=12 format=3 uid="uid://dmu0q0b0jwa"]
 
 [ext_resource type="Script" path="res://ws_new.gd" id="1_scix4"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="2_7yoce"]
@@ -34,6 +34,9 @@ Button/styles/pressed = SubResource("StyleBoxFlat_ter70")
 
 [sub_resource type="Theme" id="Theme_h14tp"]
 LineEdit/styles/normal = ExtResource("3_l8i8u")
+
+[sub_resource type="Theme" id="Theme_svhul"]
+Button/styles/normal = ExtResource("2_7yoce")
 
 [node name="Node" type="Node"]
 script = ExtResource("1_scix4")
@@ -516,7 +519,7 @@ offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_bytfd")
-text = "Submit"
+text = "Connect"
 
 [node name="Gate Count" type="LineEdit" parent="Control"]
 layout_mode = 1
@@ -532,15 +535,27 @@ placeholder_text = "Gate Count"
 
 [node name="CheckButton" type="CheckButton" parent="Control"]
 layout_mode = 0
-offset_left = 178.0
-offset_top = 584.0
-offset_right = 271.0
-offset_bottom = 615.0
+offset_left = 282.0
+offset_top = 530.0
+offset_right = 375.0
+offset_bottom = 561.0
 text = "green"
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="Button" type="Button" parent="."]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 172.0
+offset_top = -72.0
+offset_right = 271.0
+offset_bottom = -32.0
+theme = SubResource("Theme_svhul")
+text = "Disconnect"
+
 [connection signal="pressed" from="Control/Button" to="." method="_on_Button_pressed"]
 [connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_disconnect_pressed"]
