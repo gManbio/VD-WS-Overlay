@@ -32,11 +32,11 @@ Button/styles/hover = SubResource("StyleBoxFlat_vlhf1")
 Button/styles/normal = ExtResource("2_7yoce")
 Button/styles/pressed = SubResource("StyleBoxFlat_ter70")
 
-[sub_resource type="Theme" id="Theme_h14tp"]
-LineEdit/styles/normal = ExtResource("3_l8i8u")
-
 [sub_resource type="Theme" id="Theme_svhul"]
 Button/styles/normal = ExtResource("2_7yoce")
+
+[sub_resource type="Theme" id="Theme_h14tp"]
+LineEdit/styles/normal = ExtResource("3_l8i8u")
 
 [node name="Node" type="Node"]
 script = ExtResource("1_scix4")
@@ -507,7 +507,7 @@ offset_bottom = -87.0
 theme = SubResource("Theme_0k7v3")
 placeholder_text = "Local IP"
 
-[node name="Button" type="Button" parent="Control"]
+[node name="Connect Button" type="Button" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -520,6 +520,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_bytfd")
 text = "Connect"
+
+[node name="DC Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 172.0
+offset_top = -72.0
+offset_right = 271.0
+offset_bottom = -32.0
+theme = SubResource("Theme_svhul")
+text = "Disconnect"
 
 [node name="Gate Count" type="LineEdit" parent="Control"]
 layout_mode = 1
@@ -544,18 +556,7 @@ text = "green"
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="Button" type="Button" parent="."]
-anchors_preset = -1
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 172.0
-offset_top = -72.0
-offset_right = 271.0
-offset_bottom = -32.0
-theme = SubResource("Theme_svhul")
-text = "Disconnect"
-
-[connection signal="pressed" from="Control/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Control/Connect Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Control/DC Button" to="." method="_on_disconnect_pressed"]
 [connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="Button" to="." method="_on_disconnect_pressed"]

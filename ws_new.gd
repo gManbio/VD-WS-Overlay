@@ -57,6 +57,10 @@ var ip_complete = false
 
 var bg_rect = ""
 
+var connect_button = ""
+
+var connected = false
+
 func _ready():
 	
 	# var url = "ws://192.168.1.156:60003/velocidrone"
@@ -110,7 +114,7 @@ func _ready():
 	display_list = [p1_list, p2_list, p3_list, p4_list, p5_list, p6_list]
 	
 	bg_rect = $ColorRect
-
+	connect_button = $"Control/Connect Button"
 
 func _process(delta):
 	if ip_complete:
@@ -120,6 +124,9 @@ func _process(delta):
 		var state = ws.get_ready_state()
 		
 		if state == WebSocketPeer.STATE_OPEN:
+			if !connected:
+				connect_button.text = "Connected"
+				connected = true
 			while ws.get_available_packet_count() > 0:
 				var packet = ws.get_packet()
 				var packet_string = packet.get_string_from_utf8()
@@ -264,5 +271,8 @@ func _on_disconnect_pressed():
 	ws.close()
 	ws = WebSocketPeer.new()
 	ip_complete = false
+	connected = false
+	connect_button.text = "Connect"
+	
 	reset_leaderboard()
 	
