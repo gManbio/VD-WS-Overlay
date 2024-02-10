@@ -61,6 +61,12 @@ var connect_button = ""
 
 var connected = false
 
+var single_lap_display = false
+
+var first_place_celebration = ""
+
+var unbursted = true
+
 func _ready():
 	
 	# var url = "ws://192.168.1.156:60003/velocidrone"
@@ -112,6 +118,8 @@ func _ready():
 	p6_list = [name_p6, slap_p6, gate_p6, delta_p6, prog_p6]
 	
 	display_list = [p1_list, p2_list, p3_list, p4_list, p5_list, p6_list]
+	
+	first_place_celebration = $Control/Orb
 	
 	bg_rect = $ColorRect
 	connect_button = $"Control/Connect Button"
@@ -212,7 +220,10 @@ func make_leaderboard():
 		display_list[index][1].text = pilot["data"]["lap"]
 		display_list[index][2].text = pilot["data"]["gate"]
 		display_list[index][4].modulate = color
-		display_list[index][4].value = len(pilot["gate_dict"].keys())
+		if single_lap_display:
+			display_list[index][4].value = len(pilot["gate_dict"].keys()) % gate_count
+		else:
+			display_list[index][4].value = len(pilot["gate_dict"].keys())
 		
 		if index != 0:
 			if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
@@ -226,12 +237,16 @@ func make_leaderboard():
 		else:
 			if pilot["data"]["finished"] == "True":
 				display_list[index][3].text = str(pilot["data"]["time"])
+				if unbursted:
+					first_place_celebration.burst()
+					unbursted = false
 			else:
 				display_list[index][3].text = "0.000"
 		index += 1
 
 
 func reset_leaderboard():
+	unbursted = true
 	for display in display_list:
 		var count = 0
 		for each in display:
@@ -254,6 +269,18 @@ func _on_Button_pressed():
 	for each in display_list:
 		each[4].min_value = 0
 		each[4].max_value = gate_count * 3
+
+
+func _on_Barmode_toggle_pressed(toggled_on):
+	if toggled_on:
+		for each in display_list:
+			each[4].max_value = gate_count
+		single_lap_display = true
+	else:
+		for each in display_list:
+			each[4].max_value = gate_count * 3
+		single_lap_display = false
+		
 
 
 func _on_timer_timeout():
