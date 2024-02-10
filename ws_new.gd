@@ -67,6 +67,8 @@ var first_place_celebration = ""
 
 var unbursted = true
 
+var last_message = {}
+
 func _ready():
 	
 	# var url = "ws://192.168.1.156:60003/velocidrone"
@@ -141,6 +143,10 @@ func _process(delta):
 				var json = JSON.new()
 				var pilotdata = json.parse_string(packet_string)  # Correct method to parse JSON string
 				
+				if pilotdata == last_message: #this checks to see if the data has changed
+					return
+				last_message = pilotdata
+				
 				if "racestatus" in pilotdata:
 					#print(pilotdata["racestatus"]["raceAction"])
 					if pilotdata["racestatus"]["raceAction"] == "start":
@@ -205,6 +211,7 @@ func _on_new_pilot_data_received(new_data, pilotname):
 	update_pilot_data(new_data, pilotname)
 	sort_pilots()
 	make_leaderboard()
+	make_scoreboard(team_scores())  # this is where we can call a function to calculate the team scores
 
 
 func make_leaderboard():
@@ -244,6 +251,32 @@ func make_leaderboard():
 				display_list[index][3].text = "0.000"
 		index += 1
 
+
+func team_scores():
+	var score_dict = {}
+	for pilot in pilots:
+		if pilot["data"]["colour"] not in score_dict:
+			score_dict[pilot["data"]["colour"]] = [7 - int(pilot["data"]["position"])]
+		else:
+			score_dict[pilot["data"]["colour"]].append(7 - int(pilot["data"]["position"]))
+	return score_dict
+
+
+func make_scoreboard(scores):
+	if len(scores.keys()) == 2:
+		var score_board = {
+		scores.keys()[0]: 0,
+		scores.keys()[1]: 0
+		}
+		for key in scores.keys():
+			var team_total = 0
+			for point in scores[key]:
+				team_total += point
+			score_board[key] = team_total
+		print(score_board)
+	else:
+		return
+		
 
 func reset_leaderboard():
 	unbursted = true
