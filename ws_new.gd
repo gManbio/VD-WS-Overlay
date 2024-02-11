@@ -69,7 +69,26 @@ var unbursted = true
 
 var last_message = {}
 
+var team_mode = false
+
+var score_a = ""
+
+var score_b = ""
+
+var score_board = {}
+
+var new_score = true
+
+var team_order = []
+
 func _ready():
+	
+	Engine.max_fps = 30
+	
+	var ip_addresses = IP.get_local_addresses()
+	var ip_input = $Control/IP_Input
+	ip_input.text = ip_addresses[-1]
+
 	
 	# var url = "ws://192.168.1.156:60003/velocidrone"
 	
@@ -124,7 +143,12 @@ func _ready():
 	first_place_celebration = $Control/Orb
 	
 	bg_rect = $ColorRect
+	
 	connect_button = $"Control/Connect Button"
+	
+	score_a = $"Control/ScoreContainer/Score A"
+	score_b = $"Control/ScoreContainer/Score B"
+
 
 func _process(delta):
 	if ip_complete:
@@ -142,6 +166,7 @@ func _process(delta):
 				var packet_string = packet.get_string_from_utf8()
 				var json = JSON.new()
 				var pilotdata = json.parse_string(packet_string)  # Correct method to parse JSON string
+				
 				
 				if pilotdata == last_message: #this checks to see if the data has changed
 					return
@@ -211,7 +236,8 @@ func _on_new_pilot_data_received(new_data, pilotname):
 	update_pilot_data(new_data, pilotname)
 	sort_pilots()
 	make_leaderboard()
-	make_scoreboard(team_scores())  # this is where we can call a function to calculate the team scores
+	if team_mode:
+		make_scoreboard(team_scores())  # this is where we can call a function to calculate the team scores
 
 
 func make_leaderboard():
@@ -252,30 +278,47 @@ func make_leaderboard():
 		index += 1
 
 
+func initialize_scoreboard(scores):
+	team_order = scores.keys()
+	for team in team_order:
+		score_board[team] = 0
+	new_score = false
+
+
 func team_scores():
 	var score_dict = {}
 	for pilot in pilots:
 		if pilot["data"]["colour"] not in score_dict:
-			score_dict[pilot["data"]["colour"]] = [7 - int(pilot["data"]["position"])]
+			score_dict[pilot["data"]["colour"]] = [int(pilot["data"]["position"])]
 		else:
-			score_dict[pilot["data"]["colour"]].append(7 - int(pilot["data"]["position"]))
+			score_dict[pilot["data"]["colour"]].append(int(pilot["data"]["position"]))
 	return score_dict
 
 
 func make_scoreboard(scores):
+	
 	if len(scores.keys()) == 2:
-		var score_board = {
-		scores.keys()[0]: 0,
-		scores.keys()[1]: 0
-		}
+		if new_score:
+			initialize_scoreboard(scores)
 		for key in scores.keys():
 			var team_total = 0
 			for point in scores[key]:
 				team_total += point
 			score_board[key] = team_total
-		print(score_board)
+		
+		score_a.text = str(score_board[team_order[0]])
+		var hex_color = team_order[0]
+		var color = Color("#" + hex_color)
+		score_a.modulate = color
+		score_b.text = str(score_board[team_order[1]])
+		hex_color = team_order[1]
+		color = Color("#" + hex_color)
+		score_b.modulate = color
 	else:
-		return
+		score_a.text = "-"
+		score_b.text = "-"
+		score_a.modulate = Color(Color.WHITE)
+		score_b.modulate = Color(Color.WHITE)
 		
 
 func reset_leaderboard():
@@ -290,6 +333,14 @@ func reset_leaderboard():
 				each.value = 0
 				each.modulate = Color(Color.WHITE)
 			count += 1
+	score_board = {}
+	new_score = true
+	team_order = []
+	score_a.text = "-"
+	score_b.text = "-"
+	score_a.modulate = Color(Color.WHITE)
+	score_b.modulate = Color(Color.WHITE)
+	
 
 
 func _on_Button_pressed():
@@ -314,6 +365,17 @@ func _on_Barmode_toggle_pressed(toggled_on):
 			each[4].max_value = gate_count * 3
 		single_lap_display = false
 		
+
+
+func _on_TeamvsTeam_toggle_pressed(toggled_on):
+	var score_container = $Control/ScoreContainer
+	if toggled_on:
+		team_mode = true
+		score_container.visible = true
+	else:
+		team_mode = false
+		score_container.visible = false
+
 
 
 func _on_timer_timeout():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dmu0q0b0jwa"]
+[gd_scene load_steps=25 format=3 uid="uid://dmu0q0b0jwa"]
 
 [ext_resource type="Script" path="res://ws_new.gd" id="1_scix4"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="2_7yoce"]
@@ -6,6 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_l8i8u"]
 [ext_resource type="Script" path="res://addons/BurstParticles2D/BurstParticles2D.gd" id="5_ufqx2"]
 [ext_resource type="Texture2D" uid="uid://ovw18l4dc1fv" path="res://addons/BurstParticles2D/BurstParticles2D-demo/orb.png" id="6_nefjo"]
+[ext_resource type="Theme" uid="uid://1ioj4h2iu8ah" path="res://score.tres" id="7_un01m"]
 
 [sub_resource type="Theme" id="Theme_rdguh"]
 
@@ -88,6 +89,7 @@ point_count = 3
 [node name="Node" type="Node"]
 script = ExtResource("1_scix4")
 metadata/_edit_horizontal_guides_ = [530.0, 561.0, 604.0]
+metadata/_edit_vertical_guides_ = [357.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = -1
@@ -547,7 +549,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 35.0
+offset_left = 16.0
 offset_top = -118.0
 offset_right = 138.0
 offset_bottom = -87.0
@@ -559,9 +561,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 44.0
+offset_left = 26.0
 offset_top = -76.0
-offset_right = 120.0
+offset_right = 102.0
 offset_bottom = -33.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -595,18 +597,18 @@ placeholder_text = "Gate Count"
 
 [node name="CheckButton" type="CheckButton" parent="Control"]
 layout_mode = 0
-offset_left = 300.0
+offset_left = 299.0
 offset_top = 533.0
-offset_right = 393.0
+offset_right = 392.0
 offset_bottom = 564.0
 text = "green"
 
 [node name="CheckButton2" type="CheckButton" parent="Control"]
 layout_mode = 0
-offset_left = 267.0
-offset_top = 580.0
-offset_right = 394.0
-offset_bottom = 611.0
+offset_left = 266.0
+offset_top = 575.0
+offset_right = 393.0
+offset_bottom = 606.0
 text = "Single Lap"
 
 [node name="Orb" type="Node2D" parent="Control"]
@@ -641,11 +643,44 @@ y_scale_curve = SubResource("Curve_5km1v")
 color_offset_curve = SubResource("Curve_bg54m")
 alpha_curve = SubResource("Curve_wyopy")
 
+[node name="CheckButton3" type="CheckButton" parent="Control"]
+layout_mode = 0
+offset_left = 234.0
+offset_top = 614.0
+offset_right = 393.0
+offset_bottom = 645.0
+text = "Team vs Team"
+
+[node name="ScoreContainer" type="HBoxContainer" parent="Control"]
+visible = false
+offset_left = 73.0
+offset_top = 357.0
+offset_right = 291.0
+offset_bottom = 482.0
+
+[node name="Score A" type="Label" parent="Control/ScoreContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme = ExtResource("7_un01m")
+text = "-"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/ScoreContainer"]
+layout_mode = 2
+
+[node name="Score B" type="Label" parent="Control/ScoreContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme = ExtResource("7_un01m")
+text = "-"
+horizontal_alignment = 1
+
 [node name="HeartbeatTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 
 [connection signal="pressed" from="Control/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/DC Button" to="." method="_on_disconnect_pressed"]
 [connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Control/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
+[connection signal="toggled" from="Control/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
