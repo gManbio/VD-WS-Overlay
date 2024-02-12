@@ -2,8 +2,6 @@ extends Node
 
 var ws = WebSocketPeer.new()
 
-var heartbeat = ""
-
 var heatData = []
 var pilots = []
 
@@ -50,36 +48,23 @@ var p5_list = ""
 var p6_list = ""
 
 var display_list = ""
-
 var gate_count = 30
-
 var ip_complete = false
-
 var bg_rect = ""
-
 var connect_button = ""
-
 var connected = false
-
 var single_lap_display = false
-
 var first_place_celebration = ""
-
 var unbursted = true
-
 var last_message = {}
-
 var team_mode = false
-
 var score_a = ""
-
 var score_b = ""
-
 var score_board = {}
-
 var new_score = true
-
 var team_order = []
+var race_laps = 3
+
 
 func _ready():
 	
@@ -89,11 +74,6 @@ func _ready():
 	var ip_input = $Control/IP_Input
 	ip_input.text = ip_addresses[-1]
 
-	
-	# var url = "ws://192.168.1.156:60003/velocidrone"
-	
-	# ws.connect_to_url(url)
-	
 	$HeartbeatTimer.start()
 	
 	name_p1 = $"Control/VBoxContainer/Hbox-p1/Name"
@@ -152,48 +132,60 @@ func _ready():
 
 func _process(delta):
 	if ip_complete:
-		
 		ws.poll()
-		
 		var state = ws.get_ready_state()
-		
-		if state == WebSocketPeer.STATE_OPEN:
-			if !connected:
-				connect_button.text = "Connected"
-				connected = true
-			while ws.get_available_packet_count() > 0:
-				var packet = ws.get_packet()
-				var packet_string = packet.get_string_from_utf8()
-				var json = JSON.new()
-				var pilotdata = json.parse_string(packet_string)  # Correct method to parse JSON string
-				
-				
-				if pilotdata == last_message: #this checks to see if the data has changed
-					return
-				last_message = pilotdata
-				
-				if "racestatus" in pilotdata:
-					#print(pilotdata["racestatus"]["raceAction"])
-					if pilotdata["racestatus"]["raceAction"] == "start":
-						heatData = {}
-						pilots = []
-						reset_leaderboard()
-						
-				elif "racetype" in pilotdata:
-					pass  # Handle racetype data
-				if "racedata" in pilotdata:
-					for pilot_name in pilotdata["racedata"]:
-						_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
+		match state:
+			WebSocketPeer.STATE_OPEN:
+				if !connected:
+					connect_button.text = "Connected"
+					connected = true
+				_handle_websocket_messages()
+			WebSocketPeer.STATE_CLOSING, WebSocketPeer.STATE_CLOSED:
+				if state == WebSocketPeer.STATE_CLOSED:
+					_handle_websocket_closed()
 
-		elif state == WebSocketPeer.STATE_CLOSING:
-			# Keep polling to achieve proper close.
-			pass
 
-		elif state == WebSocketPeer.STATE_CLOSED:
-			var code = ws.get_close_code()
-			var reason = ws.get_close_reason()
-			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
-			set_process(false) # Stop processing.
+func _handle_websocket_messages():
+	while ws.get_available_packet_count() > 0:
+		var packet = ws.get_packet()
+		var packet_string = packet.get_string_from_utf8()
+		var json = JSON.new()
+		var pilotdata = json.parse_string(packet_string)
+		print(pilotdata)
+		if pilotdata == last_message:
+			return
+		last_message = pilotdata
+		_process_message(pilotdata)
+
+
+func _handle_websocket_closed():
+	var code = ws.get_close_code()
+	var reason = ws.get_close_reason()
+	print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
+	set_process(false)  # Optionally stop processing if the WebSocket is closed
+	# Reset connected state and UI
+	connected = false
+	connect_button.text = "Connect"
+	reset_leaderboard()
+
+
+func _process_message(pilotdata):
+	if "racestatus" in pilotdata:
+		if pilotdata["racestatus"]["raceAction"] == "start":
+			heatData = {}
+			pilots = []
+			reset_leaderboard()
+	elif "racetype" in pilotdata:
+		if pilotdata["racetype"]["raceLaps"] != str(race_laps):
+			race_laps = str(pilotdata["racetype"]["raceLaps"])
+	elif "racedata" in pilotdata:
+		for pilot_name in pilotdata["racedata"]:
+			_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
+
+
+func _on_timer_timeout():
+	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		ws.send_text("heartbeat")
 
 
 func update_pilot_data(new_data, pilotname):
@@ -233,12 +225,15 @@ func sort_pilots():
 
 
 func _on_new_pilot_data_received(new_data, pilotname):
+	#var start_time = Time.get_ticks_msec()
 	update_pilot_data(new_data, pilotname)
 	sort_pilots()
 	make_leaderboard()
 	if team_mode:
 		make_scoreboard(team_scores())  # this is where we can call a function to calculate the team scores
-
+	#var end_time = Time.get_ticks_msec()
+	#var duration = end_time - start_time
+	#print(duration)
 
 func make_leaderboard():
 	var index = 0
@@ -278,6 +273,7 @@ func make_leaderboard():
 		index += 1
 
 
+# this function is used to keep the team scores from changing order
 func initialize_scoreboard(scores):
 	team_order = scores.keys()
 	for team in team_order:
@@ -296,7 +292,6 @@ func team_scores():
 
 
 func make_scoreboard(scores):
-	
 	if len(scores.keys()) == 2:
 		if new_score:
 			initialize_scoreboard(scores)
@@ -340,7 +335,6 @@ func reset_leaderboard():
 	score_b.text = "-"
 	score_a.modulate = Color(Color.WHITE)
 	score_b.modulate = Color(Color.WHITE)
-	
 
 
 func _on_Button_pressed():
@@ -352,7 +346,7 @@ func _on_Button_pressed():
 	gate_count = int($"Control/Gate Count".text)
 	for each in display_list:
 		each[4].min_value = 0
-		each[4].max_value = gate_count * 3
+		each[4].max_value = gate_count * race_laps
 
 
 func _on_Barmode_toggle_pressed(toggled_on):
@@ -377,11 +371,6 @@ func _on_TeamvsTeam_toggle_pressed(toggled_on):
 		score_container.visible = false
 
 
-
-func _on_timer_timeout():
-	ws.send_text("heartbeat")
-
-
 func _on_check_button_toggled(toggled_on):
 	if toggled_on:
 		bg_rect.color = Color(Color.GREEN)
@@ -392,6 +381,7 @@ func _on_check_button_toggled(toggled_on):
 func _on_disconnect_pressed():
 	ws.close()
 	ws = WebSocketPeer.new()
+	
 	ip_complete = false
 	connected = false
 	connect_button.text = "Connect"
