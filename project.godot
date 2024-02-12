@@ -13,7 +13,8 @@ config_version=5
 config/name="VRL_Websocket"
 run/main_scene="res://node.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://WS-icon.png"
+config/windows_native_icon="res://WS-icon.ico"
 
 [display]
 

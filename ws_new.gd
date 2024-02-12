@@ -129,7 +129,6 @@ func _ready():
 	score_a = $"Control/ScoreContainer/Score A"
 	score_b = $"Control/ScoreContainer/Score B"
 
-
 func _process(delta):
 	if ip_complete:
 		ws.poll()
@@ -234,6 +233,7 @@ func _on_new_pilot_data_received(new_data, pilotname):
 	#var duration = end_time - start_time
 	#print(duration)
 
+
 func make_leaderboard():
 	var index = 0
 	
@@ -313,7 +313,7 @@ func make_scoreboard(scores):
 		score_b.text = "-"
 		score_a.modulate = Color(Color.WHITE)
 		score_b.modulate = Color(Color.WHITE)
-		
+
 
 func reset_leaderboard():
 	unbursted = true

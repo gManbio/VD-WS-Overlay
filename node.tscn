@@ -93,10 +93,10 @@ metadata/_edit_vertical_guides_ = [357.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = -1
-anchor_right = 17.969
-anchor_bottom = 9.969
-offset_right = -0.015625
-offset_bottom = 0.0151367
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_right = 0.199982
+offset_bottom = 0.0799561
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
