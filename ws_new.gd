@@ -151,7 +151,6 @@ func _handle_websocket_messages():
 		var packet_string = packet.get_string_from_utf8()
 		var json = JSON.new()
 		var pilotdata = json.parse_string(packet_string)
-		print(pilotdata)
 		if pilotdata == last_message:
 			return
 		last_message = pilotdata
