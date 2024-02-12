@@ -190,30 +190,30 @@ func _on_timer_timeout():
 
 func update_pilot_data(new_data, pilotname):
 		# new_data is a dictionary like the one you provided
-		for pilot_name in new_data.keys():
-			var found = false
-			for pilot in pilots:
-				if pilot["name"] == pilotname:
-				# Update existing pilot data
-					if new_data["gate"] != pilot["data"]["gate"]:
-						var lap = str(new_data["lap"])
-						var gate = str(new_data["gate"])
-						var lap_gate_key = lap+gate
-						pilot["gate_dict"][lap_gate_key] = float(new_data["time"])
-						pilot["gate_key"] = lap_gate_key
-					pilot["data"] = new_data
-					
-					found = true
-					#print(pilot["gate_list"])
-					#var gate_details = [int(pilot["data"]["lap"]), int(pilot["data"]["gate"]), float(pilot["data"]["time"]]
-					break
-			if not found:
-				# Add new pilot
-				var lap = str(new_data["lap"])
-				var gate = str(new_data["gate"])
-				var lap_gate_key = lap+gate
-				var gd = {lap_gate_key: float(new_data["time"])}
-				pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
+	for pilot_name in new_data.keys():
+		var found = false
+		for pilot in pilots:
+			if pilot["name"] == pilotname:
+			# Update existing pilot data
+				if new_data["gate"] != pilot["data"]["gate"]:
+					var lap = str(new_data["lap"])
+					var gate = str(new_data["gate"])
+					var lap_gate_key = lap+gate
+					pilot["gate_dict"][lap_gate_key] = float(new_data["time"])
+					pilot["gate_key"] = lap_gate_key
+				pilot["data"] = new_data
+				
+				found = true
+				#print(pilot["gate_list"])
+				#var gate_details = [int(pilot["data"]["lap"]), int(pilot["data"]["gate"]), float(pilot["data"]["time"]]
+				break
+		if not found:
+			# Add new pilot
+			var lap = str(new_data["lap"])
+			var gate = str(new_data["gate"])
+			var lap_gate_key = lap+gate
+			var gd = {lap_gate_key: float(new_data["time"])}
+			pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
 
 
 func sort_pilots():
