@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4nypyriguef6"]
+
+[ext_resource type="Theme" uid="uid://1ioj4h2iu8ah" path="res://score.tres" id="1_bbanj"]
+
+[node name="Node" type="Node"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Score A" type="Label" parent="Control"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 128.0
+offset_bottom = 119.0
+theme = ExtResource("1_bbanj")
+text = "-"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control"]
+layout_mode = 2
+offset_right = 4.0
+offset_bottom = 125.0

@@ -1,0 +1,338 @@
+[gd_scene load_steps=24 format=3 uid="uid://cabx07be46v56"]
+
+[ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
+[ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
+[ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
+[ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
+[ext_resource type="Script" path="res://addons/BurstParticles2D/BurstParticles2D.gd" id="5_qo4c8"]
+[ext_resource type="Texture2D" uid="uid://ovw18l4dc1fv" path="res://addons/BurstParticles2D/BurstParticles2D-demo/orb.png" id="6_h3qa8"]
+[ext_resource type="Theme" uid="uid://1ioj4h2iu8ah" path="res://score.tres" id="7_c0wrj"]
+
+[sub_resource type="Theme" id="Theme_0k7v3"]
+LineEdit/styles/normal = ExtResource("3_pt8py")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlhf1"]
+bg_color = Color(0.666667, 0.666667, 0.666667, 1)
+border_width_left = 2
+border_width_top = 4
+corner_radius_top_left = 18
+corner_radius_top_right = 11
+corner_radius_bottom_right = 21
+corner_radius_bottom_left = 8
+shadow_color = Color(1, 0.733333, 0.972549, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ter70"]
+corner_radius_top_left = 18
+corner_radius_top_right = 11
+corner_radius_bottom_right = 21
+corner_radius_bottom_left = 8
+shadow_color = Color(1, 0.733333, 0.972549, 0.6)
+
+[sub_resource type="Theme" id="Theme_bytfd"]
+Button/styles/hover = SubResource("StyleBoxFlat_vlhf1")
+Button/styles/normal = ExtResource("4_q4i2i")
+Button/styles/pressed = SubResource("StyleBoxFlat_ter70")
+
+[sub_resource type="Theme" id="Theme_svhul"]
+Button/styles/normal = ExtResource("4_q4i2i")
+
+[sub_resource type="Theme" id="Theme_h14tp"]
+LineEdit/styles/normal = ExtResource("3_pt8py")
+
+[sub_resource type="Gradient" id="Gradient_ga7hh"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.203252, 0.45935, 0.731707, 1)
+colors = PackedColorArray(1, 0.180392, 0.0705882, 0, 0.983836, 2.59906e-06, 0.56853, 1, 5.58317e-06, 0.729133, 0.896608, 1, 0.944476, 0.748714, 3.85046e-07, 1, 1.04706, 0, 0.482353, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4ii4k"]
+gradient = SubResource("Gradient_ga7hh")
+
+[sub_resource type="Curve" id="Curve_kn66p"]
+_data = [Vector2(0, 0), 0.0, 5.53918, 0, 0, Vector2(0.161403, 0.681818), 1.29545, 1.29545, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_1jc85"]
+_data = [Vector2(0, 0), 0.0, 0.0717171, 0, 0, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1gg4d"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1.31818), 0.0, -13.8901, 0, 0, Vector2(0.14386, -0.618182), -5.27959, -5.27959, 0, 0, Vector2(1, -2), -0.901185, 0.146141, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_qltea"]
+max_value = 9.0
+_data = [Vector2(0, 1), 0.0, 9.4843, 0, 0, Vector2(0.0421053, 4.5), -6.66234, -6.66234, 0, 0, Vector2(1, 1.88182), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_ak40a"]
+max_value = 5.0
+_data = [Vector2(0, 4.5), 0.0, 0.0, 0, 0, Vector2(0.733333, 1.09091), 0.0, 0.0, 0, 0, Vector2(1, 1.05455), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_5km1v"]
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.235088, 0.727273), 0.0, 0.0, 0, 0, Vector2(1, 0.909091), -0.344242, -1.20485, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_bg54m"]
+_data = [Vector2(0, 0.109091), 0.0, 0.0, 0, 0, Vector2(0, 0.972727), -0.185064, -0.185064, 0, 0, Vector2(1, 0), -0.431818, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_wyopy"]
+_data = [Vector2(0, 1), 0.0, -0.0557579, 0, 0, Vector2(0.567935, 0.763636), -0.966465, -0.966465, 0, 0, Vector2(1, 0), -0.0743434, 0.0, 0, 0]
+point_count = 3
+
+[node name="Node" type="Node"]
+script = ExtResource("1_hy1wg")
+metadata/_edit_horizontal_guides_ = [530.0, 561.0, 604.0]
+metadata/_edit_vertical_guides_ = [357.0]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_right = 0.199982
+offset_bottom = 0.0799561
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 0.339
+anchor_bottom = 1.0
+offset_right = 0.471985
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hbox-Titles" type="HBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+offset_left = 60.0
+offset_top = 12.0
+offset_right = 328.0
+offset_bottom = 37.0
+alignment = 2
+
+[node name="Name" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(115.86, 25)
+layout_mode = 2
+theme = ExtResource("2_640ds")
+text = "Pilot
+"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="Sector _ Lap" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(25.005, 25)
+layout_mode = 2
+theme = ExtResource("2_640ds")
+text = "L
+"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="Gate" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 25)
+layout_mode = 2
+theme = ExtResource("2_640ds")
+text = "G
+"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="VSeparator3" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="Delta" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
+layout_mode = 2
+theme = ExtResource("2_640ds")
+text = "Delta"
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 50.0
+offset_right = 328.0
+offset_bottom = 371.0
+
+[node name="IP_Input" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -118.0
+offset_right = 138.0
+offset_bottom = -87.0
+theme = SubResource("Theme_0k7v3")
+placeholder_text = "Local IP"
+
+[node name="Connect Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -76.0
+offset_right = 102.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_bytfd")
+text = "Connect"
+
+[node name="DC Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 151.0
+offset_top = -73.0
+offset_right = 250.0
+offset_bottom = -33.0
+grow_vertical = 0
+theme = SubResource("Theme_svhul")
+text = "Disconnect"
+
+[node name="Gate Count" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 158.0
+offset_top = -118.0
+offset_right = 251.0
+offset_bottom = -87.0
+theme = SubResource("Theme_h14tp")
+placeholder_text = "Gate Count"
+
+[node name="CheckButton" type="CheckButton" parent="Control"]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 533.0
+offset_right = 392.0
+offset_bottom = 564.0
+text = "green"
+
+[node name="CheckButton2" type="CheckButton" parent="Control"]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 575.0
+offset_right = 393.0
+offset_bottom = 606.0
+text = "Single Lap"
+
+[node name="Orb" type="Node2D" parent="Control"]
+position = Vector2(129, 78)
+scale = Vector2(0.01, 0.01)
+script = ExtResource("5_qo4c8")
+num_particles = 41
+lifetime = 0.75
+lifetime_randomness = 0.113
+free_when_finished = false
+autostart = false
+texture = ExtResource("6_h3qa8")
+image_scale = 0.55
+image_scale_randomness = 0.64
+gradient = SubResource("GradientTexture1D_4ii4k")
+blend_mode = 1
+angle_degrees = 197.5
+angle_randomness = 1.0
+randomly_flip_angle = true
+distance = 10000.0
+distance_randomness = 1.0
+start_radius = 1884.16
+spread_degrees = 251.859
+center_concentration = 4.439
+percent_force_uniform = 26.563
+distance_curve = SubResource("Curve_kn66p")
+offset_curve = SubResource("Curve_1jc85")
+angle_curve = SubResource("Curve_1gg4d")
+scale_curve = SubResource("Curve_qltea")
+x_scale_curve = SubResource("Curve_ak40a")
+y_scale_curve = SubResource("Curve_5km1v")
+color_offset_curve = SubResource("Curve_bg54m")
+alpha_curve = SubResource("Curve_wyopy")
+
+[node name="CheckButton3" type="CheckButton" parent="Control"]
+layout_mode = 0
+offset_left = 234.0
+offset_top = 614.0
+offset_right = 393.0
+offset_bottom = 645.0
+text = "Team vs Team"
+
+[node name="ScoreContainer" type="HBoxContainer" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 73.0
+offset_top = 357.0
+offset_right = 291.0
+offset_bottom = 482.0
+
+[node name="Control" type="Control" parent="Control/ScoreContainer"]
+layout_mode = 2
+
+[node name="Score A" type="Label" parent="Control/ScoreContainer/Control"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 128.0
+offset_bottom = 119.0
+theme = ExtResource("7_c0wrj")
+text = "-"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/ScoreContainer/Control"]
+layout_mode = 2
+offset_right = 4.0
+offset_bottom = 125.0
+
+[node name="Control2" type="Control" parent="Control/ScoreContainer"]
+layout_mode = 2
+
+[node name="Score B" type="Label" parent="Control/ScoreContainer/Control2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 124.0
+offset_bottom = 119.0
+theme = ExtResource("7_c0wrj")
+text = "-"
+horizontal_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Control/ScoreContainer/Control2"]
+layout_mode = 2
+offset_left = 4.0
+offset_right = 8.0
+offset_bottom = 125.0
+
+[node name="HeartbeatTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="pressed" from="Control/Connect Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Control/DC Button" to="." method="_on_disconnect_pressed"]
+[connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="Control/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
+[connection signal="toggled" from="Control/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
+[connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]

@@ -128,7 +128,9 @@ func _ready():
 	
 	score_a = $"Control/ScoreContainer/Score A"
 	score_b = $"Control/ScoreContainer/Score B"
-
+	
+	add_timing_row()
+	add_timing_row()
 
 func _process(delta):
 	if ip_complete:
@@ -201,7 +203,7 @@ func update_pilot_data(new_data, pilotname):
 					pilot["gate_dict"][lap_gate_key] = float(new_data["time"])
 					pilot["gate_key"] = lap_gate_key
 				pilot["data"] = new_data
-				
+
 				found = true
 				#print(pilot["gate_list"])
 				#var gate_details = [int(pilot["data"]["lap"]), int(pilot["data"]["gate"]), float(pilot["data"]["time"]]
@@ -235,11 +237,27 @@ func _on_new_pilot_data_received(new_data, pilotname):
 	#print(duration)
 
 
+func add_timing_row():
+	var timing_row_path = "res://TimingRow.tscn"
+	var timing_row_resource = load(timing_row_path)
+
+	# Check if the loaded resource is indeed a PackedScene
+	if timing_row_resource and timing_row_resource is PackedScene:
+		var timing_row_instance = timing_row_resource.instance()
+		$Control/VBoxContainer.add_child(timing_row_instance)
+	else:
+		print("Failed to load: ", timing_row_path)
+
+
 func make_leaderboard():
 	var index = 0
+	if len(pilots) < len($Control/VBoxContainer.get_children()):
+		for i in pilots:
+			add_timing_row()
+	var timing_row_list = $Control/VBoxContainer.get_children()
 	
 	for pilot in pilots:
-		if index > 6:
+		if index > len(timing_row_list):
 			break
 		var hex_color = pilot["data"]["colour"]
 		var color = Color("#" + hex_color)
@@ -271,6 +289,8 @@ func make_leaderboard():
 			else:
 				display_list[index][3].text = "0.000"
 		index += 1
+
+
 
 
 # this function is used to keep the team scores from changing order

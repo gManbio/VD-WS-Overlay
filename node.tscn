@@ -659,22 +659,44 @@ offset_top = 357.0
 offset_right = 291.0
 offset_bottom = 482.0
 
-[node name="Score A" type="Label" parent="Control/ScoreContainer"]
+[node name="Control" type="Control" parent="Control/ScoreContainer"]
+layout_mode = 2
+
+[node name="Score A" type="Label" parent="Control/ScoreContainer/Control"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 128.0
+offset_bottom = 119.0
 theme = ExtResource("7_un01m")
 text = "-"
 horizontal_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="Control/ScoreContainer"]
+[node name="VSeparator" type="VSeparator" parent="Control/ScoreContainer/Control"]
+layout_mode = 2
+offset_right = 4.0
+offset_bottom = 125.0
+
+[node name="Control2" type="Control" parent="Control/ScoreContainer"]
 layout_mode = 2
 
-[node name="Score B" type="Label" parent="Control/ScoreContainer"]
+[node name="Score B" type="Label" parent="Control/ScoreContainer/Control2"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 124.0
+offset_bottom = 119.0
 theme = ExtResource("7_un01m")
 text = "-"
 horizontal_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Control/ScoreContainer/Control2"]
+layout_mode = 2
+offset_left = 4.0
+offset_right = 8.0
+offset_bottom = 125.0
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
