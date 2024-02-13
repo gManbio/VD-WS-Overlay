@@ -4,19 +4,21 @@
 
 [sub_resource type="Theme" id="Theme_sgklj"]
 
-[node name="Node" type="Node"]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 40.0
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 274.0
 offset_bottom = 40.0
 
-[node name="Timing Box" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Timing Box" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(200, 0)
 layout_direction = 2
 layout_mode = 2
+offset_right = 268.0
+offset_bottom = 25.0
 alignment = 2
 
-[node name="Name" type="Label" parent="VBoxContainer/Timing Box"]
+[node name="Name" type="Label" parent="Timing Box"]
 clip_contents = true
 custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
@@ -25,10 +27,10 @@ text = "---"
 horizontal_alignment = 1
 text_overrun_behavior = 1
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Timing Box"]
+[node name="VSeparator" type="VSeparator" parent="Timing Box"]
 layout_mode = 2
 
-[node name="Sector _ Lap" type="Label" parent="VBoxContainer/Timing Box"]
+[node name="Sector _ Lap" type="Label" parent="Timing Box"]
 clip_contents = true
 custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
@@ -38,10 +40,10 @@ text = "---
 horizontal_alignment = 1
 text_overrun_behavior = 1
 
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Timing Box"]
+[node name="VSeparator2" type="VSeparator" parent="Timing Box"]
 layout_mode = 2
 
-[node name="Gate" type="Label" parent="VBoxContainer/Timing Box"]
+[node name="Gate" type="Label" parent="Timing Box"]
 clip_contents = true
 custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
@@ -51,10 +53,10 @@ horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 1
 
-[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/Timing Box"]
+[node name="VSeparator3" type="VSeparator" parent="Timing Box"]
 layout_mode = 2
 
-[node name="Delta" type="Label" parent="VBoxContainer/Timing Box"]
+[node name="Delta" type="Label" parent="Timing Box"]
 clip_contents = true
 custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
@@ -63,8 +65,11 @@ text = "---"
 clip_text = true
 text_overrun_behavior = 1
 
-[node name="ProgressBar-p1" type="ProgressBar" parent="VBoxContainer"]
+[node name="ProgressBar-p1" type="ProgressBar" parent="."]
 layout_mode = 2
+offset_top = 29.0
+offset_right = 268.0
+offset_bottom = 33.0
 theme = SubResource("Theme_sgklj")
 value = 42.08
 show_percentage = false

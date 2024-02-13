@@ -166,7 +166,7 @@ text = "Delta"
 clip_text = true
 text_overrun_behavior = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="TimingContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
 offset_left = 62.0
 offset_top = 50.0

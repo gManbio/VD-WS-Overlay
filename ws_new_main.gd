@@ -65,6 +65,7 @@ var new_score = true
 var team_order = []
 var race_laps = 3
 
+var timing_row = load("res://TimingRow.tscn")
 
 func _ready():
 	
@@ -128,9 +129,10 @@ func _ready():
 	
 	score_a = $"Control/ScoreContainer/Score A"
 	score_b = $"Control/ScoreContainer/Score B"
+	add_timing_row()
+	add_timing_row()
+	add_timing_row()
 	
-	add_timing_row()
-	add_timing_row()
 
 func _process(delta):
 	if ip_complete:
@@ -238,15 +240,12 @@ func _on_new_pilot_data_received(new_data, pilotname):
 
 
 func add_timing_row():
-	var timing_row_path = "res://TimingRow.tscn"
-	var timing_row_resource = load(timing_row_path)
 
-	# Check if the loaded resource is indeed a PackedScene
-	if timing_row_resource and timing_row_resource is PackedScene:
-		var timing_row_instance = timing_row_resource.instance()
-		$Control/VBoxContainer.add_child(timing_row_instance)
-	else:
-		print("Failed to load: ", timing_row_path)
+	var timing_row_instance = timing_row.instantiate()
+	var timing_container = $Control/TimingContainer
+	$Control/TimingContainer.add_child(timing_row_instance)
+	print(len(timing_container.get_children()))
+
 
 
 func make_leaderboard():
