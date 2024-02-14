@@ -273,6 +273,7 @@ color_offset_curve = SubResource("Curve_bg54m")
 alpha_curve = SubResource("Curve_wyopy")
 
 [node name="CheckButton3" type="CheckButton" parent="Control"]
+visible = false
 layout_mode = 0
 offset_left = 234.0
 offset_top = 614.0

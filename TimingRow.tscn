@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhleujmx3nvox"]
+[gd_scene load_steps=4 format=3 uid="uid://dhleujmx3nvox"]
 
+[ext_resource type="Script" path="res://TimingRow.gd" id="1_58ja3"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="1_nvajw"]
 
 [sub_resource type="Theme" id="Theme_sgklj"]
@@ -10,6 +11,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 274.0
 offset_bottom = 40.0
+script = ExtResource("1_58ja3")
 
 [node name="Timing Box" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(200, 0)
@@ -31,7 +33,7 @@ text_overrun_behavior = 1
 [node name="VSeparator" type="VSeparator" parent="Timing Box"]
 layout_mode = 2
 
-[node name="Sector _ Lap" type="Label" parent="Timing Box"]
+[node name="Lap" type="Label" parent="Timing Box"]
 clip_contents = true
 custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
@@ -66,7 +68,7 @@ text = "---"
 clip_text = true
 text_overrun_behavior = 1
 
-[node name="ProgressBar-p1" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 2
 offset_top = 29.0
 offset_right = 268.0
