@@ -2,8 +2,6 @@ extends Node
 
 var ws = WebSocketPeer.new()
 
-var heatData = []
-
 var pilots = []
 
 @onready var bg_rect = $ColorRect
@@ -27,6 +25,7 @@ var timing_row = preload("res://TimingRow.tscn")
 #fall back default values
 var gate_count = 30
 var race_laps = 3
+
 
 func _ready():
 	Engine.max_fps = 30
@@ -79,7 +78,6 @@ func _handle_websocket_closed():
 func _process_message(pilotdata):
 	if "racestatus" in pilotdata:
 		if pilotdata["racestatus"]["raceAction"] == "start":
-			heatData = {}
 			pilots = []
 			reset_leaderboard()
 	elif "racetype" in pilotdata:
@@ -128,19 +126,14 @@ func sort_pilots():
 
 
 func _on_new_pilot_data_received(new_data, pilotname):
-	#var start_time = Time.get_ticks_msec()
 	update_pilot_data(new_data, pilotname)
 	sort_pilots()
 	make_leaderboard()
-	if team_mode:
-		make_scoreboard(team_scores())  # this is where we can call a function to calculate the team scores
-	#var end_time = Time.get_ticks_msec()
-	#var duration = end_time - start_time
-	#print(duration)
+	if team_mode: # This is where we can call a function to calculate the team scores
+		make_scoreboard(team_scores())  
 
 
-func add_timing_row():
-
+func add_timing_row():  #instantiates the timing row scene into the timing display
 	var timing_row_instance = timing_row.instantiate()
 	var timing_container = $Control/TimingContainer
 	$Control/TimingContainer.add_child(timing_row_instance)
@@ -149,11 +142,13 @@ func add_timing_row():
 
 func make_leaderboard():
 	var index = 0
+	# add rows to the timing display based on the number of pilots
 	if len(pilots) > $Control/TimingContainer.get_child_count():
 		for i in pilots:
 			add_timing_row()
 			if len(pilots) == $Control/TimingContainer.get_child_count():
 				break
+	# set all of the values for the timing display
 	if $Control/TimingContainer.get_child_count() > 0:
 		for pilot in pilots:
 			if index > $Control/TimingContainer.get_child_count():
@@ -165,14 +160,14 @@ func make_leaderboard():
 			current_pos.set_lap(pilot["data"]["lap"])
 			current_pos.set_gate(pilot["data"]["gate"])
 			
-			if single_lap_display:
+			if single_lap_display:  # adjusts the lap progress bar
 				current_pos.set_progress_range(0, gate_count)
 				current_pos.set_progress(len(pilot["gate_dict"].keys()) % gate_count, color)
 			else:
 				current_pos.set_progress_range(0, gate_count * race_laps)
 				current_pos.set_progress(len(pilot["gate_dict"].keys()), color)
 			
-			if index != 0:
+			if index != 0:   # Calculate deltas if pilots are not in first place.
 				if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
 					var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
 					var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
@@ -180,7 +175,8 @@ func make_leaderboard():
 						current_pos.set_delta(pilot["data"]["time"])
 					else:
 						current_pos.set_delta(leader_time - pilot_time)
-			else:
+			
+			else:    # Sets the delta for first player
 				if pilot["data"]["finished"] == "True":
 					current_pos.set_delta(pilot["data"]["time"])
 					if unbursted:
@@ -213,12 +209,13 @@ func make_scoreboard(scores):
 	if len(scores.keys()) == 2:
 		if new_score:
 			initialize_scoreboard(scores)
+		
 		for key in scores.keys():
 			var team_total = 0
 			for point in scores[key]:
 				team_total += point
 			score_board[key] = team_total
-		
+
 		score_a.text = str(score_board[team_order[0]])
 		var hex_color = team_order[0]
 		var color = Color("#" + hex_color)
@@ -265,8 +262,9 @@ func _on_Barmode_toggle_pressed(toggled_on):
 			for child in $Control/TimingContainer.get_children():
 				child.set_progress_range(0, gate_count * race_laps)
 
-
+# this function is disabled until I fix it.  It is hidden in the UI currently
 func _on_TeamvsTeam_toggle_pressed(toggled_on):
+	return
 	var score_container = $Control/ScoreContainer
 	if toggled_on:
 		team_mode = true
@@ -292,4 +290,3 @@ func _on_disconnect_pressed():
 	connect_button.text = "Connect"
 	
 	reset_leaderboard()
-	
