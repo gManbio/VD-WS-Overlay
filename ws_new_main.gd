@@ -129,10 +129,7 @@ func _ready():
 	
 	score_a = $"Control/ScoreContainer/Score A"
 	score_b = $"Control/ScoreContainer/Score B"
-	add_timing_row()
-	add_timing_row()
-	add_timing_row()
-	
+
 
 func _process(delta):
 	if ip_complete:
@@ -244,52 +241,68 @@ func add_timing_row():
 	var timing_row_instance = timing_row.instantiate()
 	var timing_container = $Control/TimingContainer
 	$Control/TimingContainer.add_child(timing_row_instance)
-	print(len(timing_container.get_children()))
-
-
-
+	#print(len(timing_container.get_children()))
+	#var timing_row_list = $Control/TimingContainer.get_children()
+	#display_list = []
+	#for each in timing_row_list:
+		#var item_list = each.get_children()[0].get_children()
+		#item_list.append(each.get_children()[1])
+		#display_list.append(item_list)
+		#print(item_list)
+		#print(display_list)
+		
 func make_leaderboard():
 	var index = 0
-	if len(pilots) < len($Control/VBoxContainer.get_children()):
+	var timing_row_list = []
+	print(pilots)
+	print(len(pilots))
+	print(len($Control/TimingContainer.get_children()))
+	if len(pilots) > len($Control/TimingContainer.get_children()):
+		if len($Control/TimingContainer.get_children()) == 0:
+			display_list = []
 		for i in pilots:
 			add_timing_row()
-	var timing_row_list = $Control/VBoxContainer.get_children()
-	
-	for pilot in pilots:
-		if index > len(timing_row_list):
-			break
-		var hex_color = pilot["data"]["colour"]
-		var color = Color("#" + hex_color)
-		display_list[index][0].text = pilot["name"]
-		display_list[index][0].modulate = color
-		display_list[index][1].text = pilot["data"]["lap"]
-		display_list[index][2].text = pilot["data"]["gate"]
-		display_list[index][4].modulate = color
-		if single_lap_display:
-			display_list[index][4].value = len(pilot["gate_dict"].keys()) % gate_count
-		else:
-			display_list[index][4].value = len(pilot["gate_dict"].keys())
-		
-		if index != 0:
-			if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
-				var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
-				var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
-				if pilot["data"]["finished"] == "True":
-					display_list[index][3].text = str(pilot["data"]["time"])
-				else:
-					display_list[index][3].text = str(leader_time - pilot_time)
-				
-		else:
-			if pilot["data"]["finished"] == "True":
-				display_list[index][3].text = str(pilot["data"]["time"])
-				if unbursted:
-					first_place_celebration.burst()
-					unbursted = false
+		timing_row_list = $Control/TimingContainer.get_children()
+		print(timing_row_list)
+		for each in timing_row_list:
+			var item_list = each.get_children()[0].get_children()
+			item_list.append(each.get_children()[1])
+			display_list.append(item_list)
+
+	if len(timing_row_list) > 0:
+		for pilot in pilots:
+			if index > len(timing_row_list):
+				break
+			var hex_color = pilot["data"]["colour"]
+			var color = Color("#" + hex_color)
+			display_list[index][0].text = pilot["name"]
+			display_list[index][0].modulate = color
+			display_list[index][2].text = pilot["data"]["lap"]
+			display_list[index][4].text = pilot["data"]["gate"]
+			display_list[index][7].modulate = color
+			if single_lap_display:
+				display_list[index][7].value = len(pilot["gate_dict"].keys()) % gate_count
 			else:
-				display_list[index][3].text = "0.000"
-		index += 1
-
-
+				display_list[index][7].value = len(pilot["gate_dict"].keys())
+			
+			if index != 0:
+				if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
+					var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
+					var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
+					if pilot["data"]["finished"] == "True":
+						display_list[index][6].text = str(pilot["data"]["time"])
+					else:
+						display_list[index][6].text = str(leader_time - pilot_time)
+					
+			else:
+				if pilot["data"]["finished"] == "True":
+					display_list[index][6].text = str(pilot["data"]["time"])
+					if unbursted:
+						first_place_celebration.burst()
+						unbursted = false
+				else:
+					display_list[index][6].text = "0.000"
+			index += 1
 
 
 # this function is used to keep the team scores from changing order
@@ -337,6 +350,7 @@ func make_scoreboard(scores):
 
 func reset_leaderboard():
 	unbursted = true
+	return
 	for display in display_list:
 		var count = 0
 		for each in display:
@@ -362,6 +376,7 @@ func _on_Button_pressed():
 	ws.connect_to_url(url)
 	print("Attempting to connect to WebSocket server at " + url)
 	ip_complete = true
+	return
 	gate_count = int($"Control/Gate Count".text)
 	for each in display_list:
 		each[4].min_value = 0

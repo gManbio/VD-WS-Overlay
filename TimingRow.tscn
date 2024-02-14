@@ -5,6 +5,7 @@
 [sub_resource type="Theme" id="Theme_sgklj"]
 
 [node name="Control" type="Control"]
+custom_minimum_size = Vector2(276.325, 40.16)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 274.0
