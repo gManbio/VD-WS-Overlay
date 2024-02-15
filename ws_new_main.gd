@@ -281,7 +281,7 @@ func _on_Barmode_toggle_pressed(toggled_on):
 			for child in $Control/TimingContainer.get_children():
 				child.set_progress_range(0, gate_count * race_laps)
 
-# this function is disabled until I fix it.  It is hidden in the UI currently
+
 func _on_TeamvsTeam_toggle_pressed(toggled_on):
 	var score_container = $Control/ScoreContainer
 	if toggled_on:
