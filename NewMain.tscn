@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=23 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
@@ -6,7 +6,6 @@
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
 [ext_resource type="Script" path="res://addons/BurstParticles2D/BurstParticles2D.gd" id="5_qo4c8"]
 [ext_resource type="Texture2D" uid="uid://ovw18l4dc1fv" path="res://addons/BurstParticles2D/BurstParticles2D-demo/orb.png" id="6_h3qa8"]
-[ext_resource type="Theme" uid="uid://1ioj4h2iu8ah" path="res://score.tres" id="7_c0wrj"]
 
 [sub_resource type="Theme" id="Theme_0k7v3"]
 LineEdit/styles/normal = ExtResource("3_pt8py")
@@ -93,8 +92,8 @@ metadata/_edit_vertical_guides_ = [357.0]
 anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
-offset_right = 0.199982
-offset_bottom = 0.0799561
+offset_right = 0.199987
+offset_bottom = 14.08
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
@@ -176,24 +175,20 @@ offset_bottom = 371.0
 [node name="IP_Input" type="LineEdit" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.0
-anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -118.0
+offset_top = 522.0
 offset_right = 138.0
-offset_bottom = -87.0
+offset_bottom = 553.0
 theme = SubResource("Theme_0k7v3")
 placeholder_text = "Local IP"
 
 [node name="Connect Button" type="Button" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.0
-anchor_bottom = 1.0
 offset_left = 26.0
-offset_top = -76.0
+offset_top = 564.0
 offset_right = 102.0
-offset_bottom = -33.0
+offset_bottom = 607.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_bytfd")
@@ -201,26 +196,20 @@ text = "Connect"
 
 [node name="DC Button" type="Button" parent="Control"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
 offset_left = 151.0
-offset_top = -73.0
+offset_top = 567.0
 offset_right = 250.0
-offset_bottom = -33.0
-grow_vertical = 0
+offset_bottom = 607.0
 theme = SubResource("Theme_svhul")
 text = "Disconnect"
 
 [node name="Gate Count" type="LineEdit" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.0
-anchor_bottom = 1.0
 offset_left = 158.0
-offset_top = -118.0
+offset_top = 522.0
 offset_right = 251.0
-offset_bottom = -87.0
+offset_bottom = 553.0
 theme = SubResource("Theme_h14tp")
 placeholder_text = "Gate Count"
 
@@ -273,7 +262,6 @@ color_offset_curve = SubResource("Curve_bg54m")
 alpha_curve = SubResource("Curve_wyopy")
 
 [node name="CheckButton3" type="CheckButton" parent="Control"]
-visible = false
 layout_mode = 0
 offset_left = 234.0
 offset_top = 614.0
@@ -284,49 +272,19 @@ text = "Team vs Team"
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
 visible = false
 layout_mode = 0
-offset_left = 73.0
-offset_top = 357.0
-offset_right = 291.0
-offset_bottom = 482.0
+offset_left = 17.0
+offset_top = 383.0
+offset_right = 415.0
+offset_bottom = 508.0
 
-[node name="Control" type="Control" parent="Control/ScoreContainer"]
-layout_mode = 2
-
-[node name="Score A" type="Label" parent="Control/ScoreContainer/Control"]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-offset_left = 8.0
-offset_top = 6.0
-offset_right = 128.0
-offset_bottom = 119.0
-theme = ExtResource("7_c0wrj")
-text = "-"
-horizontal_alignment = 1
-
-[node name="VSeparator" type="VSeparator" parent="Control/ScoreContainer/Control"]
-layout_mode = 2
-offset_right = 4.0
-offset_bottom = 125.0
-
-[node name="Control2" type="Control" parent="Control/ScoreContainer"]
-layout_mode = 2
-
-[node name="Score B" type="Label" parent="Control/ScoreContainer/Control2"]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-offset_left = 4.0
-offset_top = 6.0
-offset_right = 124.0
-offset_bottom = 119.0
-theme = ExtResource("7_c0wrj")
-text = "-"
-horizontal_alignment = 1
-
-[node name="VSeparator2" type="VSeparator" parent="Control/ScoreContainer/Control2"]
-layout_mode = 2
-offset_left = 4.0
-offset_right = 8.0
-offset_bottom = 125.0
+[node name="Pointmode" type="CheckButton" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 255.0
+offset_top = 642.0
+offset_right = 392.0
+offset_bottom = 673.0
+text = "Point Mode"
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
@@ -336,4 +294,5 @@ wait_time = 10.0
 [connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Control/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
+[connection signal="toggled" from="Control/Pointmode" to="." method="_on_pointmode_toggled"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]

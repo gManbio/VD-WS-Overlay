@@ -7,8 +7,6 @@ var pilots = []
 @onready var bg_rect = $ColorRect
 @onready var connect_button = $"Control/Connect Button"
 @onready var first_place_celebration = $Control/Orb
-@onready var score_a = $"Control/ScoreContainer/Score A"
-@onready var score_b = $"Control/ScoreContainer/Score B"
 
 var ip_complete = false
 var connected = false
@@ -19,8 +17,12 @@ var team_mode = false
 var score_board = {}
 var new_score = true
 var team_order = []
+var score_dict = {}
+var point_mode = false
 
 var timing_row = preload("res://TimingRow.tscn")
+
+var score_box = preload("res://ScoreBox.tscn")
 
 #fall back default values
 var gate_count = 30
@@ -130,7 +132,7 @@ func _on_new_pilot_data_received(new_data, pilotname):
 	sort_pilots()
 	make_leaderboard()
 	if team_mode: # This is where we can call a function to calculate the team scores
-		make_scoreboard(team_scores())  
+		make_scoreboard()  
 
 
 func add_timing_row():  #instantiates the timing row scene into the timing display
@@ -196,39 +198,52 @@ func initialize_scoreboard(scores):
 
 
 func team_scores():
-	var score_dict = {}
 	for pilot in pilots:
 		if pilot["data"]["colour"] not in score_dict:
 			score_dict[pilot["data"]["colour"]] = [int(pilot["data"]["position"])]
 		else:
 			score_dict[pilot["data"]["colour"]].append(int(pilot["data"]["position"]))
-	return score_dict
 
 
-func make_scoreboard(scores):
-	if len(scores.keys()) == 2:
-		if new_score:
-			initialize_scoreboard(scores)
-		
-		for key in scores.keys():
-			var team_total = 0
+func add_score_box():  #instantiates the timing row scene into the timing display
+	var score_box_instance = score_box.instantiate()
+	var score_container = $Control/ScoreContainer
+	$Control/ScoreContainer.add_child(score_box_instance)
+
+
+func make_scoreboard():
+	team_scores()
+	var scores = score_dict
+	if len(scores.keys()) > $Control/ScoreContainer.get_child_count():
+		for i in scores.keys:
+			add_score_box()
+			if len(scores.keys()) == $Control/ScoreContainer.get_child_count():
+				break
+		new_score = true
+
+	if new_score:
+		initialize_scoreboard(scores)
+	
+	for key in scores.keys():
+		var team_total = 0
+		if point_mode:
+			for point in scores[key]:
+				team_total += 7 - point
+			score_board[key] = team_total
+		else:
 			for point in scores[key]:
 				team_total += point
 			score_board[key] = team_total
-
-		score_a.text = str(score_board[team_order[0]])
-		var hex_color = team_order[0]
+	
+	var index = 0
+	for each in team_order.keys():
+		if $Control/ScoreContainer.get_child_count() == index:
+			break
+		var hex_color = each
 		var color = Color("#" + hex_color)
-		score_a.modulate = color
-		score_b.text = str(score_board[team_order[1]])
-		hex_color = team_order[1]
-		color = Color("#" + hex_color)
-		score_b.modulate = color
-	else:
-		score_a.text = "-"
-		score_b.text = "-"
-		score_a.modulate = Color(Color.WHITE)
-		score_b.modulate = Color(Color.WHITE)
+		$Control/ScoreContainer.get_children()[index].set_score(score_board[each])
+		$Control/ScoreContainer.get_children()[index].set_color(color)
+		index += 1
 
 
 func reset_leaderboard():
@@ -239,6 +254,10 @@ func reset_leaderboard():
 	score_board = {}
 	new_score = true
 	team_order = []
+	if team_mode:
+		for child in $Control/ScoreContainer.get_children():
+			$Control/ScoreContainer.remove_child(child)
+			child.queue_free()
 
 
 func _on_Button_pressed():
@@ -264,14 +283,15 @@ func _on_Barmode_toggle_pressed(toggled_on):
 
 # this function is disabled until I fix it.  It is hidden in the UI currently
 func _on_TeamvsTeam_toggle_pressed(toggled_on):
-	return
 	var score_container = $Control/ScoreContainer
 	if toggled_on:
 		team_mode = true
 		score_container.visible = true
+		$Control/Pointmode.visible = true
 	else:
 		team_mode = false
 		score_container.visible = false
+		$Control/Pointmode.visible = false
 
 
 func _on_check_button_toggled(toggled_on):
@@ -290,3 +310,10 @@ func _on_disconnect_pressed():
 	connect_button.text = "Connect"
 	
 	reset_leaderboard()
+
+
+func _on_pointmode_toggled(toggled_on):
+	if toggled_on:
+		point_mode = true
+	else:
+		point_mode = false

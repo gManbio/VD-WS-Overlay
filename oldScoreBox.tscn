@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv1et56rjkels"]
+
+[ext_resource type="Script" path="res://ScoreBox.gd" id="1_0x1wj"]
+[ext_resource type="Theme" uid="uid://1ioj4h2iu8ah" path="res://score.tres" id="2_sdt5v"]
+
+[node name="Node" type="Node"]
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(130, 125.73)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 136.0
+offset_bottom = 130.0
+script = ExtResource("1_0x1wj")
+
+[node name="Score" type="Label" parent="Control"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 128.0
+offset_bottom = 119.0
+theme = ExtResource("2_sdt5v")
+text = "-"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control"]
+layout_mode = 2
+offset_left = 131.0
+offset_top = 2.0
+offset_right = 135.0
+offset_bottom = 127.0
