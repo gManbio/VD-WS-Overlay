@@ -175,6 +175,7 @@ func make_leaderboard():
 					var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
 					if pilot["data"]["finished"] == "True":
 						current_pos.set_delta(pilot["data"]["time"])
+						current_pos.trigger_burst()
 					else:
 						current_pos.set_delta(leader_time - pilot_time)
 			
@@ -183,6 +184,7 @@ func make_leaderboard():
 					current_pos.set_delta(pilot["data"]["time"])
 					if unbursted:
 						first_place_celebration.burst()
+						current_pos.trigger_burst()
 						unbursted = false
 				else:
 					current_pos.set_delta(0.000)

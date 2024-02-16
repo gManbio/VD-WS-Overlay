@@ -116,6 +116,7 @@ clip_text = true
 text_overrun_behavior = 1
 
 [node name="Orb" type="Node2D" parent="Timing Box"]
+visible = false
 position = Vector2(218, 16)
 scale = Vector2(0.01, 0.01)
 script = ExtResource("3_wp5fi")

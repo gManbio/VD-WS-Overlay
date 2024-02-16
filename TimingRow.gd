@@ -10,6 +10,10 @@ extends Control
 
 @onready var progress_bar = $"ProgressBar"
 
+@onready var burst = $"Timing Box/Orb"
+
+var bursted = false
+
 func _ready():
 	pass
 
@@ -41,6 +45,11 @@ func set_progress_range(min, max):
 	progress_bar.max_value = max
 
 
+func trigger_burst():
+	burst.burst()
+	bursted = true
+
+
 func reset():
 	pilot_name.text = "--"
 	pilot_name.modulate = Color(Color.WHITE)
@@ -49,3 +58,4 @@ func reset():
 	delta.text = "--"
 	progress_bar.value = 0
 	progress_bar.modulate = Color(Color.WHITE)
+	bursted = false

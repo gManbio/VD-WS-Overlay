@@ -38,13 +38,13 @@ Button/styles/normal = ExtResource("4_q4i2i")
 [sub_resource type="Theme" id="Theme_h14tp"]
 LineEdit/styles/normal = ExtResource("3_pt8py")
 
-[sub_resource type="Gradient" id="Gradient_ga7hh"]
+[sub_resource type="Gradient" id="Gradient_vhusi"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.203252, 0.45935, 0.731707, 1)
 colors = PackedColorArray(1, 0.180392, 0.0705882, 0, 0.983836, 2.59906e-06, 0.56853, 1, 5.58317e-06, 0.729133, 0.896608, 1, 0.944476, 0.748714, 3.85046e-07, 1, 1.04706, 0, 0.482353, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_4ii4k"]
-gradient = SubResource("Gradient_ga7hh")
+gradient = SubResource("Gradient_vhusi")
 
 [sub_resource type="Curve" id="Curve_kn66p"]
 _data = [Vector2(0, 0), 0.0, 5.53918, 0, 0, Vector2(0.161403, 0.681818), 1.29545, 1.29545, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
