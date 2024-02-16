@@ -270,12 +270,11 @@ offset_bottom = 645.0
 text = "Team vs Team"
 
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
-visible = false
 layout_mode = 0
-offset_left = 17.0
-offset_top = 383.0
-offset_right = 415.0
-offset_bottom = 508.0
+offset_left = 2.0
+offset_top = 381.0
+offset_right = 425.0
+offset_bottom = 506.0
 
 [node name="Pointmode" type="CheckButton" parent="Control"]
 visible = false

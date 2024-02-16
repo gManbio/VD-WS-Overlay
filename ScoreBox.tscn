@@ -1,18 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4nypyriguef6"]
+[gd_scene load_steps=3 format=3 uid="uid://b4nypyriguef6"]
 
 [ext_resource type="Theme" uid="uid://1ioj4h2iu8ah" path="res://score.tres" id="1_bbanj"]
+[ext_resource type="Script" path="res://ScoreBox.gd" id="1_o6mr5"]
 
 [node name="Control" type="Control"]
+custom_minimum_size = Vector2(137.19, 130.195)
 layout_mode = 3
-anchor_right = 0.377
-anchor_bottom = 0.219
-offset_right = 0.199998
-offset_bottom = 0.0879924
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 1.0
+offset_right = 138.19
+offset_bottom = 130.195
+script = ExtResource("1_o6mr5")
 
 [node name="Score" type="Label" parent="."]
 custom_minimum_size = Vector2(120, 0)
+layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
 offset_right = 128.0
@@ -22,7 +24,8 @@ text = "-"
 horizontal_alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="."]
-offset_left = 139.0
-offset_top = 8.0
-offset_right = 143.0
-offset_bottom = 133.0
+layout_mode = 0
+offset_left = 131.0
+offset_top = 6.0
+offset_right = 136.0
+offset_bottom = 117.0

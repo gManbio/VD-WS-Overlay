@@ -198,6 +198,7 @@ func initialize_scoreboard(scores):
 
 
 func team_scores():
+	score_dict = {}
 	for pilot in pilots:
 		if pilot["data"]["colour"] not in score_dict:
 			score_dict[pilot["data"]["colour"]] = [int(pilot["data"]["position"])]
@@ -215,7 +216,7 @@ func make_scoreboard():
 	team_scores()
 	var scores = score_dict
 	if len(scores.keys()) > $Control/ScoreContainer.get_child_count():
-		for i in scores.keys:
+		for i in scores.keys():
 			add_score_box()
 			if len(scores.keys()) == $Control/ScoreContainer.get_child_count():
 				break
@@ -226,6 +227,7 @@ func make_scoreboard():
 	
 	for key in scores.keys():
 		var team_total = 0
+		score_board[key] = 0
 		if point_mode:
 			for point in scores[key]:
 				team_total += 7 - point
@@ -236,7 +238,7 @@ func make_scoreboard():
 			score_board[key] = team_total
 	
 	var index = 0
-	for each in team_order.keys():
+	for each in team_order:
 		if $Control/ScoreContainer.get_child_count() == index:
 			break
 		var hex_color = each
