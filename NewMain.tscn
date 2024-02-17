@@ -270,7 +270,6 @@ offset_bottom = 645.0
 text = "Team vs Team"
 
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
-visible = false
 layout_mode = 0
 offset_left = 2.0
 offset_top = 394.0
@@ -286,6 +285,26 @@ offset_top = 642.0
 offset_right = 392.0
 offset_bottom = 673.0
 text = "Point Mode"
+
+[node name="HSeparator" type="HSeparator" parent="Control"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 381.0
+offset_right = 422.0
+offset_bottom = 397.0
+
+[node name="VSeparator2" type="VSeparator" parent="Control"]
+offset_left = 337.0
+offset_top = 74.0
+offset_right = 349.0
+offset_bottom = 312.0
+
+[node name="VSeparator" type="VSeparator" parent="Control"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 78.0
+offset_right = 61.0
+offset_bottom = 315.0
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
