@@ -53,6 +53,14 @@ func trigger_burst():
 		bursted = true
 
 
+func get_pilot_name():
+	return pilot_name.text
+
+
+func get_pilot_time():
+	return delta.text
+
+
 func reset():
 	pilot_name.text = "--"
 	pilot_name.modulate = Color(Color.WHITE)

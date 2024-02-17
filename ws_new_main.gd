@@ -321,3 +321,21 @@ func _on_pointmode_toggled(toggled_on):
 		point_mode = true
 	else:
 		point_mode = false
+
+
+func _on_copy_to_clipboard_button_pressed():
+	if $Control/TimingContainer.get_child_count() > 0:
+		var copy_string = "Name,Time\n"  # CSV header
+		for child in $Control/TimingContainer.get_children():
+			var pilot_name = child.get_pilot_name()
+			var time = child.get_pilot_time()
+			copy_string += "%s,%s\n" % [pilot_name, time]
+		DisplayServer.clipboard_set(copy_string)
+		$Control/CopyToClipboardButton.text = "Copied!"
+	else:
+		$Control/CopyToClipboardButton.text = "No Data"
+	$"Text Renamer".start()
+
+
+func _on_text_renamer_timeout():
+	$Control/CopyToClipboardButton.text = "Copy Result"

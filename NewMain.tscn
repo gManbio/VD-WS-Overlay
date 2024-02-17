@@ -1,36 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=21 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
+[ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_rdpxc"]
 [ext_resource type="Script" path="res://addons/BurstParticles2D/BurstParticles2D.gd" id="5_qo4c8"]
 [ext_resource type="Texture2D" uid="uid://ovw18l4dc1fv" path="res://addons/BurstParticles2D/BurstParticles2D-demo/orb.png" id="6_h3qa8"]
 
 [sub_resource type="Theme" id="Theme_0k7v3"]
 LineEdit/styles/normal = ExtResource("3_pt8py")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlhf1"]
-bg_color = Color(0.666667, 0.666667, 0.666667, 1)
-border_width_left = 2
-border_width_top = 4
-corner_radius_top_left = 18
-corner_radius_top_right = 11
-corner_radius_bottom_right = 21
-corner_radius_bottom_left = 8
-shadow_color = Color(1, 0.733333, 0.972549, 0.6)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ter70"]
-corner_radius_top_left = 18
-corner_radius_top_right = 11
-corner_radius_bottom_right = 21
-corner_radius_bottom_left = 8
-shadow_color = Color(1, 0.733333, 0.972549, 0.6)
-
-[sub_resource type="Theme" id="Theme_bytfd"]
-Button/styles/hover = SubResource("StyleBoxFlat_vlhf1")
-Button/styles/normal = ExtResource("4_q4i2i")
-Button/styles/pressed = SubResource("StyleBoxFlat_ter70")
 
 [sub_resource type="Theme" id="Theme_svhul"]
 Button/styles/normal = ExtResource("4_q4i2i")
@@ -185,13 +164,14 @@ placeholder_text = "Local IP"
 [node name="Connect Button" type="Button" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 26.0
-offset_top = 564.0
-offset_right = 102.0
-offset_bottom = 607.0
+offset_left = 27.0
+offset_top = 566.0
+offset_right = 103.0
+offset_bottom = 609.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_bytfd")
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
 text = "Connect"
 
 [node name="DC Button" type="Button" parent="Control"]
@@ -200,6 +180,7 @@ offset_left = 151.0
 offset_top = 567.0
 offset_right = 250.0
 offset_bottom = 607.0
+focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Disconnect"
 
@@ -306,8 +287,22 @@ offset_top = 78.0
 offset_right = 61.0
 offset_bottom = 315.0
 
+[node name="CopyToClipboardButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 625.0
+offset_right = 124.0
+offset_bottom = 656.0
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "Copy Result"
+
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="Text Renamer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
 
 [connection signal="pressed" from="Control/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/DC Button" to="." method="_on_disconnect_pressed"]
@@ -315,4 +310,6 @@ wait_time = 10.0
 [connection signal="toggled" from="Control/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
 [connection signal="toggled" from="Control/Pointmode" to="." method="_on_pointmode_toggled"]
+[connection signal="pressed" from="Control/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
