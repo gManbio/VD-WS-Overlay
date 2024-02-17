@@ -28,9 +28,10 @@ var score_box = preload("res://ScoreBox.tscn")
 var gate_count = 30
 var race_laps = 3
 
+var FPS = 15
 
 func _ready():
-	Engine.max_fps = 30
+	Engine.max_fps = FPS
 	
 	var ip_addresses = IP.get_local_addresses()
 	var ip_input = $Control/IP_Input
