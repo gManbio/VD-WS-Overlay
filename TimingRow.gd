@@ -46,8 +46,11 @@ func set_progress_range(min, max):
 
 
 func trigger_burst():
-	burst.burst()
-	bursted = true
+	if bursted:
+		return
+	else:
+		burst.burst()
+		bursted = true
 
 
 func reset():
