@@ -4,28 +4,38 @@
 [ext_resource type="Script" path="res://ScoreBox.gd" id="1_o6mr5"]
 
 [node name="Control" type="Control"]
-custom_minimum_size = Vector2(137.19, 130.195)
+custom_minimum_size = Vector2(104.36, 96.905)
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1.0
-offset_right = 138.19
-offset_bottom = 130.195
+offset_right = 105.36
+offset_bottom = 105.0
 script = ExtResource("1_o6mr5")
 
+[node name="VSeparator2" type="VSeparator" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 4.0
+grow_vertical = 2
+
 [node name="Score" type="Label" parent="."]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(88.77, 2.08165e-12)
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
-offset_right = 128.0
-offset_bottom = 119.0
+offset_right = 96.0
+offset_bottom = 109.0
 theme = ExtResource("1_bbanj")
 text = "-"
 horizontal_alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="."]
-layout_mode = 0
-offset_left = 131.0
-offset_top = 6.0
-offset_right = 136.0
-offset_bottom = 117.0
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+grow_horizontal = 0
+grow_vertical = 2
