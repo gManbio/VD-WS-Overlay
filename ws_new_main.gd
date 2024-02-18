@@ -28,7 +28,7 @@ var score_box = preload("res://ScoreBox.tscn")
 var gate_count = 30
 var race_laps = 3
 
-var FPS = 15
+var FPS = 30
 
 func _ready():
 	Engine.max_fps = FPS
@@ -38,11 +38,11 @@ func _ready():
 	ip_input.text = ip_addresses[-1]
 	
 	$HeartbeatTimer.start()
-
+	$"Polling Timer".start()
 
 func _process(delta):
 	if ip_complete:
-		ws.poll()
+		#ws.poll()
 		var state = ws.get_ready_state()
 		match state:
 			WebSocketPeer.STATE_OPEN:
@@ -53,6 +53,10 @@ func _process(delta):
 			WebSocketPeer.STATE_CLOSING, WebSocketPeer.STATE_CLOSED:
 				if state == WebSocketPeer.STATE_CLOSED:
 					_handle_websocket_closed()
+
+#func _on_data_received():
+	#var data= ws.getpacket()
+	
 
 
 func _handle_websocket_messages():
@@ -118,7 +122,7 @@ func update_pilot_data(new_data, pilotname):
 			var lap_gate_key = lap+gate
 			var gd = {lap_gate_key: float(new_data["time"])}
 			pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
-
+		
 
 func sort_pilots():
 	pilots.sort_custom(func(a, b):
@@ -340,3 +344,7 @@ func _on_copy_to_clipboard_button_pressed():
 
 func _on_text_renamer_timeout():
 	$Control/CopyToClipboardButton.text = "Copy Result"
+
+
+func _on_polling_timer_timeout():
+	ws.poll()

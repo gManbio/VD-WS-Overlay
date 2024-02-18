@@ -305,6 +305,9 @@ wait_time = 10.0
 wait_time = 2.5
 one_shot = true
 
+[node name="Polling Timer" type="Timer" parent="."]
+wait_time = 0.25
+
 [connection signal="pressed" from="Control/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/DC Button" to="." method="_on_disconnect_pressed"]
 [connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
@@ -314,3 +317,4 @@ one_shot = true
 [connection signal="pressed" from="Control/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
+[connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]
