@@ -260,6 +260,7 @@ func reset_leaderboard():
 	for child in $Control/TimingContainer.get_children():
 		$Control/TimingContainer.remove_child(child)
 		child.queue_free()
+	pilots = []
 	score_board = {}
 	new_score = true
 	team_order = []

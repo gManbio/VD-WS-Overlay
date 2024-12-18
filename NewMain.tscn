@@ -72,7 +72,7 @@ anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
 offset_right = 0.199987
-offset_bottom = 14.08
+offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
@@ -155,9 +155,9 @@ offset_bottom = 371.0
 layout_mode = 1
 anchors_preset = -1
 offset_left = 16.0
-offset_top = 522.0
+offset_top = 722.0
 offset_right = 138.0
-offset_bottom = 553.0
+offset_bottom = 753.0
 theme = SubResource("Theme_0k7v3")
 placeholder_text = "Local IP"
 
@@ -165,9 +165,9 @@ placeholder_text = "Local IP"
 layout_mode = 1
 anchors_preset = -1
 offset_left = 27.0
-offset_top = 566.0
+offset_top = 766.0
 offset_right = 103.0
-offset_bottom = 609.0
+offset_bottom = 809.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
@@ -177,9 +177,9 @@ text = "Connect"
 [node name="DC Button" type="Button" parent="Control"]
 layout_mode = 1
 offset_left = 151.0
-offset_top = 567.0
+offset_top = 767.0
 offset_right = 250.0
-offset_bottom = 607.0
+offset_bottom = 807.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Disconnect"
@@ -188,26 +188,27 @@ text = "Disconnect"
 layout_mode = 1
 anchors_preset = -1
 offset_left = 158.0
-offset_top = 522.0
+offset_top = 722.0
 offset_right = 251.0
-offset_bottom = 553.0
+offset_bottom = 753.0
 theme = SubResource("Theme_h14tp")
 placeholder_text = "Gate Count"
 
 [node name="CheckButton" type="CheckButton" parent="Control"]
 layout_mode = 0
 offset_left = 299.0
-offset_top = 533.0
+offset_top = 733.0
 offset_right = 392.0
-offset_bottom = 564.0
+offset_bottom = 764.0
 text = "green"
 
 [node name="CheckButton2" type="CheckButton" parent="Control"]
+visible = false
 layout_mode = 0
 offset_left = 266.0
-offset_top = 575.0
+offset_top = 775.0
 offset_right = 393.0
-offset_bottom = 606.0
+offset_bottom = 806.0
 text = "Single Lap"
 
 [node name="Orb" type="Node2D" parent="Control"]
@@ -245,17 +246,17 @@ alpha_curve = SubResource("Curve_wyopy")
 [node name="CheckButton3" type="CheckButton" parent="Control"]
 layout_mode = 0
 offset_left = 234.0
-offset_top = 614.0
+offset_top = 814.0
 offset_right = 393.0
-offset_bottom = 645.0
+offset_bottom = 845.0
 text = "Team vs Team"
 
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 0
 offset_left = 2.0
-offset_top = 394.0
+offset_top = 527.0
 offset_right = 425.0
-offset_bottom = 506.0
+offset_bottom = 639.0
 alignment = 1
 
 [node name="Pointmode" type="CheckButton" parent="Control"]
@@ -270,30 +271,30 @@ text = "Point Mode"
 [node name="HSeparator" type="HSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 381.0
+offset_top = 500.0
 offset_right = 422.0
-offset_bottom = 397.0
+offset_bottom = 516.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control"]
 layout_mode = 0
-offset_left = 337.0
+offset_left = 341.0
 offset_top = 74.0
 offset_right = 349.0
-offset_bottom = 312.0
+offset_bottom = 475.0
 
 [node name="VSeparator" type="VSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 49.0
 offset_top = 78.0
 offset_right = 61.0
-offset_bottom = 315.0
+offset_bottom = 488.0
 
 [node name="CopyToClipboardButton" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 23.0
-offset_top = 625.0
+offset_top = 825.0
 offset_right = 124.0
-offset_bottom = 656.0
+offset_bottom = 856.0
 focus_mode = 0
 theme = ExtResource("4_rdpxc")
 text = "Copy Result"

@@ -148,6 +148,7 @@ color_offset_curve = SubResource("Curve_fgek7")
 alpha_curve = SubResource("Curve_wd7ay")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
 layout_mode = 2
 offset_top = 29.0
 offset_right = 268.0
