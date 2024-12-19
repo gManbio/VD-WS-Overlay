@@ -264,6 +264,11 @@ func reset_leaderboard():
 	score_board = {}
 	new_score = true
 	team_order = []
+	
+	# this section is new to the reset might cause issues
+	last_message = {}
+	score_dict = {}
+	
 	if team_mode:
 		for child in $Control/ScoreContainer.get_children():
 			$Control/ScoreContainer.remove_child(child)
