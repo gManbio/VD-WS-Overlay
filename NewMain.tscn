@@ -262,10 +262,16 @@ alignment = 1
 visible = false
 layout_mode = 0
 offset_left = 255.0
-offset_top = 642.0
+offset_top = 675.0
 offset_right = 392.0
-offset_bottom = 673.0
+offset_bottom = 706.0
 text = "Point Mode"
+
+[node name="HSeparator2" type="HSeparator" parent="Control"]
+offset_left = 5.0
+offset_top = 652.0
+offset_right = 423.0
+offset_bottom = 668.0
 
 [node name="HSeparator" type="HSeparator" parent="Control"]
 layout_mode = 0
