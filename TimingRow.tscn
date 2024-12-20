@@ -148,11 +148,22 @@ color_offset_curve = SubResource("Curve_fgek7")
 alpha_curve = SubResource("Curve_wd7ay")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-visible = false
 layout_mode = 2
 offset_top = 29.0
 offset_right = 268.0
 offset_bottom = 33.0
 theme = SubResource("Theme_sgklj")
-value = 42.08
+value = 66.0
 show_percentage = false
+
+[node name="Lap 2 Wittness" type="VSeparator" parent="."]
+offset_left = 175.0
+offset_top = 25.0
+offset_right = 180.0
+offset_bottom = 37.0
+
+[node name="Lap 1 Wittness" type="VSeparator" parent="."]
+offset_left = 89.0
+offset_top = 25.0
+offset_right = 94.0
+offset_bottom = 37.0

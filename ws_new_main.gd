@@ -54,10 +54,6 @@ func _process(delta):
 				if state == WebSocketPeer.STATE_CLOSED:
 					_handle_websocket_closed()
 
-#func _on_data_received():
-	#var data= ws.getpacket()
-	
-
 
 func _handle_websocket_messages():
 	while ws.get_available_packet_count() > 0:
@@ -96,6 +92,12 @@ func _process_message(pilotdata):
 			_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
 
 
+func check_max_gates(gate):
+	if gate > gate_count:
+		gate_count = gate
+	
+
+
 func _on_timer_timeout():
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		ws.send_text("heartbeat")
@@ -110,6 +112,7 @@ func update_pilot_data(new_data, pilotname):
 				if new_data["gate"] != pilot["data"]["gate"]:
 					var lap = str(new_data["lap"])
 					var gate = str(new_data["gate"])
+					check_max_gates(int(gate))
 					var lap_gate_key = lap+gate
 					pilot["gate_dict"][lap_gate_key] = float(new_data["time"])
 					pilot["gate_key"] = lap_gate_key
@@ -167,13 +170,22 @@ func make_leaderboard():
 			current_pos.set_pilot_name(pilot["name"], color)
 			current_pos.set_lap(pilot["data"]["lap"])
 			current_pos.set_gate(pilot["data"]["gate"])
-			
+			current_pos.set_hex_color(hex_color)
+			var lap_mod = 0
 			if single_lap_display:  # adjusts the lap progress bar
 				current_pos.set_progress_range(0, gate_count)
-				current_pos.set_progress(len(pilot["gate_dict"].keys()) % gate_count, color)
+				current_pos.set_progress(int(pilot["data"]["gate"]) % gate_count, color)
+				# current_pos.set_progress(len(pilot["gate_dict"].keys()) % gate_count, color)
 			else:
 				current_pos.set_progress_range(0, gate_count * race_laps)
-				current_pos.set_progress(len(pilot["gate_dict"].keys()), color)
+				if int(pilot["data"]["lap"]) == 3:
+					lap_mod = gate_count * 2
+				elif int(pilot["data"]["lap"]) == 2:
+					lap_mod = gate_count
+				else:
+					lap_mod = 0
+				current_pos.set_progress(int(pilot["data"]["gate"]) + lap_mod, color)
+				
 			
 			if index != 0:   # Calculate deltas if pilots are not in first place.
 				if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
@@ -291,11 +303,13 @@ func _on_Barmode_toggle_pressed(toggled_on):
 		if $Control/TimingContainer.get_child_count() > 0:
 			for child in $Control/TimingContainer.get_children():
 				child.set_progress_range(0, gate_count)
+				child.toggle_wittness(false)
 	else:
 		single_lap_display = false
 		if $Control/TimingContainer.get_child_count() > 0:
 			for child in $Control/TimingContainer.get_children():
 				child.set_progress_range(0, gate_count * race_laps)
+				child.toggle_wittness(true)
 
 
 func _on_TeamvsTeam_toggle_pressed(toggled_on):
@@ -341,7 +355,8 @@ func _on_copy_to_clipboard_button_pressed():
 		for child in $Control/TimingContainer.get_children():
 			var pilot_name = child.get_pilot_name()
 			var time = child.get_pilot_time()
-			copy_string += "%s\t%s\n" % [pilot_name, time]
+			var color_out = "#" + child.get_hex_color()
+			copy_string += "%s\t%s\t%s\n" % [pilot_name, time, color_out]
 		DisplayServer.clipboard_set(copy_string)
 		$Control/CopyToClipboardButton.text = "Copied!"
 	else:

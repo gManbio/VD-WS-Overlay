@@ -12,7 +12,14 @@ extends Control
 
 @onready var burst = $"Timing Box/Orb"
 
+@onready var lap1_wittness = $"Lap 1 Wittness"
+
+@onready var lap2_wittness = $"Lap 2 Wittness"
+
 var bursted = false
+
+var color_out = "#"
+
 
 func _ready():
 	pass
@@ -45,6 +52,16 @@ func set_progress_range(min, max):
 	progress_bar.max_value = max
 
 
+func toggle_wittness(is_on):
+	if is_on:
+		lap1_wittness.visible = true
+		lap2_wittness.visible = true
+	else:
+		lap1_wittness.visible = false
+		lap2_wittness.visible = false
+		
+
+
 func trigger_burst():
 	if bursted:
 		return
@@ -59,6 +76,14 @@ func get_pilot_name():
 
 func get_pilot_time():
 	return delta.text
+
+
+func get_hex_color():
+	return color_out
+
+
+func set_hex_color(hex_color):
+	color_out = hex_color
 
 
 func reset():
