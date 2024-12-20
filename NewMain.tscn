@@ -89,9 +89,9 @@ grow_vertical = 2
 custom_minimum_size = Vector2(200, 0)
 layout_direction = 2
 layout_mode = 2
-offset_left = 60.0
+offset_left = 62.0
 offset_top = 12.0
-offset_right = 328.0
+offset_right = 330.0
 offset_bottom = 37.0
 alignment = 2
 
