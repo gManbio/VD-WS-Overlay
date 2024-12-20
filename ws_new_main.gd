@@ -30,6 +30,7 @@ var race_laps = 3
 
 var FPS = 60
 
+
 func _ready():
 	Engine.max_fps = FPS
 	
@@ -39,6 +40,7 @@ func _ready():
 	
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
+
 
 func _process(delta):
 	if ip_complete:
@@ -95,7 +97,7 @@ func _process_message(pilotdata):
 func check_max_gates(gate):
 	if gate > gate_count:
 		gate_count = gate
-	
+		$"Control/Gate Count".text = str(gate_count)
 
 
 func _on_timer_timeout():
@@ -127,6 +129,7 @@ func update_pilot_data(new_data, pilotname):
 			var gd = {lap_gate_key: float(new_data["time"])}
 			pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
 		
+
 
 func sort_pilots():
 	pilots.sort_custom(func(a, b):
@@ -270,22 +273,31 @@ func make_scoreboard():
 
 func reset_leaderboard():
 	unbursted = true
+	
 	for child in $Control/TimingContainer.get_children():
 		$Control/TimingContainer.remove_child(child)
 		child.queue_free()
+	
 	pilots = []
 	score_board = {}
 	new_score = true
 	team_order = []
-	
 	# this section is new to the reset might cause issues
 	last_message = {}
 	score_dict = {}
+	reset_gate_count()
 	
 	if team_mode:
 		for child in $Control/ScoreContainer.get_children():
 			$Control/ScoreContainer.remove_child(child)
 			child.queue_free()
+
+
+func reset_gate_count():
+	if int($"Control/Gate Count".text) < 1:
+		gate_count = 4
+	else:
+		gate_count = int($"Control/Gate Count".text)
 
 
 func _on_Button_pressed():
@@ -294,7 +306,7 @@ func _on_Button_pressed():
 	ws.connect_to_url(url)
 	print("Attempting to connect to WebSocket server at " + url)
 	ip_complete = true
-	gate_count = int($"Control/Gate Count".text)
+	reset_gate_count()
 
 
 func _on_Barmode_toggle_pressed(toggled_on):
