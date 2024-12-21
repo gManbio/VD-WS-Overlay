@@ -1,25 +1,6 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dwvsgrp45xty2"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dwvsgrp45xty2"]
 
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="1_7tjap"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlhf1"]
-bg_color = Color(0.666667, 0.666667, 0.666667, 1)
-border_width_left = 2
-border_width_top = 4
-corner_radius_top_left = 18
-corner_radius_top_right = 11
-corner_radius_bottom_right = 21
-corner_radius_bottom_left = 8
-shadow_color = Color(1, 0.733333, 0.972549, 0.6)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ter70"]
-corner_radius_top_left = 18
-corner_radius_top_right = 11
-corner_radius_bottom_right = 21
-corner_radius_bottom_left = 8
-shadow_color = Color(1, 0.733333, 0.972549, 0.6)
-
 [resource]
-Button/styles/hover = SubResource("StyleBoxFlat_vlhf1")
 Button/styles/normal = ExtResource("1_7tjap")
-Button/styles/pressed = SubResource("StyleBoxFlat_ter70")
