@@ -380,5 +380,10 @@ func _on_text_renamer_timeout():
 	$Control/CopyToClipboardButton.text = "Copy Result"
 
 
+func _on_menu_button_pressed():
+	ws.close()
+	get_tree().change_scene_to_file("res://Menu.tscn")
+
+
 func _on_polling_timer_timeout():
 	ws.poll()

@@ -133,7 +133,7 @@ func update_sector():
 		var best_lap = false
 		var starting_gate = 1
 		if gate_dict.has(starting_gate):
-			print(gate_dict[starting_gate])
+			# print(gate_dict[starting_gate])
 			if gate == sector_1_start:
 				var split = "err"
 				if gate_dict.has(starting_gate):
@@ -151,7 +151,7 @@ func update_sector():
 		update_lap_history(best_lap)
 
 func update_lap_history(best_lap):
-	print(best_lap)
+	# print(best_lap)
 	var recent_update = lap_log[-1]
 	var gate = recent_update[2]
 	var lap = recent_update[1]
@@ -167,7 +167,7 @@ func update_lap_history(best_lap):
 	elif lap == 3:
 		current_lap_row = lap_row_3
 	
-	print(current_lap_row)
+	# print(current_lap_row)
 	
 	if gate_dict.has(starting_gate):
 		if gate == sector_1_start:
@@ -243,7 +243,7 @@ func apply_sectors():
 	sector_1_start = int($"Control/HBoxContainer/Sector Input 1".text)
 	sector_2_start = int($"Control/HBoxContainer/Sector Input 2".text)
 	sector_3_start = int($"Control/HBoxContainer/Sector Input 3".text)
-	print(sector_1_start, sector_2_start, sector_3_start)
+	# print(sector_1_start, sector_2_start, sector_3_start)
 
 
 func reset():
@@ -271,6 +271,10 @@ func full_reset():
 	lap_row_3.reset()
 	lap_row_3.set_row_name("Lap 3")
 
+
+func _on_menu_button_pressed():
+	ws.close()
+	get_tree().change_scene_to_file("res://Menu.tscn")
 
 
 func _on_polling_timer_timeout():

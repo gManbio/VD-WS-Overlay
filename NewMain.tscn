@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=22 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
@@ -61,6 +61,9 @@ point_count = 3
 [sub_resource type="Curve" id="Curve_wyopy"]
 _data = [Vector2(0, 1), 0.0, -0.0557579, 0, 0, Vector2(0.567935, 0.763636), -0.966465, -0.966465, 0, 0, Vector2(1, 0), -0.0743434, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Theme" id="Theme_rt1a0"]
+Button/styles/normal = ExtResource("4_q4i2i")
 
 [node name="Node" type="Node"]
 script = ExtResource("1_hy1wg")
@@ -296,22 +299,31 @@ offset_bottom = 488.0
 
 [node name="CopyToClipboardButton" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 23.0
-offset_top = 825.0
-offset_right = 124.0
-offset_bottom = 856.0
+offset_left = 154.0
+offset_top = 674.0
+offset_right = 255.0
+offset_bottom = 705.0
 focus_mode = 0
 theme = ExtResource("4_rdpxc")
 text = "Copy Result"
 
 [node name="Reset Pilots" type="Button" parent="Control"]
-offset_left = 158.0
-offset_top = 825.0
-offset_right = 216.0
-offset_bottom = 857.0
+offset_left = 153.0
+offset_top = 824.0
+offset_right = 211.0
+offset_bottom = 856.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Reset"
+
+[node name="menu" type="Button" parent="Control"]
+offset_left = 29.0
+offset_top = 824.0
+offset_right = 87.0
+offset_bottom = 856.0
+focus_mode = 0
+theme = SubResource("Theme_rt1a0")
+text = "Menu"
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
@@ -331,6 +343,7 @@ wait_time = 0.25
 [connection signal="toggled" from="Control/Pointmode" to="." method="_on_pointmode_toggled"]
 [connection signal="pressed" from="Control/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
 [connection signal="pressed" from="Control/Reset Pilots" to="." method="reset_leaderboard"]
+[connection signal="pressed" from="Control/menu" to="." method="_on_menu_button_pressed"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]
