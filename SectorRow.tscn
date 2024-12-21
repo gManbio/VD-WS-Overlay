@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://wrcbtcwy03i8"]
+
+[ext_resource type="Script" path="res://sectorRow.gd" id="1_uj1rn"]
+[ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_jbmh4"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(276.325, 25.86)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 304.0
+offset_bottom = 29.0
+script = ExtResource("1_uj1rn")
+
+[node name="Timing Box" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 26.395)
+layout_direction = 2
+layout_mode = 2
+offset_right = 268.0
+offset_bottom = 25.0
+alignment = 2
+
+[node name="Name" type="Label" parent="Timing Box"]
+clip_contents = true
+custom_minimum_size = Vector2(64.725, 25)
+layout_mode = 2
+theme = ExtResource("2_jbmh4")
+text = "---"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VSeparator" type="VSeparator" parent="Timing Box"]
+layout_mode = 2
+
+[node name="s1" type="Label" parent="Timing Box"]
+clip_contents = true
+custom_minimum_size = Vector2(42, 25)
+layout_mode = 2
+theme = ExtResource("2_jbmh4")
+text = "---"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Timing Box"]
+layout_mode = 2
+
+[node name="s2" type="Label" parent="Timing Box"]
+clip_contents = true
+custom_minimum_size = Vector2(42, 25)
+layout_mode = 2
+theme = ExtResource("2_jbmh4")
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="VSeparator3" type="VSeparator" parent="Timing Box"]
+layout_mode = 2
+
+[node name="s3" type="Label" parent="Timing Box"]
+clip_contents = true
+custom_minimum_size = Vector2(42, 25)
+layout_mode = 2
+theme = ExtResource("2_jbmh4")
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="VSeparator4" type="VSeparator" parent="Timing Box"]
+layout_mode = 2
+
+[node name="Total" type="Label" parent="Timing Box"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
+layout_mode = 2
+theme = ExtResource("2_jbmh4")
+text = "---"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1

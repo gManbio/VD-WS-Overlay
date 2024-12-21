@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://dmu0q0b0jwa"]
 
-[ext_resource type="Script" path="res://ws_new.gd" id="1_scix4"]
+[ext_resource type="Script" path="res://nemesis_mode.gd" id="1_scix4"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="2_7yoce"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_uwe2s"]
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_l8i8u"]

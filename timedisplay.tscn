@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://hpqbf31xe3pm"]
 
-[ext_resource type="Script" path="res://ws_new.gd" id="1_sscni"]
+[ext_resource type="Script" path="res://nemesis_mode.gd" id="1_sscni"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_sscni")

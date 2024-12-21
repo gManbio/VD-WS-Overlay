@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="VRL_Websocket"
-run/main_scene="res://NewMain.tscn"
+run/main_scene="res://Menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://WS-icon.png"
 config/windows_native_icon="res://WS-icon.ico"
@@ -20,6 +20,7 @@ config/windows_native_icon="res://WS-icon.ico"
 
 window/size/viewport_width=400
 window/size/viewport_height=900
+window/size/resizable=false
 window/vsync/vsync_mode=0
 
 [input]
@@ -53,3 +54,7 @@ ui_down={
 [physics]
 
 common/physics_ticks_per_second=5
+
+[rendering]
+
+renderer/size/resizable=false

@@ -141,7 +141,7 @@ custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
 theme = ExtResource("2_640ds")
 text = "Delta"
-clip_text = true
+horizontal_alignment = 1
 text_overrun_behavior = 1
 
 [node name="TimingContainer" type="VBoxContainer" parent="Control"]

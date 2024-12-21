@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqpu3g4r24a88"]
+
+[ext_resource type="Script" path="res://Menu.gd" id="1_fweiq"]
+[ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="2_ddete"]
+
+[sub_resource type="Theme" id="Theme_onv5d"]
+Button/styles/normal = ExtResource("2_ddete")
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fweiq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_right = 0.199982
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 136.0
+offset_right = 350.0
+offset_bottom = 376.0
+
+[node name="Multi_Mode_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = SubResource("Theme_onv5d")
+text = "Multiplayer"
+
+[node name="Nem_Mode_Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = SubResource("Theme_onv5d")
+text = "Nemesis Sector Timing"
+
+[node name="Button Action" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="pressed" from="VBoxContainer/Multi_Mode_button" to="." method="_on_multi_mode_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Nem_Mode_Button" to="." method="_on_nem_mode_button_pressed"]

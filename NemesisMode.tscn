@@ -1,0 +1,289 @@
+[gd_scene load_steps=10 format=3 uid="uid://bd746tlbaason"]
+
+[ext_resource type="Script" path="res://nemesis_mode.gd" id="1_yjsf6"]
+[ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_1g53q"]
+[ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_r220b"]
+[ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_ewqf6"]
+[ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="5_bhduw"]
+[ext_resource type="PackedScene" uid="uid://wrcbtcwy03i8" path="res://SectorRow.tscn" id="6_25jia"]
+
+[sub_resource type="Theme" id="Theme_0k7v3"]
+LineEdit/styles/normal = ExtResource("3_r220b")
+
+[sub_resource type="Theme" id="Theme_svhul"]
+Button/styles/normal = ExtResource("5_bhduw")
+
+[sub_resource type="Theme" id="Theme_h14tp"]
+LineEdit/styles/normal = ExtResource("3_r220b")
+
+[node name="Node" type="Node"]
+script = ExtResource("1_yjsf6")
+metadata/_edit_horizontal_guides_ = [530.0, 561.0, 604.0]
+metadata/_edit_vertical_guides_ = [357.0]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_right = 0.199987
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 0.339
+anchor_bottom = 1.0
+offset_right = 0.471985
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hbox-Titles" type="HBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(200, 0)
+layout_direction = 2
+layout_mode = 2
+offset_left = 46.0
+offset_top = 76.0
+offset_right = 354.0
+offset_bottom = 101.0
+alignment = 2
+
+[node name="Sector" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(64.725, 25)
+layout_mode = 2
+theme = ExtResource("2_1g53q")
+text = "
+"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="S1" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(42, 25)
+layout_mode = 2
+theme = ExtResource("2_1g53q")
+text = "1
+"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="S2" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(42, 25)
+layout_mode = 2
+theme = ExtResource("2_1g53q")
+text = "2
+"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="VSeparator3" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="S3" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(42, 25)
+layout_mode = 2
+theme = ExtResource("2_1g53q")
+text = "3
+"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="VSeparator4" type="VSeparator" parent="Control/Hbox-Titles"]
+layout_mode = 2
+
+[node name="Total" type="Label" parent="Control/Hbox-Titles"]
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
+layout_mode = 2
+theme = ExtResource("2_1g53q")
+text = "Total"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="TimingContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 169.0
+offset_right = 360.0
+offset_bottom = 490.0
+
+[node name="lap_row_1" parent="Control/TimingContainer" instance=ExtResource("6_25jia")]
+layout_mode = 2
+
+[node name="lap_row_2" parent="Control/TimingContainer" instance=ExtResource("6_25jia")]
+layout_mode = 2
+
+[node name="lap_row_3" parent="Control/TimingContainer" instance=ExtResource("6_25jia")]
+layout_mode = 2
+
+[node name="IP_Input" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 16.0
+offset_top = 722.0
+offset_right = 138.0
+offset_bottom = 753.0
+theme = SubResource("Theme_0k7v3")
+placeholder_text = "Local IP"
+
+[node name="Connect Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 27.0
+offset_top = 766.0
+offset_right = 103.0
+offset_bottom = 809.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme = ExtResource("4_ewqf6")
+text = "Connect"
+
+[node name="DC Button" type="Button" parent="Control"]
+layout_mode = 1
+offset_left = 151.0
+offset_top = 767.0
+offset_right = 250.0
+offset_bottom = 807.0
+focus_mode = 0
+theme = SubResource("Theme_svhul")
+text = "Disconnect"
+
+[node name="Gate Count" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 158.0
+offset_top = 722.0
+offset_right = 251.0
+offset_bottom = 753.0
+theme = SubResource("Theme_h14tp")
+placeholder_text = "Gate Count"
+
+[node name="CheckButton" type="CheckButton" parent="Control"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 831.0
+offset_right = 357.0
+offset_bottom = 862.0
+text = "green"
+
+[node name="HSeparator2" type="HSeparator" parent="Control"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 652.0
+offset_right = 423.0
+offset_bottom = 668.0
+
+[node name="HSeparator" type="HSeparator" parent="Control"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 590.0
+offset_right = 422.0
+offset_bottom = 606.0
+
+[node name="VSeparator2" type="VSeparator" parent="Control"]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 74.0
+offset_right = 358.0
+offset_bottom = 475.0
+
+[node name="VSeparator" type="VSeparator" parent="Control"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 78.0
+offset_right = 52.0
+offset_bottom = 488.0
+
+[node name="CopyToClipboardButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 825.0
+offset_right = 124.0
+offset_bottom = 856.0
+focus_mode = 0
+theme = ExtResource("4_ewqf6")
+text = "Copy Result"
+
+[node name="Apply Sector" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 179.0
+offset_top = 565.0
+offset_right = 237.0
+offset_bottom = 597.0
+focus_mode = 0
+theme = SubResource("Theme_svhul")
+text = "Apply"
+
+[node name="Reset Pilots" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 825.0
+offset_right = 216.0
+offset_bottom = 857.0
+focus_mode = 0
+theme = SubResource("Theme_svhul")
+text = "Reset"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 532.0
+offset_right = 301.0
+offset_bottom = 558.0
+
+[node name="Sector Input 1" type="LineEdit" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "S1"
+alignment = 1
+
+[node name="Sector Input 2" type="LineEdit" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "S2"
+alignment = 1
+
+[node name="Sector Input 3" type="LineEdit" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "S3"
+alignment = 1
+
+[node name="Sector_timing" parent="Control" instance=ExtResource("6_25jia")]
+offset_left = 56.0
+offset_top = 126.0
+offset_right = 351.0
+offset_bottom = 155.0
+
+[node name="HeartbeatTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="Text Renamer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="Polling Timer" type="Timer" parent="."]
+wait_time = 0.25
+
+[connection signal="pressed" from="Control/Connect Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Control/DC Button" to="." method="_on_disconnect_pressed"]
+[connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Control/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
+[connection signal="pressed" from="Control/Apply Sector" to="." method="apply_sectors"]
+[connection signal="pressed" from="Control/Reset Pilots" to="." method="full_reset"]
+[connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
+[connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]
