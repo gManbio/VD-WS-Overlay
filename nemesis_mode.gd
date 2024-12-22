@@ -30,9 +30,11 @@ var sector_3_start = 30
 
 var FPS = 60
 
-
 var blap_color = Color(0, 1, 0)
 var lap_color = Color(1, 1, 1)
+
+var single_lap_best = 10000.0
+
 
 func _ready():
 	Engine.max_fps = FPS
@@ -84,11 +86,10 @@ func _handle_websocket_closed():
 
 
 func _process_message(pilotdata):
-	# print(pilotdata)
+	print(pilotdata)
 	if "racestatus" in pilotdata:
 		if pilotdata["racestatus"]["raceAction"] == "start":
 			reset()
-			# reset_leaderboard()
 	elif "racetype" in pilotdata:
 		if pilotdata["racetype"]["raceLaps"] != str(race_laps):
 			race_laps = int(pilotdata["racetype"]["raceLaps"])
@@ -99,7 +100,6 @@ func _process_message(pilotdata):
 func _on_timer_timeout():
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		ws.send_text("heartbeat")
-
 
 
 func update_times(racedata):
@@ -145,10 +145,12 @@ func update_sector():
 			elif gate == sector_3_start:
 				var split = time - gate_dict[sector_2_start] 
 				best_lap = timing_row.set_s3(split)
+				timing_row.set_total()
 		else:
 			print("starting gate missing from dictionary")
 		
 		update_lap_history(best_lap)
+
 
 func update_lap_history(best_lap):
 	# print(best_lap)
@@ -194,14 +196,18 @@ func update_lap_history(best_lap):
 		elif gate == sector_3_start:
 			var split = time - gate_dict[sector_2_start] 
 			current_lap_row.set_s3(split)
+			var total_time = current_lap_row.set_total()
+			if total_time < single_lap_best:
+				single_lap_best = total_time
+				for each in $Control/TimingContainer.get_children():
+					each.total.modulate = lap_color
+				current_lap_row.total.modulate = blap_color
 			if best_lap:
 				for each in $Control/TimingContainer.get_children():
 					each.s3.modulate = lap_color
 				current_lap_row.s3.modulate = blap_color
-		
-		
 
-		
+
 func _on_Button_pressed():
 	var ip_input = $Control/IP_Input.text
 	var url = "ws://%s:60003/velocidrone" % ip_input

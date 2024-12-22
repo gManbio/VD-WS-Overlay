@@ -16,6 +16,7 @@ var s2_time
 
 var s3_time
 
+
 func _ready():
 	pass
 
@@ -34,10 +35,9 @@ func set_s1(sector_time):
 		s1_time = sector_time
 		return true
 	return false
-	
-	
-func set_s2(sector_time):
 
+
+func set_s2(sector_time):
 	if s2.text == "---":
 		s2.text = str(sector_time)
 		s2_time = sector_time
@@ -47,30 +47,25 @@ func set_s2(sector_time):
 		s2_time = sector_time
 		return true
 	return false
-	
-	
+
+
 func set_s3(sector_time):
 	
 	if s3.text == "---":
 		s3.text = str(sector_time)
 		s3_time = sector_time
-		set_total()
 		return true
 	elif sector_time < float(s3.text):
 		s3.text = str(sector_time)
 		s3_time = sector_time
-		set_total()
 		return true
-	set_total()
 	return false
-	
-	
 
 
 func set_total():
 	var total_time = s1_time + s2_time + s3_time
 	total.text = str(total_time)
-	
+	return total_time
 
 
 func reset():
