@@ -1,41 +1,34 @@
 extends Node
 
-var ws = WebSocketPeer.new()
-
-var pilots = []
-
-var lap_log = []
-
-var gate_dict = {}
-
+# Scene Element Objects
 @onready var bg_rect = $ColorRect
 @onready var connect_button = $"Control/Connect Button"
-@onready var first_place_celebration = $Control/Orb
 @onready var timing_row = $"Control/Sector Timing"
 @onready var lap_container = $Control/TimingContainer
 
 var lap_row = preload("res://SectorRow.tscn")
+var ws = WebSocketPeer.new()
 
+# Global Variables
+var lap_log = []
+var gate_dict = {}
 var ip_complete = false
 var connected = false
 var last_message = {}
 
-
-#fall back default values
+# Fall back default values
 var gate_count = 30
-var race_laps = 3
 var sector_1_start = 10
 var sector_2_start = 20
 var sector_3_start = 30
-
-var FPS = 60
-
-var blap_color = Color(0, 1, 0)
-var lap_color = Color(1, 1, 1)
-
 var single_lap_best = 10000.0
 
+# Constants
+var FPS = 60
+var BLAP_COLOR = Color(0, 1, 0)
+var LAP_COLOR = Color(1, 1, 1)
 
+# Setup scene
 func _ready():
 	Engine.max_fps = FPS
 	
@@ -47,9 +40,8 @@ func _ready():
 	$"Polling Timer".start()
 
 
-func _process(delta):
+func _process(delta): # Check websocket status
 	if ip_complete:
-		#ws.poll()
 		var state = ws.get_ready_state()
 		match state:
 			WebSocketPeer.STATE_OPEN:
@@ -62,7 +54,7 @@ func _process(delta):
 					_handle_websocket_closed()
 
 
-func _handle_websocket_messages():
+func _handle_websocket_messages(): # Convert websocket into json and discard repeat messages
 	while ws.get_available_packet_count() > 0:
 		var packet = ws.get_packet()
 		var packet_string = packet.get_string_from_utf8()
@@ -82,33 +74,24 @@ func _handle_websocket_closed():
 	# Reset connected state and UI
 	connected = false
 	connect_button.text = "Connect"
-	# reset_leaderboard()
 
 
 func _process_message(pilotdata):
-	# print(pilotdata)
 	if "racestatus" in pilotdata:
 		if pilotdata["racestatus"]["raceAction"] == "start":
 			reset()
-	elif "racetype" in pilotdata:
-		if pilotdata["racetype"]["raceLaps"] != str(race_laps):
-			race_laps = int(pilotdata["racetype"]["raceLaps"])
 	elif "racedata" in pilotdata:
 		update_times(pilotdata["racedata"])
 
 
-func _on_timer_timeout():
+func _on_timer_timeout(): # Heartbeat timer to keep websocket open
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		ws.send_text("heartbeat")
 
 
-func update_times(racedata):
-	#var hex_color = pilot["data"]["colour"]
-	#var color = Color("#" + hex_color)
-	#timing_row.set_pilot_name(pilot["name"], color)
+func update_times(racedata): # Parse racedata into list to add to lap log
 	var pilot_name = racedata.keys()[0]
-	#timing_row.set_pilot_name(pilot_name, racedata[pilot_name]["data"]["colour"])
-	
+
 	var current_gate = int(racedata[pilot_name]["gate"])
 	
 	var current_lap = int(racedata[pilot_name]["lap"])
@@ -120,10 +103,9 @@ func update_times(racedata):
 	gate_dict[current_gate] = current_time
 	
 	update_sector()
-	
 
 
-func update_sector():
+func update_sector(): # update best splits and pass if they are best
 	if len(lap_log) != 0:
 		var recent_update = lap_log[-1]
 	
@@ -132,6 +114,7 @@ func update_sector():
 		var time = recent_update[3]
 		var best_lap = false
 		var starting_gate = 1
+		
 		if gate_dict.has(starting_gate):
 			# print(gate_dict[starting_gate])
 			if gate == sector_1_start:
@@ -152,29 +135,19 @@ func update_sector():
 		update_lap_history(best_lap)
 
 
-func update_lap_history(best_lap):
-	# print(best_lap)
+func update_lap_history(best_lap): # Update the current lap splits and highlight them if best of session
 	var recent_update = lap_log[-1]
 	var gate = recent_update[2]
 	var lap = recent_update[1]
 	var time = recent_update[3]
 	var starting_gate = 1
-	# var current_lap_row = lap_row_1
-	
+
 	while $Control/TimingContainer.get_child_count() < lap:
 		add_lap_row()
-	#if $Control/TimingContainer.get_child_count() < lap:
-	#	add_lap_row()
-	
+
 	var current_lap_row = $Control/TimingContainer.get_children()[lap - 1]
 	
 	current_lap_row.set_row_name("Lap " + str(lap))
-	#if lap == 1:
-	#	current_lap_row = lap_row_1
-	#elif lap == 2:
-	#	current_lap_row = lap_row_2
-	#elif lap == 3:
-	#	current_lap_row = lap_row_3
 	
 	if gate_dict.has(starting_gate):
 		if gate == sector_1_start:
@@ -184,15 +157,15 @@ func update_lap_history(best_lap):
 				current_lap_row.set_s1(split)
 				if best_lap:
 					for each in $Control/TimingContainer.get_children():
-						each.s1.modulate = lap_color
-					current_lap_row.s1.modulate = blap_color
+						each.s1.modulate = LAP_COLOR
+					current_lap_row.s1.modulate = BLAP_COLOR
 		elif gate == sector_2_start:
 			var split = time - gate_dict[sector_1_start] 
 			current_lap_row.set_s2(split)
 			if best_lap:
 				for each in $Control/TimingContainer.get_children():
-					each.s2.modulate = lap_color
-				current_lap_row.s2.modulate = blap_color
+					each.s2.modulate = LAP_COLOR
+				current_lap_row.s2.modulate = BLAP_COLOR
 		elif gate == sector_3_start:
 			var split = time - gate_dict[sector_2_start] 
 			current_lap_row.set_s3(split)
@@ -200,15 +173,15 @@ func update_lap_history(best_lap):
 			if total_time < single_lap_best:
 				single_lap_best = total_time
 				for each in $Control/TimingContainer.get_children():
-					each.total.modulate = lap_color
-				current_lap_row.total.modulate = blap_color
+					each.total.modulate = LAP_COLOR
+				current_lap_row.total.modulate = BLAP_COLOR
 			if best_lap:
 				for each in $Control/TimingContainer.get_children():
-					each.s3.modulate = lap_color
-				current_lap_row.s3.modulate = blap_color
+					each.s3.modulate = LAP_COLOR
+				current_lap_row.s3.modulate = BLAP_COLOR
 
 
-func _on_Button_pressed():
+func _on_Button_pressed(): # connect the websocker
 	var ip_input = $Control/IP_Input.text
 	var url = "ws://%s:60003/velocidrone" % ip_input
 	ws.connect_to_url(url)
@@ -216,14 +189,14 @@ func _on_Button_pressed():
 	ip_complete = true
 
 
-func _on_check_button_toggled(toggled_on):
+func _on_check_button_toggled(toggled_on): # background color change
 	if toggled_on:
 		bg_rect.color = Color(Color.GREEN)
 	else:
 		bg_rect.color = Color(Color.BLACK)
 
 
-func _on_disconnect_pressed():
+func _on_disconnect_pressed(): # close websocket connection
 	ws.close()
 	ws = WebSocketPeer.new()
 	
@@ -235,7 +208,6 @@ func _on_disconnect_pressed():
 func add_lap_row():  #instantiates the lap row scene into the timing container
 	var lap_row_instance = lap_row.instantiate()
 	lap_container.add_child(lap_row_instance)
-
 
 
 func _on_copy_to_clipboard_button_pressed():
@@ -251,19 +223,17 @@ func _on_copy_to_clipboard_button_pressed():
 	$"Text Renamer".start()
 
 
-func _on_text_renamer_timeout():
+func _on_text_renamer_timeout(): # reset button text
 	$Control/CopyToClipboardButton.text = "Copy Result"
 
 
-func apply_sectors():
+func apply_sectors(): # handle the input from the split settings
 	sector_1_start = int($"Control/HBoxContainer/Sector Input 1".text)
 	sector_2_start = int($"Control/HBoxContainer/Sector Input 2".text)
 	sector_3_start = int($"Control/HBoxContainer/Sector Input 3".text)
-	# print(sector_1_start, sector_2_start, sector_3_start)
 
 
-func reset():
-	# timing_row.reset()
+func reset(): # clean up global variables and remove all lap rows
 	lap_log = []
 	gate_dict = {}
 	timing_row.set_row_name("Best")
@@ -272,7 +242,7 @@ func reset():
 		child.queue_free()
 
 
-func full_reset():
+func full_reset(): # Same as reset but reset the best splits also.
 	timing_row.reset()
 	lap_log = []
 	gate_dict = {}
@@ -282,10 +252,10 @@ func full_reset():
 		child.queue_free()
 
 
-func _on_menu_button_pressed():
+func _on_menu_button_pressed(): # back to main menu
 	ws.close()
 	get_tree().change_scene_to_file("res://Menu.tscn")
 
 
-func _on_polling_timer_timeout():
+func _on_polling_timer_timeout(): # handle polling
 	ws.poll()
