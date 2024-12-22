@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqpu3g4r24a88"]
+[gd_scene load_steps=5 format=3 uid="uid://cqpu3g4r24a88"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_fweiq"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="2_ddete"]
+[ext_resource type="Texture2D" uid="uid://45br8ilsaq2" path="res://FlyYouFools.bold512.png" id="3_bqh3y"]
 
 [sub_resource type="Theme" id="Theme_onv5d"]
 Button/styles/normal = ExtResource("2_ddete")
@@ -48,6 +49,11 @@ text = "Nemesis Sector Timing"
 [node name="Button Action" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
+
+[node name="FlyYouFools_bold512" type="Sprite2D" parent="."]
+position = Vector2(206, 426)
+scale = Vector2(0.582031, 0.582031)
+texture = ExtResource("3_bqh3y")
 
 [connection signal="pressed" from="VBoxContainer/Multi_Mode_button" to="." method="_on_multi_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Nem_Mode_Button" to="." method="_on_nem_mode_button_pressed"]
