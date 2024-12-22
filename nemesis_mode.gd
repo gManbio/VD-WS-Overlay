@@ -11,10 +11,10 @@ var gate_dict = {}
 @onready var bg_rect = $ColorRect
 @onready var connect_button = $"Control/Connect Button"
 @onready var first_place_celebration = $Control/Orb
-@onready var timing_row = $Control/Sector_timing
-@onready var lap_row_1 = $Control/TimingContainer/lap_row_1
-@onready var lap_row_2 = $Control/TimingContainer/lap_row_2
-@onready var lap_row_3 = $Control/TimingContainer/lap_row_3
+@onready var timing_row = $"Control/Sector Timing"
+@onready var lap_container = $Control/TimingContainer
+
+var lap_row = preload("res://SectorRow.tscn")
 
 var ip_complete = false
 var connected = false
@@ -157,17 +157,22 @@ func update_lap_history(best_lap):
 	var lap = recent_update[1]
 	var time = recent_update[3]
 	var starting_gate = 1
+	# var current_lap_row = lap_row_1
 	
-	var current_lap_row = lap_row_1
+	while $Control/TimingContainer.get_child_count() < lap:
+		add_lap_row()
+	#if $Control/TimingContainer.get_child_count() < lap:
+	#	add_lap_row()
 	
-	if lap == 1:
-		current_lap_row = lap_row_1
-	elif lap == 2:
-		current_lap_row = lap_row_2
-	elif lap == 3:
-		current_lap_row = lap_row_3
+	var current_lap_row = $Control/TimingContainer.get_children()[lap - 1]
 	
-	# print(current_lap_row)
+	current_lap_row.set_row_name("Lap " + str(lap))
+	#if lap == 1:
+	#	current_lap_row = lap_row_1
+	#elif lap == 2:
+	#	current_lap_row = lap_row_2
+	#elif lap == 3:
+	#	current_lap_row = lap_row_3
 	
 	if gate_dict.has(starting_gate):
 		if gate == sector_1_start:
@@ -176,27 +181,26 @@ func update_lap_history(best_lap):
 				split = time - gate_dict[starting_gate] 
 				current_lap_row.set_s1(split)
 				if best_lap:
-					lap_row_1.s1.modulate = lap_color
-					lap_row_2.s1.modulate = lap_color
-					lap_row_3.s1.modulate = lap_color
+					for each in $Control/TimingContainer.get_children():
+						each.s1.modulate = lap_color
 					current_lap_row.s1.modulate = blap_color
 		elif gate == sector_2_start:
 			var split = time - gate_dict[sector_1_start] 
 			current_lap_row.set_s2(split)
 			if best_lap:
-				lap_row_1.s2.modulate = lap_color
-				lap_row_2.s2.modulate = lap_color
-				lap_row_3.s2.modulate = lap_color
+				for each in $Control/TimingContainer.get_children():
+					each.s2.modulate = lap_color
 				current_lap_row.s2.modulate = blap_color
 		elif gate == sector_3_start:
 			var split = time - gate_dict[sector_2_start] 
 			current_lap_row.set_s3(split)
 			if best_lap:
-				lap_row_1.s3.modulate = lap_color
-				lap_row_2.s3.modulate = lap_color
-				lap_row_3.s3.modulate = lap_color
+				for each in $Control/TimingContainer.get_children():
+					each.s3.modulate = lap_color
 				current_lap_row.s3.modulate = blap_color
 		
+		
+
 		
 func _on_Button_pressed():
 	var ip_input = $Control/IP_Input.text
@@ -220,6 +224,12 @@ func _on_disconnect_pressed():
 	ip_complete = false
 	connected = false
 	connect_button.text = "Connect"
+
+
+func add_lap_row():  #instantiates the lap row scene into the timing container
+	var lap_row_instance = lap_row.instantiate()
+	lap_container.add_child(lap_row_instance)
+
 
 
 func _on_copy_to_clipboard_button_pressed():
@@ -251,12 +261,9 @@ func reset():
 	lap_log = []
 	gate_dict = {}
 	timing_row.set_row_name("Best")
-	lap_row_1.reset()
-	lap_row_1.set_row_name("Lap 1")
-	lap_row_2.reset()
-	lap_row_2.set_row_name("Lap 2")
-	lap_row_3.reset()
-	lap_row_3.set_row_name("Lap 3")
+	for child in $Control/TimingContainer.get_children():
+		$Control/TimingContainer.remove_child(child)
+		child.queue_free()
 
 
 func full_reset():
@@ -264,12 +271,9 @@ func full_reset():
 	lap_log = []
 	gate_dict = {}
 	timing_row.set_row_name("Best")
-	lap_row_1.reset()
-	lap_row_1.set_row_name("Lap 1")
-	lap_row_2.reset()
-	lap_row_2.set_row_name("Lap 2")
-	lap_row_3.reset()
-	lap_row_3.set_row_name("Lap 3")
+	for child in $Control/TimingContainer.get_children():
+		$Control/TimingContainer.remove_child(child)
+		child.queue_free()
 
 
 func _on_menu_button_pressed():
