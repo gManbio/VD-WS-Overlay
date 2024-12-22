@@ -271,6 +271,7 @@ offset_bottom = 706.0
 text = "Point Mode"
 
 [node name="HSeparator2" type="HSeparator" parent="Control"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 652.0
 offset_right = 423.0
@@ -308,6 +309,7 @@ theme = ExtResource("4_rdpxc")
 text = "Copy Result"
 
 [node name="Reset Pilots" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 153.0
 offset_top = 824.0
 offset_right = 211.0
@@ -317,6 +319,7 @@ theme = SubResource("Theme_svhul")
 text = "Reset"
 
 [node name="menu" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 29.0
 offset_top = 824.0
 offset_right = 87.0

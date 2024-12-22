@@ -86,7 +86,7 @@ func _handle_websocket_closed():
 
 
 func _process_message(pilotdata):
-	print(pilotdata)
+	# print(pilotdata)
 	if "racestatus" in pilotdata:
 		if pilotdata["racestatus"]["raceAction"] == "start":
 			reset()
