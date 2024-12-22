@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqpu3g4r24a88"]
+[gd_scene load_steps=6 format=3 uid="uid://cqpu3g4r24a88"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_fweiq"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="2_ddete"]
 [ext_resource type="Texture2D" uid="uid://45br8ilsaq2" path="res://FlyYouFools.bold512.png" id="3_bqh3y"]
+[ext_resource type="Script" path="res://UpdateCheck.gd" id="4_7csw0"]
 
 [sub_resource type="Theme" id="Theme_onv5d"]
 Button/styles/normal = ExtResource("2_ddete")
@@ -55,5 +56,19 @@ position = Vector2(206, 205)
 scale = Vector2(0.582031, 0.582031)
 texture = ExtResource("3_bqh3y")
 
+[node name="Version_notice" type="Label" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 874.0
+offset_right = 390.0
+offset_bottom = 897.0
+horizontal_alignment = 1
+
+[node name="UpdateScript" type="Node" parent="."]
+script = ExtResource("4_7csw0")
+
+[node name="VersionCheckRequest" type="HTTPRequest" parent="UpdateScript"]
+
 [connection signal="pressed" from="VBoxContainer/Multi_Mode_button" to="." method="_on_multi_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Nem_Mode_Button" to="." method="_on_nem_mode_button_pressed"]
+[connection signal="request_completed" from="UpdateScript/VersionCheckRequest" to="UpdateScript" method="_on_VersionCheckRequest_request_completed"]
