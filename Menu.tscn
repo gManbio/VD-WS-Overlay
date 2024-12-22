@@ -29,10 +29,10 @@ color = Color(0, 0, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 55.0
-offset_top = 136.0
-offset_right = 350.0
-offset_bottom = 376.0
+offset_left = 54.0
+offset_top = 406.0
+offset_right = 349.0
+offset_bottom = 646.0
 
 [node name="Multi_Mode_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -51,7 +51,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="FlyYouFools_bold512" type="Sprite2D" parent="."]
-position = Vector2(206, 426)
+position = Vector2(206, 205)
 scale = Vector2(0.582031, 0.582031)
 texture = ExtResource("3_bqh3y")
 
