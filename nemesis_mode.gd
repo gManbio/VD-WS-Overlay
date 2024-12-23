@@ -24,7 +24,7 @@ var sector_3_start = 30
 var single_lap_best = 10000.0
 
 # Constants
-var FPS = 60
+var FPS = 10
 var BLAP_COLOR = Color(0, 1, 0)
 var LAP_COLOR = Color(1, 1, 1)
 

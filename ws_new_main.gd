@@ -26,7 +26,7 @@ var score_box = preload("res://ScoreBox.tscn")
 var gate_count = 30
 var race_laps = 3
 
-var FPS = 60
+var FPS = 10
 
 
 func _ready():
