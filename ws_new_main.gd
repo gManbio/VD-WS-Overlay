@@ -6,12 +6,10 @@ var pilots = []
 
 @onready var bg_rect = $ColorRect
 @onready var connect_button = $"Control/Connect Button"
-@onready var first_place_celebration = $Control/Orb
 
 var ip_complete = false
 var connected = false
 var single_lap_display = false
-var unbursted = true
 var last_message = {}
 var team_mode = false
 var score_board = {}
@@ -203,10 +201,9 @@ func make_leaderboard():
 			else:    # Sets the delta for first player
 				if pilot["data"]["finished"] == "True":
 					current_pos.set_delta(pilot["data"]["time"])
-					if unbursted:
-						first_place_celebration.burst()
+					if pilot["data"]["position"] == "1":
 						current_pos.trigger_burst()
-						unbursted = false
+						current_pos.first_place_burst()
 				else:
 					current_pos.set_delta(0.000)
 			index += 1
@@ -272,8 +269,6 @@ func make_scoreboard():
 
 
 func reset_leaderboard():
-	unbursted = true
-	
 	for child in $Control/TimingContainer.get_children():
 		$Control/TimingContainer.remove_child(child)
 		child.queue_free()
@@ -283,7 +278,7 @@ func reset_leaderboard():
 	new_score = true
 	team_order = []
 	# this section is new to the reset might cause issues
-	last_message = {}
+	# last_message = {}
 	score_dict = {}
 	reset_gate_count()
 	

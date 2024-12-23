@@ -10,13 +10,17 @@ extends Control
 
 @onready var progress_bar = $"ProgressBar"
 
-@onready var burst = $"Timing Box/Orb"
+@onready var burst = $"Timing Box/finish_celebration"
+
+@onready var first_burst = $"Timing Box/first_place_celebration"
 
 @onready var lap1_wittness = $"Lap 1 Wittness"
 
 @onready var lap2_wittness = $"Lap 2 Wittness"
 
 var bursted = false
+
+var first_bursted = false
 
 var color_out = "#"
 
@@ -35,6 +39,9 @@ func set_lap(lap_num):
 
 
 func set_gate(gate_num):
+	if int(gate_num) == 2:
+		bursted = false
+		first_bursted = false
 	gate.text = str(gate_num)
 
 
@@ -59,7 +66,6 @@ func toggle_wittness(is_on):
 	else:
 		lap1_wittness.visible = false
 		lap2_wittness.visible = false
-		
 
 
 func trigger_burst():
@@ -68,6 +74,14 @@ func trigger_burst():
 	else:
 		burst.burst()
 		bursted = true
+
+
+func first_place_burst():
+	if first_bursted:
+		return
+	else:
+		first_burst.burst()
+		first_bursted = true
 
 
 func get_pilot_name():

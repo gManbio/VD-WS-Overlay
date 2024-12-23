@@ -1,5 +1,5 @@
 extends Node
-const CURRENT_VERSION = "1.0.0"
+@export var CURRENT_VERSION = "1.0.0"
 const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTXpWNXOV8-QthqmQDHFVh92v5BM4h3gOVtYgIUE6Hzl449LNGrdRzws8ncynZ7bSx0rt4bqirx2dV/pub?gid=0&single=true&output=csv"
 
 @onready var version_notice = $"../Version_notice"
@@ -8,7 +8,6 @@ func _ready():
 	var request_node = $VersionCheckRequest
 	# Make a GET request to the published CSV
 	request_node.request(GOOGLE_SHEET_URL)
-	print("testing")
 
 func _on_VersionCheckRequest_request_completed(
 		result: int, 
@@ -34,13 +33,14 @@ func _on_VersionCheckRequest_request_completed(
 			# Compare versions in your own logic
 			if is_newer(remote_version, CURRENT_VERSION):
 				print("A new version is available: ", remote_version)
-				version_notice.text = "A new version is available"
+				version_notice.text = "A new version is available: V" + remote_version
 				version_notice.modulate = Color(1, 0, 0)
 			else:
 				print("You are on a dev or equal version: ", CURRENT_VERSION)
+				version_notice.text = "You are on a dev version: V" + CURRENT_VERSION
 		else:
 			print("You are on the latest version.")
-			version_notice.text = "You are on the latest version."
+			version_notice.text = "You are on the latest version: V" + CURRENT_VERSION
 	else:
 		print("Error fetching version info. Response code:", response_code)
 		version_notice.text = "Error fetching version info."
@@ -48,8 +48,6 @@ func _on_VersionCheckRequest_request_completed(
 func is_newer(remote_version: String, local_version: String) -> bool:
 	# Very naive comparison, e.g. split by "." 
 	# This logic can be replaced or expanded
-	print(remote_version)
-	print(local_version)
 	var remote_parts = remote_version.split(".")
 	var local_parts = local_version.split(".")
 
