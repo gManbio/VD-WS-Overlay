@@ -5,7 +5,7 @@ var ws = WebSocketPeer.new()
 var pilots = []
 
 @onready var bg_rect = $ColorRect
-@onready var connect_button = $"Control/Connect Button"
+@onready var connect_button = $"Control/Options/Connect Button"
 
 var ip_complete = false
 var connected = false
@@ -33,7 +33,7 @@ func _ready():
 	Engine.max_fps = FPS
 	
 	var ip_addresses = IP.get_local_addresses()
-	var ip_input = $Control/IP_Input
+	var ip_input = $Control/Options/IP_Input
 	ip_input.text = ip_addresses[-1]
 	
 	$HeartbeatTimer.start()
