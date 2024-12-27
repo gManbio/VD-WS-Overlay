@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bnjj1885aivsl"]
+[gd_scene load_steps=2 format=3 uid="uid://bnjj1885aivsl"]
+
+[ext_resource type="Script" path="res://Settings.gd" id="1_ly4o0"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,6 +11,7 @@ offset_right = 8.0
 offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ly4o0")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -23,29 +26,19 @@ color = Color(0, 0, 0, 1)
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 0
-offset_right = 428.0
+offset_right = 223.0
 offset_bottom = 881.0
-current_tab = 1
+tab_alignment = 1
 
 [node name="Preferences" type="VBoxContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="CheckButton" type="CheckButton" parent="TabContainer/Preferences"]
 layout_mode = 2
-text = "asegfafgdasf"
+text = "Always On Top"
 
 [node name="Config" type="VBoxContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
-[node name="CheckButton" type="CheckButton" parent="TabContainer/Config"]
-layout_mode = 2
-text = "asegfafgdasf"
-
-[node name="CheckButton2" type="CheckButton" parent="TabContainer/Config"]
-layout_mode = 2
-text = "asegfafgdasf"
-
-[node name="CheckButton3" type="CheckButton" parent="TabContainer/Config"]
-layout_mode = 2
-text = "asegfafgdasf"
+[connection signal="toggled" from="TabContainer/Preferences/CheckButton" to="." method="_on_check_button_toggled"]

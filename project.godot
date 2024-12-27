@@ -20,7 +20,6 @@ config/windows_native_icon="res://WS-icon.ico"
 
 window/size/viewport_width=400
 window/size/viewport_height=900
-window/size/always_on_top=true
 window/vsync/vsync_mode=0
 
 [input]
