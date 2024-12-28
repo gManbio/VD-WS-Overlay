@@ -4,7 +4,7 @@ extends Node
 @onready var bg_rect = $ColorRect
 @onready var connect_button = $"Control/Connect Button"
 @onready var timing_row = $"Control/Sector Timing"
-@onready var lap_container = $Control/TimingContainer
+@onready var lap_container = $Control/ScrollContainer/TimingContainer
 
 var lap_row = preload("res://SectorRow.tscn")
 var ws = WebSocketPeer.new()
@@ -142,10 +142,10 @@ func update_lap_history(best_lap): # Update the current lap splits and highlight
 	var time = recent_update[3]
 	var starting_gate = 1
 
-	while $Control/TimingContainer.get_child_count() < lap:
+	while lap_container.get_child_count() < lap:
 		add_lap_row()
 
-	var current_lap_row = $Control/TimingContainer.get_children()[lap - 1]
+	var current_lap_row = lap_container.get_children()[lap - 1]
 	
 	current_lap_row.set_row_name("Lap " + str(lap))
 	
@@ -156,14 +156,14 @@ func update_lap_history(best_lap): # Update the current lap splits and highlight
 				split = time - gate_dict[starting_gate] 
 				current_lap_row.set_s1(split)
 				if best_lap:
-					for each in $Control/TimingContainer.get_children():
+					for each in lap_container.get_children():
 						each.s1.modulate = LAP_COLOR
 					current_lap_row.s1.modulate = BLAP_COLOR
 		elif gate == sector_2_start:
 			var split = time - gate_dict[sector_1_start] 
 			current_lap_row.set_s2(split)
 			if best_lap:
-				for each in $Control/TimingContainer.get_children():
+				for each in lap_container.get_children():
 					each.s2.modulate = LAP_COLOR
 				current_lap_row.s2.modulate = BLAP_COLOR
 		elif gate == sector_3_start:
@@ -172,11 +172,11 @@ func update_lap_history(best_lap): # Update the current lap splits and highlight
 			var total_time = current_lap_row.set_total()
 			if total_time < single_lap_best:
 				single_lap_best = total_time
-				for each in $Control/TimingContainer.get_children():
+				for each in lap_container.get_children():
 					each.total.modulate = LAP_COLOR
 				current_lap_row.total.modulate = BLAP_COLOR
 			if best_lap:
-				for each in $Control/TimingContainer.get_children():
+				for each in lap_container.get_children():
 					each.s3.modulate = LAP_COLOR
 				current_lap_row.s3.modulate = BLAP_COLOR
 
@@ -237,8 +237,8 @@ func reset(): # clean up global variables and remove all lap rows
 	lap_log = []
 	gate_dict = {}
 	timing_row.set_row_name("Best")
-	for child in $Control/TimingContainer.get_children():
-		$Control/TimingContainer.remove_child(child)
+	for child in lap_container.get_children():
+		lap_container.remove_child(child)
 		child.queue_free()
 
 
@@ -247,8 +247,8 @@ func full_reset(): # Same as reset but reset the best splits also.
 	lap_log = []
 	gate_dict = {}
 	timing_row.set_row_name("Best")
-	for child in $Control/TimingContainer.get_children():
-		$Control/TimingContainer.remove_child(child)
+	for child in lap_container.get_children():
+		lap_container.remove_child(child)
 		child.queue_free()
 
 

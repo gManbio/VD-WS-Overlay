@@ -112,13 +112,6 @@ text = "Total"
 horizontal_alignment = 1
 text_overrun_behavior = 1
 
-[node name="TimingContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 0
-offset_left = 56.0
-offset_top = 151.0
-offset_right = 360.0
-offset_bottom = 490.0
-
 [node name="IP_Input" type="LineEdit" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
@@ -276,6 +269,23 @@ offset_left = 56.0
 offset_top = 112.0
 offset_right = 360.0
 offset_bottom = 141.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.522
+anchor_top = 0.16
+anchor_right = 2.543
+anchor_bottom = 0.534
+offset_left = -15.0296
+offset_top = -3.00002
+offset_right = 18.9689
+offset_bottom = 0.399963
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="TimingContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
+layout_mode = 2
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0

@@ -104,12 +104,16 @@ text = "Delta"
 horizontal_alignment = 1
 text_overrun_behavior = 1
 
-[node name="TimingContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 0
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+layout_mode = 2
 offset_left = 64.0
 offset_top = 68.0
-offset_right = 330.0
-offset_bottom = 389.0
+offset_right = 338.0
+offset_bottom = 470.0
+horizontal_scroll_mode = 0
+
+[node name="TimingContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
+layout_mode = 2
 
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 0

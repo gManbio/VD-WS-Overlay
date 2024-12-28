@@ -5,7 +5,7 @@ var ws = WebSocketPeer.new()
 var pilots = []
 
 @onready var bg_rect = $ColorRect
-@onready var connect_button = $"Control/Options/Connect Button"
+@onready var connect_button = $"Options/Options/Connect Button"
 
 var ip_complete = false
 var connected = false
@@ -32,9 +32,14 @@ var FPS = 10
 func _ready():
 	Engine.max_fps = FPS
 	
+	
 	var ip_addresses = IP.get_local_addresses()
 	var ip_input = $Control/Options/IP_Input
 	ip_input.text = ip_addresses[-1]
+	
+	for each in ip_addresses:
+		print(each)
+	
 	
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
@@ -147,27 +152,27 @@ func _on_new_pilot_data_received(new_data, pilotname):
 
 func add_timing_row():  #instantiates the timing row scene into the timing display
 	var timing_row_instance = timing_row.instantiate()
-	var timing_container = $Control/TimingContainer
-	$Control/TimingContainer.add_child(timing_row_instance)
+	var timing_container = $Control/ScrollContainer/TimingContainer
+	$Control/ScrollContainer/TimingContainer.add_child(timing_row_instance)
 	timing_row_instance.set_progress_range(0, gate_count * race_laps)
 
 
 func make_leaderboard():
 	var index = 0
 	# add rows to the timing display based on the number of pilots
-	if len(pilots) > $Control/TimingContainer.get_child_count():
+	if len(pilots) > $Control/ScrollContainer/TimingContainer.get_child_count():
 		for i in pilots:
 			add_timing_row()
-			if len(pilots) == $Control/TimingContainer.get_child_count():
+			if len(pilots) == $Control/ScrollContainer/TimingContainer.get_child_count():
 				break
 	# set all of the values for the timing display
-	if $Control/TimingContainer.get_child_count() > 0:
+	if $Control/ScrollContainer/TimingContainer.get_child_count() > 0:
 		for pilot in pilots:
-			if index > $Control/TimingContainer.get_child_count():
+			if index > $Control/ScrollContainer/TimingContainer.get_child_count():
 				break
 			var hex_color = pilot["data"]["colour"]
 			var color = Color("#" + hex_color)
-			var current_pos = $Control/TimingContainer.get_children()[index]
+			var current_pos = $Control/ScrollContainer/TimingContainer.get_children()[index]
 			current_pos.set_pilot_name(pilot["name"], color)
 			current_pos.set_lap(pilot["data"]["lap"])
 			current_pos.set_gate(pilot["data"]["gate"])
@@ -269,8 +274,8 @@ func make_scoreboard():
 
 
 func reset_leaderboard():
-	for child in $Control/TimingContainer.get_children():
-		$Control/TimingContainer.remove_child(child)
+	for child in $Control/ScrollContainer/TimingContainer.get_children():
+		$Control/ScrollContainer/TimingContainer.remove_child(child)
 		child.queue_free()
 	
 	pilots = []
@@ -289,14 +294,14 @@ func reset_leaderboard():
 
 
 func reset_gate_count():
-	if int($"Control/Gate Count".text) < 1:
+	if int($"Control/Options//Gate Count".text) < 1:
 		gate_count = 4
 	else:
-		gate_count = int($"Control/Gate Count".text)
+		gate_count = int($"Control/Options/Gate Count".text)
 
 
 func _on_Button_pressed():
-	var ip_input = $Control/IP_Input.text
+	var ip_input = $Control/Options/IP_Input.text
 	var url = "ws://%s:60003/velocidrone" % ip_input
 	ws.connect_to_url(url)
 	print("Attempting to connect to WebSocket server at " + url)
@@ -307,14 +312,14 @@ func _on_Button_pressed():
 func _on_Barmode_toggle_pressed(toggled_on):
 	if toggled_on:
 		single_lap_display = true
-		if $Control/TimingContainer.get_child_count() > 0:
-			for child in $Control/TimingContainer.get_children():
+		if $Control/ScrollContainer/TimingContainer.get_child_count() > 0:
+			for child in $Control/ScrollContainer/TimingContainer.get_children():
 				child.set_progress_range(0, gate_count)
 				child.toggle_wittness(false)
 	else:
 		single_lap_display = false
-		if $Control/TimingContainer.get_child_count() > 0:
-			for child in $Control/TimingContainer.get_children():
+		if $Control/ScrollContainer/TimingContainer.get_child_count() > 0:
+			for child in $Control/ScrollContainer/TimingContainer.get_children():
 				child.set_progress_range(0, gate_count * race_laps)
 				child.toggle_wittness(true)
 
@@ -324,11 +329,11 @@ func _on_TeamvsTeam_toggle_pressed(toggled_on):
 	if toggled_on:
 		team_mode = true
 		score_container.visible = true
-		$Control/Pointmode.visible = true
+		$Control/Options/Pointmode.visible = true
 	else:
 		team_mode = false
 		score_container.visible = false
-		$Control/Pointmode.visible = false
+		$Control/Options/Pointmode.visible = false
 
 
 func _on_check_button_toggled(toggled_on):
@@ -357,22 +362,22 @@ func _on_pointmode_toggled(toggled_on):
 
 
 func _on_copy_to_clipboard_button_pressed():
-	if $Control/TimingContainer.get_child_count() > 0:
+	if $Control/ScrollContainer/TimingContainer.get_child_count() > 0:
 		var copy_string = ""  # TSV header with tabs
-		for child in $Control/TimingContainer.get_children():
+		for child in $Control/ScrollContainer/TimingContainer.get_children():
 			var pilot_name = child.get_pilot_name()
 			var time = child.get_pilot_time()
 			var color_out = "#" + child.get_hex_color()
 			copy_string += "%s\t%s\t%s\n" % [pilot_name, time, color_out]
 		DisplayServer.clipboard_set(copy_string)
-		$Control/CopyToClipboardButton.text = "Copied!"
+		$Control/Options/CopyToClipboardButton.text = "Copied!"
 	else:
-		$Control/CopyToClipboardButton.text = "No Data"
+		$Control/Options/CopyToClipboardButton.text = "No Data"
 	$"Text Renamer".start()
 
 
 func _on_text_renamer_timeout():
-	$Control/CopyToClipboardButton.text = "Copy Result"
+	$Control/Options/CopyToClipboardButton.text = "Copy Result"
 
 
 func _on_menu_button_pressed():
