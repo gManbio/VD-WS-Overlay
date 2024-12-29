@@ -2,9 +2,13 @@ extends Node
 
 # Scene Element Objects
 @onready var bg_rect = $ColorRect
-@onready var connect_button = $"Control/Connect Button"
+@onready var connect_button = $"Control/Options/Connect Button"
+@onready var dc_button = $"Control/Options/DC Button"
 @onready var timing_row = $"Control/Sector Timing"
 @onready var lap_container = $Control/ScrollContainer/TimingContainer
+@onready var ip_dropdown = $Control/Options/ip_dropdown
+@onready var ip_input = $Control/Options/IP_Input
+
 
 var lap_row = preload("res://SectorRow.tscn")
 var ws = WebSocketPeer.new()
@@ -33,8 +37,14 @@ func _ready():
 	Engine.max_fps = FPS
 	
 	var ip_addresses = IP.get_local_addresses()
-	var ip_input = $Control/IP_Input
 	ip_input.text = ip_addresses[-1]
+	
+	for each in ip_addresses:
+		if len(str(each)) <= 17:
+			if str(each)[0] != "0":
+				ip_dropdown.add_item(str(each))
+
+	ip_dropdown.select(ip_dropdown.item_count - 1)
 	
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
@@ -48,6 +58,8 @@ func _process(delta): # Check websocket status
 				if !connected:
 					connect_button.text = "Connected"
 					connected = true
+					connect_button.visible = false
+					dc_button.visible = true
 				_handle_websocket_messages()
 			WebSocketPeer.STATE_CLOSING, WebSocketPeer.STATE_CLOSED:
 				if state == WebSocketPeer.STATE_CLOSED:
@@ -182,7 +194,7 @@ func update_lap_history(best_lap): # Update the current lap splits and highlight
 
 
 func _on_Button_pressed(): # connect the websocker
-	var ip_input = $Control/IP_Input.text
+	var ip_input = $Control/Options/IP_Input.text
 	var url = "ws://%s:60003/velocidrone" % ip_input
 	ws.connect_to_url(url)
 	print("Attempting to connect to WebSocket server at " + url)
@@ -203,6 +215,8 @@ func _on_disconnect_pressed(): # close websocket connection
 	ip_complete = false
 	connected = false
 	connect_button.text = "Connect"
+	dc_button.visible = false
+	connect_button.visible = true
 
 
 func add_lap_row():  #instantiates the lap row scene into the timing container
@@ -217,14 +231,14 @@ func _on_copy_to_clipboard_button_pressed():
 		for lap in lap_log:
 			copy_string += "%s\t%s\t%s\t%s\n" % [lap[0], lap[1], lap[2], lap[3]]
 		DisplayServer.clipboard_set(copy_string)
-		$Control/CopyToClipboardButton.text = "Copied!"
+		$Control/Options/CopyToClipboardButton.text = "Copied!"
 	else:
-		$Control/CopyToClipboardButton.text = "No Data"
+		$Control/Options/CopyToClipboardButton.text = "No Data"
 	$"Text Renamer".start()
 
 
 func _on_text_renamer_timeout(): # reset button text
-	$Control/CopyToClipboardButton.text = "Copy Result"
+	$Control/Options/CopyToClipboardButton.text = "Copy Result"
 
 
 func apply_sectors(): # handle the input from the split settings
@@ -259,3 +273,7 @@ func _on_menu_button_pressed(): # back to main menu
 
 func _on_polling_timer_timeout(): # handle polling
 	ws.poll()
+
+
+func _on_ip_dropdown_item_selected(index):
+	ip_input.text = ip_dropdown.get_item_text(index)

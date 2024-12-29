@@ -7,13 +7,13 @@
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="5_bhduw"]
 [ext_resource type="PackedScene" uid="uid://wrcbtcwy03i8" path="res://SectorRow.tscn" id="6_25jia"]
 
-[sub_resource type="Theme" id="Theme_0k7v3"]
-LineEdit/styles/normal = ExtResource("3_r220b")
-
 [sub_resource type="Theme" id="Theme_svhul"]
 Button/styles/normal = ExtResource("5_bhduw")
 
 [sub_resource type="Theme" id="Theme_h14tp"]
+LineEdit/styles/normal = ExtResource("3_r220b")
+
+[sub_resource type="Theme" id="Theme_0k7v3"]
 LineEdit/styles/normal = ExtResource("3_r220b")
 
 [node name="Node" type="Node"]
@@ -112,57 +112,6 @@ text = "Total"
 horizontal_alignment = 1
 text_overrun_behavior = 1
 
-[node name="IP_Input" type="LineEdit" parent="Control"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 16.0
-offset_top = 722.0
-offset_right = 138.0
-offset_bottom = 753.0
-theme = SubResource("Theme_0k7v3")
-placeholder_text = "Local IP"
-
-[node name="Connect Button" type="Button" parent="Control"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 27.0
-offset_top = 766.0
-offset_right = 103.0
-offset_bottom = 809.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 0
-theme = ExtResource("4_ewqf6")
-text = "Connect"
-
-[node name="DC Button" type="Button" parent="Control"]
-layout_mode = 1
-offset_left = 151.0
-offset_top = 767.0
-offset_right = 250.0
-offset_bottom = 807.0
-focus_mode = 0
-theme = SubResource("Theme_svhul")
-text = "Disconnect"
-
-[node name="Gate Count" type="LineEdit" parent="Control"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 158.0
-offset_top = 722.0
-offset_right = 251.0
-offset_bottom = 753.0
-theme = SubResource("Theme_h14tp")
-placeholder_text = "Gate Count"
-
-[node name="CheckButton" type="CheckButton" parent="Control"]
-layout_mode = 0
-offset_left = 264.0
-offset_top = 831.0
-offset_right = 357.0
-offset_bottom = 862.0
-text = "green"
-
 [node name="HSeparator2" type="HSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 5.0
@@ -191,16 +140,6 @@ offset_top = 78.0
 offset_right = 52.0
 offset_bottom = 488.0
 
-[node name="CopyToClipboardButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 156.0
-offset_top = 672.0
-offset_right = 257.0
-offset_bottom = 703.0
-focus_mode = 0
-theme = ExtResource("4_ewqf6")
-text = "Copy Result"
-
 [node name="Apply Sector" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 179.0
@@ -210,26 +149,6 @@ offset_bottom = 597.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Apply"
-
-[node name="menu" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 826.0
-offset_right = 87.0
-offset_bottom = 858.0
-focus_mode = 0
-theme = SubResource("Theme_svhul")
-text = "Menu"
-
-[node name="Reset Pilots" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 158.0
-offset_top = 825.0
-offset_right = 216.0
-offset_bottom = 857.0
-focus_mode = 0
-theme = SubResource("Theme_svhul")
-text = "Reset"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 0
@@ -287,6 +206,100 @@ horizontal_scroll_mode = 0
 [node name="TimingContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
 layout_mode = 2
 
+[node name="Options" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IP_Input" type="LineEdit" parent="Control/Options"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 16.0
+offset_top = 748.0
+offset_right = 138.0
+offset_bottom = 779.0
+theme = SubResource("Theme_0k7v3")
+placeholder_text = "Local IP"
+
+[node name="Connect Button" type="Button" parent="Control/Options"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 27.0
+offset_top = 786.0
+offset_right = 103.0
+offset_bottom = 829.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme = ExtResource("4_ewqf6")
+text = "Connect"
+
+[node name="DC Button" type="Button" parent="Control/Options"]
+visible = false
+layout_mode = 1
+offset_left = 19.0
+offset_top = 787.0
+offset_right = 118.0
+offset_bottom = 827.0
+focus_mode = 0
+theme = SubResource("Theme_svhul")
+text = "Disconnect"
+
+[node name="Gate Count" type="LineEdit" parent="Control/Options"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 157.0
+offset_top = 793.0
+offset_right = 250.0
+offset_bottom = 824.0
+theme = SubResource("Theme_h14tp")
+placeholder_text = "Gate Count"
+
+[node name="CheckButton" type="CheckButton" parent="Control/Options"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 831.0
+offset_right = 357.0
+offset_bottom = 862.0
+text = "green"
+
+[node name="CopyToClipboardButton" type="Button" parent="Control/Options"]
+layout_mode = 0
+offset_left = 154.0
+offset_top = 748.0
+offset_right = 262.0
+offset_bottom = 779.0
+focus_mode = 0
+theme = ExtResource("4_ewqf6")
+text = "Copy Result"
+
+[node name="menu" type="Button" parent="Control/Options"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 832.0
+offset_right = 87.0
+offset_bottom = 864.0
+focus_mode = 0
+theme = SubResource("Theme_svhul")
+text = "Menu"
+
+[node name="Reset Pilots" type="Button" parent="Control/Options"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 831.0
+offset_right = 215.0
+offset_bottom = 863.0
+focus_mode = 0
+theme = SubResource("Theme_svhul")
+text = "Reset"
+
+[node name="ip_dropdown" type="OptionButton" parent="Control/Options"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 705.0
+offset_right = 136.0
+offset_bottom = 725.0
+
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
 
@@ -297,13 +310,14 @@ one_shot = true
 [node name="Polling Timer" type="Timer" parent="."]
 wait_time = 0.25
 
-[connection signal="pressed" from="Control/Connect Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="Control/DC Button" to="." method="_on_disconnect_pressed"]
-[connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="pressed" from="Control/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
 [connection signal="pressed" from="Control/Apply Sector" to="." method="apply_sectors"]
-[connection signal="pressed" from="Control/menu" to="." method="_on_menu_button_pressed"]
-[connection signal="pressed" from="Control/Reset Pilots" to="." method="full_reset"]
+[connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_disconnect_pressed"]
+[connection signal="toggled" from="Control/Options/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="Control/Options/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
+[connection signal="pressed" from="Control/Options/menu" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="full_reset"]
+[connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]

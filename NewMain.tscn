@@ -162,9 +162,9 @@ offset_bottom = -0.43206
 layout_mode = 1
 anchors_preset = -1
 offset_left = 16.0
-offset_top = 722.0
+offset_top = 743.0
 offset_right = 138.0
-offset_bottom = 753.0
+offset_bottom = 774.0
 theme = SubResource("Theme_0k7v3")
 placeholder_text = "Local IP"
 
@@ -172,9 +172,9 @@ placeholder_text = "Local IP"
 layout_mode = 1
 anchors_preset = -1
 offset_left = 27.0
-offset_top = 766.0
+offset_top = 778.0
 offset_right = 103.0
-offset_bottom = 809.0
+offset_bottom = 821.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
@@ -182,11 +182,12 @@ theme = ExtResource("4_rdpxc")
 text = "Connect"
 
 [node name="DC Button" type="Button" parent="Control/Options"]
+visible = false
 layout_mode = 1
-offset_left = 151.0
-offset_top = 767.0
-offset_right = 250.0
-offset_bottom = 807.0
+offset_left = 26.0
+offset_top = 779.0
+offset_right = 125.0
+offset_bottom = 819.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Disconnect"
@@ -194,19 +195,19 @@ text = "Disconnect"
 [node name="Gate Count" type="LineEdit" parent="Control/Options"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 158.0
-offset_top = 722.0
-offset_right = 251.0
-offset_bottom = 753.0
+offset_left = 154.0
+offset_top = 786.0
+offset_right = 247.0
+offset_bottom = 817.0
 theme = SubResource("Theme_h14tp")
 placeholder_text = "Gate Count"
 
 [node name="CheckButton" type="CheckButton" parent="Control/Options"]
 layout_mode = 0
-offset_left = 299.0
-offset_top = 733.0
-offset_right = 392.0
-offset_bottom = 764.0
+offset_left = 300.0
+offset_top = 737.0
+offset_right = 393.0
+offset_bottom = 768.0
 text = "green"
 
 [node name="CheckButton2" type="CheckButton" parent="Control/Options"]
@@ -228,9 +229,9 @@ text = "Team vs Team"
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
 layout_mode = 0
 offset_left = 153.0
-offset_top = 824.0
+offset_top = 827.0
 offset_right = 211.0
-offset_bottom = 856.0
+offset_bottom = 859.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Reset"
@@ -238,19 +239,19 @@ text = "Reset"
 [node name="menu" type="Button" parent="Control/Options"]
 layout_mode = 0
 offset_left = 29.0
-offset_top = 824.0
+offset_top = 827.0
 offset_right = 87.0
-offset_bottom = 856.0
+offset_bottom = 859.0
 focus_mode = 0
 theme = SubResource("Theme_rt1a0")
 text = "Menu"
 
 [node name="CopyToClipboardButton" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 154.0
-offset_top = 674.0
-offset_right = 255.0
-offset_bottom = 705.0
+offset_left = 152.0
+offset_top = 747.0
+offset_right = 258.0
+offset_bottom = 774.0
 focus_mode = 0
 theme = ExtResource("4_rdpxc")
 text = "Copy Result"
@@ -258,11 +259,18 @@ text = "Copy Result"
 [node name="Pointmode" type="CheckButton" parent="Control/Options"]
 visible = false
 layout_mode = 0
-offset_left = 255.0
-offset_top = 675.0
-offset_right = 392.0
-offset_bottom = 706.0
+offset_left = 256.0
+offset_top = 703.0
+offset_right = 393.0
+offset_bottom = 734.0
 text = "Point Mode"
+
+[node name="ip_dropdown" type="OptionButton" parent="Control/Options"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 706.0
+offset_right = 137.0
+offset_bottom = 726.0
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
@@ -283,6 +291,7 @@ wait_time = 0.25
 [connection signal="pressed" from="Control/Options/menu" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Control/Options/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
 [connection signal="toggled" from="Control/Options/Pointmode" to="." method="_on_pointmode_toggled"]
+[connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]
