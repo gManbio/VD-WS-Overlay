@@ -10,16 +10,15 @@
 [sub_resource type="Theme" id="Theme_svhul"]
 Button/styles/normal = ExtResource("5_bhduw")
 
-[sub_resource type="Theme" id="Theme_h14tp"]
+[sub_resource type="Theme" id="Theme_0k7v3"]
 LineEdit/styles/normal = ExtResource("3_r220b")
 
-[sub_resource type="Theme" id="Theme_0k7v3"]
+[sub_resource type="Theme" id="Theme_h14tp"]
 LineEdit/styles/normal = ExtResource("3_r220b")
 
 [node name="Node" type="Node"]
 script = ExtResource("1_yjsf6")
-metadata/_edit_horizontal_guides_ = [530.0, 561.0, 604.0]
-metadata/_edit_vertical_guides_ = [357.0]
+metadata/_edit_vertical_guides_ = [1130.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = -1
@@ -114,17 +113,17 @@ text_overrun_behavior = 1
 
 [node name="HSeparator2" type="HSeparator" parent="Control"]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 652.0
-offset_right = 423.0
-offset_bottom = 668.0
+offset_left = -3.0
+offset_top = 650.0
+offset_right = 440.0
+offset_bottom = 666.0
 
 [node name="HSeparator" type="HSeparator" parent="Control"]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 590.0
-offset_right = 422.0
-offset_bottom = 606.0
+offset_left = -5.0
+offset_top = 523.0
+offset_right = 436.0
+offset_bottom = 539.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control"]
 layout_mode = 0
@@ -142,46 +141,13 @@ offset_bottom = 488.0
 
 [node name="Apply Sector" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 179.0
-offset_top = 565.0
-offset_right = 237.0
-offset_bottom = 597.0
+offset_left = 264.0
+offset_top = 582.0
+offset_right = 322.0
+offset_bottom = 614.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Apply"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
-layout_mode = 0
-offset_left = 116.0
-offset_top = 532.0
-offset_right = 301.0
-offset_bottom = 558.0
-
-[node name="Sector Input 1" type="LineEdit" parent="Control/HBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_h14tp")
-placeholder_text = "S1"
-alignment = 1
-
-[node name="Sector Input 2" type="LineEdit" parent="Control/HBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_h14tp")
-placeholder_text = "S2"
-alignment = 1
-
-[node name="Sector Input 3" type="LineEdit" parent="Control/HBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_h14tp")
-placeholder_text = "S3"
-alignment = 1
-
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 141.0
-offset_top = 506.0
-offset_right = 276.0
-offset_bottom = 529.0
-text = "Sector End Gates:"
 
 [node name="Sector Timing" parent="Control" instance=ExtResource("6_25jia")]
 offset_left = 56.0
@@ -299,6 +265,66 @@ offset_left = 14.0
 offset_top = 705.0
 offset_right = 136.0
 offset_bottom = 725.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 533.0
+offset_right = 242.0
+offset_bottom = 586.0
+
+[node name="End Gate Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Sector End Gates:"
+
+[node name="Sector_end_gates" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Sector Input 1" type="LineEdit" parent="Control/VBoxContainer/Sector_end_gates"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "S1"
+alignment = 1
+
+[node name="Sector Input 2" type="LineEdit" parent="Control/VBoxContainer/Sector_end_gates"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "S2"
+alignment = 1
+
+[node name="Sector Input 3" type="LineEdit" parent="Control/VBoxContainer/Sector_end_gates"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "S3"
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Target Time Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Target Times: (optional)"
+
+[node name="Target_Times" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="s1_time" type="LineEdit" parent="Control/VBoxContainer/Target_Times"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "T1"
+alignment = 1
+
+[node name="s2_time" type="LineEdit" parent="Control/VBoxContainer/Target_Times"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "T2"
+alignment = 1
+
+[node name="s3_time" type="LineEdit" parent="Control/VBoxContainer/Target_Times"]
+layout_mode = 2
+theme = SubResource("Theme_h14tp")
+placeholder_text = "T3"
+alignment = 1
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0

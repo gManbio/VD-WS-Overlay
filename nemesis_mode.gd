@@ -36,16 +36,25 @@ var LAP_COLOR = Color(1, 1, 1)
 func _ready():
 	Engine.max_fps = FPS
 	
+	var mac = false
+	
 	var ip_addresses = IP.get_local_addresses()
 	ip_input.text = ip_addresses[-1]
+	
+	if OS.get_name() == "macOS":
+		mac = true
 	
 	for each in ip_addresses:
 		if len(str(each)) <= 17:
 			if str(each)[0] != "0":
 				ip_dropdown.add_item(str(each))
-
-	ip_dropdown.select(ip_dropdown.item_count - 1)
-	
+	if mac:
+		ip_dropdown.select(ip_dropdown.item_count - 2)
+		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
+	else:
+		ip_input.text = ip_addresses[-1]
+		ip_dropdown.select(ip_dropdown.item_count - 1)
+		
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
 
@@ -242,11 +251,14 @@ func _on_text_renamer_timeout(): # reset button text
 
 
 func apply_sectors(): # handle the input from the split settings
-	sector_1_start = int($"Control/HBoxContainer/Sector Input 1".text)
-	sector_2_start = int($"Control/HBoxContainer/Sector Input 2".text)
-	sector_3_start = int($"Control/HBoxContainer/Sector Input 3".text)
-
-
+	sector_1_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 1".text)
+	sector_2_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 2".text)
+	sector_3_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 3".text)
+	timing_row.set_s1(float($Control/VBoxContainer/Target_Times/s1_time.text))
+	timing_row.set_s2(float($Control/VBoxContainer/Target_Times/s2_time.text))
+	timing_row.set_s3(float($Control/VBoxContainer/Target_Times/s3_time.text))
+	timing_row.set_total()
+	
 func reset(): # clean up global variables and remove all lap rows
 	lap_log = []
 	gate_dict = {}
