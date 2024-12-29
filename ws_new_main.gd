@@ -10,6 +10,7 @@ var pilots = []
 @onready var time_container = $Control/ScrollContainer/TimingContainer
 @onready var ip_dropdown = $Control/Options/ip_dropdown
 @onready var ip_input = $Control/Options/IP_Input
+@onready var score_container = $Control/ScoreContainer
 
 var ip_complete = false
 var connected = false
@@ -35,17 +36,23 @@ var FPS = 10
 
 func _ready():
 	Engine.max_fps = FPS
+	var mac = false
 	
 	var ip_addresses = IP.get_local_addresses()
 	
-	ip_input.text = ip_addresses[-1]
+	if OS.get_name() == "macOS":
+		mac = true
 	
 	for each in ip_addresses:
 		if len(str(each)) <= 17:
 			if str(each)[0] != "0":
 				ip_dropdown.add_item(str(each))
-	ip_dropdown.select(ip_dropdown.item_count - 1)
-	
+	if mac:
+		ip_dropdown.select(ip_dropdown.item_count - 2)
+		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
+	else:
+		ip_input.text = ip_addresses[-1]
+		ip_dropdown.select(ip_dropdown.item_count - 1)
 	
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
@@ -108,7 +115,7 @@ func _process_message(pilotdata):
 func check_max_gates(gate):
 	if gate > gate_count:
 		gate_count = gate
-		$"Control/Gate Count".text = str(gate_count)
+		$"Control/Options/Gate Count".text = str(gate_count)
 
 
 func _on_timer_timeout():
@@ -240,17 +247,16 @@ func team_scores():
 
 func add_score_box():  #instantiates the timing row scene into the timing display
 	var score_box_instance = score_box.instantiate()
-	var score_container = $Control/ScoreContainer
-	$Control/ScoreContainer.add_child(score_box_instance)
+	score_container.add_child(score_box_instance)
 
 
 func make_scoreboard():
 	team_scores()
 	var scores = score_dict
-	if len(scores.keys()) > $Control/ScoreContainer.get_child_count():
+	if len(scores.keys()) > score_container.get_child_count():
 		for i in scores.keys():
 			add_score_box()
-			if len(scores.keys()) == $Control/ScoreContainer.get_child_count():
+			if len(scores.keys()) == score_container.get_child_count():
 				break
 		new_score = true
 
@@ -271,12 +277,12 @@ func make_scoreboard():
 	
 	var index = 0
 	for each in team_order:
-		if $Control/ScoreContainer.get_child_count() == index:
+		if score_container.get_child_count() == index:
 			break
 		var hex_color = each
 		var color = Color("#" + hex_color)
-		$Control/ScoreContainer.get_children()[index].set_score(score_board[each])
-		$Control/ScoreContainer.get_children()[index].set_color(color)
+		score_container.get_children()[index].set_score(score_board[each])
+		score_container.get_children()[index].set_color(color)
 		index += 1
 
 
@@ -295,8 +301,8 @@ func reset_leaderboard():
 	reset_gate_count()
 	
 	if team_mode:
-		for child in $Control/ScoreContainer.get_children():
-			$Control/ScoreContainer.remove_child(child)
+		for child in score_container.get_children():
+			score_container.remove_child(child)
 			child.queue_free()
 
 
@@ -331,7 +337,6 @@ func _on_Barmode_toggle_pressed(toggled_on):
 
 
 func _on_TeamvsTeam_toggle_pressed(toggled_on):
-	var score_container = $Control/ScoreContainer
 	if toggled_on:
 		team_mode = true
 		score_container.visible = true
