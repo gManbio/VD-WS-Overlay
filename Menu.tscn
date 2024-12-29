@@ -76,6 +76,15 @@ CURRENT_VERSION = "1.1.0"
 
 [node name="VersionCheckRequest" type="HTTPRequest" parent="UpdateScript"]
 
+[node name="Update Here" type="LinkButton" parent="UpdateScript"]
+visible = false
+offset_left = 116.0
+offset_top = 841.0
+offset_right = 289.0
+offset_bottom = 881.0
+text = "Update Available Here"
+uri = "https://github.com/gManbio/VD-WS-Overlay/releases"
+
 [connection signal="pressed" from="VBoxContainer/Multi_Mode_button" to="." method="_on_multi_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Nem_Mode_Button" to="." method="_on_nem_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_button_pressed"]
