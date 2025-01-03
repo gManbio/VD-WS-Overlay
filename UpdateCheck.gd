@@ -35,6 +35,7 @@ func _on_VersionCheckRequest_request_completed(
 				print("A new version is available: ", remote_version)
 				version_notice.text = "A new version is available: V" + remote_version
 				version_notice.modulate = Color(1, 0, 0)
+				$"Update Here".visible = true
 			else:
 				print("You are on a dev or equal version: ", CURRENT_VERSION)
 				version_notice.text = "You are on a dev version: V" + CURRENT_VERSION

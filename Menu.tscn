@@ -47,6 +47,12 @@ focus_mode = 0
 theme = SubResource("Theme_onv5d")
 text = "Nemesis Sector Timing"
 
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = SubResource("Theme_onv5d")
+text = "Settings"
+
 [node name="Button Action" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
@@ -66,10 +72,20 @@ horizontal_alignment = 1
 
 [node name="UpdateScript" type="Node" parent="."]
 script = ExtResource("4_7csw0")
-CURRENT_VERSION = "1.0.1"
+CURRENT_VERSION = "1.1.0"
 
 [node name="VersionCheckRequest" type="HTTPRequest" parent="UpdateScript"]
 
+[node name="Update Here" type="LinkButton" parent="UpdateScript"]
+visible = false
+offset_left = 116.0
+offset_top = 841.0
+offset_right = 289.0
+offset_bottom = 881.0
+text = "Update Available Here"
+uri = "https://github.com/gManbio/VD-WS-Overlay/releases"
+
 [connection signal="pressed" from="VBoxContainer/Multi_Mode_button" to="." method="_on_multi_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Nem_Mode_Button" to="." method="_on_nem_mode_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_button_pressed"]
 [connection signal="request_completed" from="UpdateScript/VersionCheckRequest" to="UpdateScript" method="_on_VersionCheckRequest_request_completed"]

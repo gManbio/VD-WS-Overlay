@@ -2,9 +2,13 @@ extends Node
 
 # Scene Element Objects
 @onready var bg_rect = $ColorRect
-@onready var connect_button = $"Control/Connect Button"
+@onready var connect_button = $"Control/Options/Connect Button"
+@onready var dc_button = $"Control/Options/DC Button"
 @onready var timing_row = $"Control/Sector Timing"
-@onready var lap_container = $Control/TimingContainer
+@onready var lap_container = $Control/ScrollContainer/TimingContainer
+@onready var ip_dropdown = $Control/Options/ip_dropdown
+@onready var ip_input = $Control/Options/IP_Input
+
 
 var lap_row = preload("res://SectorRow.tscn")
 var ws = WebSocketPeer.new()
@@ -32,10 +36,25 @@ var LAP_COLOR = Color(1, 1, 1)
 func _ready():
 	Engine.max_fps = FPS
 	
+	var mac = false
+	
 	var ip_addresses = IP.get_local_addresses()
-	var ip_input = $Control/IP_Input
 	ip_input.text = ip_addresses[-1]
 	
+	if OS.get_name() == "macOS":
+		mac = true
+	
+	for each in ip_addresses:
+		if len(str(each)) <= 17:
+			if str(each)[0] != "0":
+				ip_dropdown.add_item(str(each))
+	if mac:
+		ip_dropdown.select(ip_dropdown.item_count - 2)
+		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
+	else:
+		ip_input.text = ip_addresses[-1]
+		ip_dropdown.select(ip_dropdown.item_count - 1)
+		
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
 
@@ -48,6 +67,8 @@ func _process(delta): # Check websocket status
 				if !connected:
 					connect_button.text = "Connected"
 					connected = true
+					connect_button.visible = false
+					dc_button.visible = true
 				_handle_websocket_messages()
 			WebSocketPeer.STATE_CLOSING, WebSocketPeer.STATE_CLOSED:
 				if state == WebSocketPeer.STATE_CLOSED:
@@ -142,10 +163,10 @@ func update_lap_history(best_lap): # Update the current lap splits and highlight
 	var time = recent_update[3]
 	var starting_gate = 1
 
-	while $Control/TimingContainer.get_child_count() < lap:
+	while lap_container.get_child_count() < lap:
 		add_lap_row()
 
-	var current_lap_row = $Control/TimingContainer.get_children()[lap - 1]
+	var current_lap_row = lap_container.get_children()[lap - 1]
 	
 	current_lap_row.set_row_name("Lap " + str(lap))
 	
@@ -156,14 +177,14 @@ func update_lap_history(best_lap): # Update the current lap splits and highlight
 				split = time - gate_dict[starting_gate] 
 				current_lap_row.set_s1(split)
 				if best_lap:
-					for each in $Control/TimingContainer.get_children():
+					for each in lap_container.get_children():
 						each.s1.modulate = LAP_COLOR
 					current_lap_row.s1.modulate = BLAP_COLOR
 		elif gate == sector_2_start:
 			var split = time - gate_dict[sector_1_start] 
 			current_lap_row.set_s2(split)
 			if best_lap:
-				for each in $Control/TimingContainer.get_children():
+				for each in lap_container.get_children():
 					each.s2.modulate = LAP_COLOR
 				current_lap_row.s2.modulate = BLAP_COLOR
 		elif gate == sector_3_start:
@@ -172,17 +193,17 @@ func update_lap_history(best_lap): # Update the current lap splits and highlight
 			var total_time = current_lap_row.set_total()
 			if total_time < single_lap_best:
 				single_lap_best = total_time
-				for each in $Control/TimingContainer.get_children():
+				for each in lap_container.get_children():
 					each.total.modulate = LAP_COLOR
 				current_lap_row.total.modulate = BLAP_COLOR
 			if best_lap:
-				for each in $Control/TimingContainer.get_children():
+				for each in lap_container.get_children():
 					each.s3.modulate = LAP_COLOR
 				current_lap_row.s3.modulate = BLAP_COLOR
 
 
 func _on_Button_pressed(): # connect the websocker
-	var ip_input = $Control/IP_Input.text
+	var ip_input = $Control/Options/IP_Input.text
 	var url = "ws://%s:60003/velocidrone" % ip_input
 	ws.connect_to_url(url)
 	print("Attempting to connect to WebSocket server at " + url)
@@ -203,6 +224,8 @@ func _on_disconnect_pressed(): # close websocket connection
 	ip_complete = false
 	connected = false
 	connect_button.text = "Connect"
+	dc_button.visible = false
+	connect_button.visible = true
 
 
 func add_lap_row():  #instantiates the lap row scene into the timing container
@@ -217,28 +240,31 @@ func _on_copy_to_clipboard_button_pressed():
 		for lap in lap_log:
 			copy_string += "%s\t%s\t%s\t%s\n" % [lap[0], lap[1], lap[2], lap[3]]
 		DisplayServer.clipboard_set(copy_string)
-		$Control/CopyToClipboardButton.text = "Copied!"
+		$Control/Options/CopyToClipboardButton.text = "Copied!"
 	else:
-		$Control/CopyToClipboardButton.text = "No Data"
+		$Control/Options/CopyToClipboardButton.text = "No Data"
 	$"Text Renamer".start()
 
 
 func _on_text_renamer_timeout(): # reset button text
-	$Control/CopyToClipboardButton.text = "Copy Result"
+	$Control/Options/CopyToClipboardButton.text = "Copy Result"
 
 
 func apply_sectors(): # handle the input from the split settings
-	sector_1_start = int($"Control/HBoxContainer/Sector Input 1".text)
-	sector_2_start = int($"Control/HBoxContainer/Sector Input 2".text)
-	sector_3_start = int($"Control/HBoxContainer/Sector Input 3".text)
-
-
+	sector_1_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 1".text)
+	sector_2_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 2".text)
+	sector_3_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 3".text)
+	timing_row.set_s1(float($Control/VBoxContainer/Target_Times/s1_time.text))
+	timing_row.set_s2(float($Control/VBoxContainer/Target_Times/s2_time.text))
+	timing_row.set_s3(float($Control/VBoxContainer/Target_Times/s3_time.text))
+	timing_row.set_total()
+	
 func reset(): # clean up global variables and remove all lap rows
 	lap_log = []
 	gate_dict = {}
 	timing_row.set_row_name("Best")
-	for child in $Control/TimingContainer.get_children():
-		$Control/TimingContainer.remove_child(child)
+	for child in lap_container.get_children():
+		lap_container.remove_child(child)
 		child.queue_free()
 
 
@@ -247,8 +273,8 @@ func full_reset(): # Same as reset but reset the best splits also.
 	lap_log = []
 	gate_dict = {}
 	timing_row.set_row_name("Best")
-	for child in $Control/TimingContainer.get_children():
-		$Control/TimingContainer.remove_child(child)
+	for child in lap_container.get_children():
+		lap_container.remove_child(child)
 		child.queue_free()
 
 
@@ -259,3 +285,7 @@ func _on_menu_button_pressed(): # back to main menu
 
 func _on_polling_timer_timeout(): # handle polling
 	ws.poll()
+
+
+func _on_ip_dropdown_item_selected(index):
+	ip_input.text = ip_dropdown.get_item_text(index)

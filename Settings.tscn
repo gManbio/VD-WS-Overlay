@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnjj1885aivsl"]
+
+[ext_resource type="Script" path="res://Settings.gd" id="1_ly4o0"]
+[ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="2_wc2wl"]
+
+[sub_resource type="Theme" id="Theme_lg8jh"]
+Button/styles/normal = ExtResource("2_wc2wl")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 8.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ly4o0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_right = 0.199987
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
+offset_right = 223.0
+offset_bottom = 877.0
+tab_alignment = 1
+
+[node name="Preferences" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="always_on_top" type="CheckButton" parent="TabContainer/Preferences"]
+layout_mode = 2
+text = "Always On Top"
+
+[node name="GreenBackground" type="CheckButton" parent="TabContainer/Preferences"]
+layout_mode = 2
+text = "Green Background"
+
+[node name="Config" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="menu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 13.0
+offset_right = 381.0
+offset_bottom = 45.0
+focus_mode = 0
+theme = SubResource("Theme_lg8jh")
+text = "Menu"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 113.0
+offset_right = 453.0
+offset_bottom = 303.0
+theme_override_font_sizes/font_size = 44
+text = "NOT FUNCTIONAL"
+
+[connection signal="toggled" from="TabContainer/Preferences/always_on_top" to="." method="_on_aot_button_toggled"]
+[connection signal="toggled" from="TabContainer/Preferences/GreenBackground" to="." method="_on_green_button_toggled"]
+[connection signal="pressed" from="menu" to="." method="_on_menu_button_pressed"]
