@@ -37,9 +37,13 @@ tab_alignment = 1
 [node name="Preferences" type="VBoxContainer" parent="TabContainer"]
 layout_mode = 2
 
-[node name="CheckButton" type="CheckButton" parent="TabContainer/Preferences"]
+[node name="always_on_top" type="CheckButton" parent="TabContainer/Preferences"]
 layout_mode = 2
 text = "Always On Top"
+
+[node name="GreenBackground" type="CheckButton" parent="TabContainer/Preferences"]
+layout_mode = 2
+text = "Green Background"
 
 [node name="Config" type="VBoxContainer" parent="TabContainer"]
 visible = false
@@ -55,5 +59,15 @@ focus_mode = 0
 theme = SubResource("Theme_lg8jh")
 text = "Menu"
 
-[connection signal="toggled" from="TabContainer/Preferences/CheckButton" to="." method="_on_check_button_toggled"]
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 113.0
+offset_right = 453.0
+offset_bottom = 303.0
+theme_override_font_sizes/font_size = 44
+text = "NOT FUNCTIONAL"
+
+[connection signal="toggled" from="TabContainer/Preferences/always_on_top" to="." method="_on_aot_button_toggled"]
+[connection signal="toggled" from="TabContainer/Preferences/GreenBackground" to="." method="_on_green_button_toggled"]
 [connection signal="pressed" from="menu" to="." method="_on_menu_button_pressed"]
