@@ -349,9 +349,9 @@ func _on_TeamvsTeam_toggle_pressed(toggled_on):
 
 func _on_check_button_toggled(toggled_on):
 	if toggled_on:
-		bg_rect.color = Color(Color.GREEN)
+		bg_rect.visible = false
 	else:
-		bg_rect.color = Color(Color.BLACK)
+		bg_rect.visible = true
 
 
 func _on_disconnect_pressed():

@@ -205,26 +205,26 @@ placeholder_text = "Gate Count"
 
 [node name="CheckButton" type="CheckButton" parent="Control/Options"]
 layout_mode = 0
-offset_left = 300.0
-offset_top = 737.0
-offset_right = 393.0
-offset_bottom = 768.0
-text = "green"
+offset_left = 257.0
+offset_top = 744.0
+offset_right = 401.0
+offset_bottom = 775.0
+text = "Transparent"
 
 [node name="CheckButton2" type="CheckButton" parent="Control/Options"]
 layout_mode = 0
-offset_left = 266.0
+offset_left = 274.0
 offset_top = 775.0
-offset_right = 393.0
+offset_right = 401.0
 offset_bottom = 806.0
 text = "Single Lap"
 
 [node name="CheckButton3" type="CheckButton" parent="Control/Options"]
 layout_mode = 0
-offset_left = 234.0
-offset_top = 814.0
-offset_right = 393.0
-offset_bottom = 845.0
+offset_left = 242.0
+offset_top = 834.0
+offset_right = 401.0
+offset_bottom = 865.0
 text = "Team vs Team"
 
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
@@ -260,10 +260,10 @@ text = "Copy Result"
 [node name="Pointmode" type="CheckButton" parent="Control/Options"]
 visible = false
 layout_mode = 0
-offset_left = 256.0
-offset_top = 703.0
-offset_right = 393.0
-offset_bottom = 734.0
+offset_left = 264.0
+offset_top = 806.0
+offset_right = 401.0
+offset_bottom = 837.0
 text = "Point Mode"
 
 [node name="ip_dropdown" type="OptionButton" parent="Control/Options"]
