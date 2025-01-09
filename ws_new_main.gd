@@ -31,7 +31,7 @@ var score_box = preload("res://ScoreBox.tscn")
 var gate_count = 30
 var race_laps = 3
 
-var FPS = 10
+var FPS = 60
 
 
 func _ready():
@@ -43,16 +43,17 @@ func _ready():
 	if OS.get_name() == "macOS":
 		mac = true
 	
-	for each in ip_addresses:
+	for each in ip_addresses:	
 		if len(str(each)) <= 17:
 			if str(each)[0] != "0":
-				ip_dropdown.add_item(str(each))
+				if str(each).substr(0, 3) != "169" and str(each).substr(0, 3) != "127":
+					ip_dropdown.add_item(str(each))
 	if mac:
 		ip_dropdown.select(ip_dropdown.item_count - 2)
 		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
 	else:
-		ip_input.text = ip_addresses[-1]
-		ip_dropdown.select(ip_dropdown.item_count - 1)
+		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
+		ip_dropdown.select(ip_dropdown.item_count - 2)
 	
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
@@ -73,6 +74,7 @@ func _process(delta):
 			WebSocketPeer.STATE_CLOSING, WebSocketPeer.STATE_CLOSED:
 				if state == WebSocketPeer.STATE_CLOSED:
 					_handle_websocket_closed()
+					
 
 
 func _handle_websocket_messages():
@@ -96,6 +98,7 @@ func _handle_websocket_closed():
 	connected = false
 	connect_button.text = "Connect"
 	reset_leaderboard()
+	ip_complete = false
 
 
 func _process_message(pilotdata):
@@ -404,3 +407,11 @@ func _on_polling_timer_timeout():
 func _on_ip_dropdown_item_selected(index):
 	ip_input.text = ip_dropdown.get_item_text(index)
 
+
+func _on_fps_mode_toggled(toggled_on):
+	if toggled_on:
+		FPS = 10
+		Engine.max_fps = FPS
+	else:
+		FPS = 60
+		Engine.max_fps = FPS

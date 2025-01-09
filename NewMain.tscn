@@ -273,6 +273,14 @@ offset_top = 706.0
 offset_right = 137.0
 offset_bottom = 726.0
 
+[node name="FPS_Mode" type="CheckButton" parent="Control/Options"]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 712.0
+offset_right = 400.0
+offset_bottom = 743.0
+text = "Low FPS"
+
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
 
@@ -293,6 +301,7 @@ wait_time = 0.25
 [connection signal="pressed" from="Control/Options/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
 [connection signal="toggled" from="Control/Options/Pointmode" to="." method="_on_pointmode_toggled"]
 [connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
+[connection signal="toggled" from="Control/Options/FPS_Mode" to="." method="_on_fps_mode_toggled"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]

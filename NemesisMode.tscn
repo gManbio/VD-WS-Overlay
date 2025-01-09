@@ -211,23 +211,13 @@ focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Disconnect"
 
-[node name="Gate Count" type="LineEdit" parent="Control/Options"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 157.0
-offset_top = 793.0
-offset_right = 250.0
-offset_bottom = 824.0
-theme = SubResource("Theme_h14tp")
-placeholder_text = "Gate Count"
-
 [node name="CheckButton" type="CheckButton" parent="Control/Options"]
 layout_mode = 0
-offset_left = 264.0
-offset_top = 831.0
-offset_right = 357.0
-offset_bottom = 862.0
-text = "green"
+offset_left = 245.0
+offset_top = 832.0
+offset_right = 389.0
+offset_bottom = 863.0
+text = "Transparent"
 
 [node name="CopyToClipboardButton" type="Button" parent="Control/Options"]
 layout_mode = 0
@@ -265,6 +255,13 @@ offset_left = 14.0
 offset_top = 705.0
 offset_right = 136.0
 offset_bottom = 725.0
+
+[node name="FPS_Mode" type="CheckButton" parent="Control/Options"]
+offset_left = 278.0
+offset_top = 803.0
+offset_right = 389.0
+offset_bottom = 834.0
+text = "Low FPS"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
@@ -344,6 +341,7 @@ wait_time = 0.25
 [connection signal="pressed" from="Control/Options/menu" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="full_reset"]
 [connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
+[connection signal="toggled" from="Control/Options/FPS_Mode" to="." method="_on_fps_mode_toggled"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]

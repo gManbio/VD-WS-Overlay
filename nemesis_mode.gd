@@ -28,7 +28,7 @@ var sector_3_start = 30
 var single_lap_best = 10000.0
 
 # Constants
-var FPS = 10
+var FPS = 60
 var BLAP_COLOR = Color(0, 1, 0)
 var LAP_COLOR = Color(1, 1, 1)
 
@@ -44,16 +44,18 @@ func _ready():
 	if OS.get_name() == "macOS":
 		mac = true
 	
-	for each in ip_addresses:
+	for each in ip_addresses:	
 		if len(str(each)) <= 17:
 			if str(each)[0] != "0":
-				ip_dropdown.add_item(str(each))
+				if str(each).substr(0, 3) != "169" and str(each).substr(0, 3) != "127":
+					ip_dropdown.add_item(str(each))
+					
 	if mac:
 		ip_dropdown.select(ip_dropdown.item_count - 2)
 		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
 	else:
-		ip_input.text = ip_addresses[-1]
-		ip_dropdown.select(ip_dropdown.item_count - 1)
+		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
+		ip_dropdown.select(ip_dropdown.item_count - 2)
 		
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
@@ -95,6 +97,7 @@ func _handle_websocket_closed():
 	# Reset connected state and UI
 	connected = false
 	connect_button.text = "Connect"
+	ip_complete = false
 
 
 func _process_message(pilotdata):
@@ -212,9 +215,9 @@ func _on_Button_pressed(): # connect the websocker
 
 func _on_check_button_toggled(toggled_on): # background color change
 	if toggled_on:
-		bg_rect.color = Color(Color.GREEN)
+		bg_rect.visible = false
 	else:
-		bg_rect.color = Color(Color.BLACK)
+		bg_rect.visible = true
 
 
 func _on_disconnect_pressed(): # close websocket connection
@@ -289,3 +292,13 @@ func _on_polling_timer_timeout(): # handle polling
 
 func _on_ip_dropdown_item_selected(index):
 	ip_input.text = ip_dropdown.get_item_text(index)
+
+
+func _on_fps_mode_toggled(toggled_on):
+	if toggled_on:
+		FPS = 10
+		Engine.max_fps = FPS
+	else:
+		FPS = 60
+		Engine.max_fps = FPS
+	
