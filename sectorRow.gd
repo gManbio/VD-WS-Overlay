@@ -50,7 +50,6 @@ func set_s2(sector_time):
 
 
 func set_s3(sector_time):
-	
 	if s3.text == "---":
 		s3.text = str(sector_time)
 		s3_time = sector_time

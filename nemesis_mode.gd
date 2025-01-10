@@ -257,10 +257,10 @@ func apply_sectors(): # handle the input from the split settings
 	sector_1_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 1".text)
 	sector_2_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 2".text)
 	sector_3_start = int($"Control/VBoxContainer/Sector_end_gates/Sector Input 3".text)
-	timing_row.set_s1(float($Control/VBoxContainer/Target_Times/s1_time.text))
-	timing_row.set_s2(float($Control/VBoxContainer/Target_Times/s2_time.text))
-	timing_row.set_s3(float($Control/VBoxContainer/Target_Times/s3_time.text))
-	timing_row.set_total()
+	# timing_row.set_s1($Control/VBoxContainer/Target_Times/s1_time.text)
+	# timing_row.set_s2($Control/VBoxContainer/Target_Times/s2_time.text)
+	# timing_row.set_s3($Control/VBoxContainer/Target_Times/s3_time.text)
+	# timing_row.set_total()
 	
 func reset(): # clean up global variables and remove all lap rows
 	lap_log = []

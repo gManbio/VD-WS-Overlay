@@ -53,6 +53,12 @@ focus_mode = 0
 theme = SubResource("Theme_onv5d")
 text = "Settings"
 
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = SubResource("Theme_onv5d")
+text = "Exit"
+
 [node name="Button Action" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
@@ -88,4 +94,5 @@ uri = "https://github.com/gManbio/VD-WS-Overlay/releases"
 [connection signal="pressed" from="VBoxContainer/Multi_Mode_button" to="." method="_on_multi_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Nem_Mode_Button" to="." method="_on_nem_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="request_completed" from="UpdateScript/VersionCheckRequest" to="UpdateScript" method="_on_VersionCheckRequest_request_completed"]

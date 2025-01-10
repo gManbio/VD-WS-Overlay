@@ -142,9 +142,9 @@ offset_bottom = 488.0
 [node name="Apply Sector" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 264.0
-offset_top = 582.0
+offset_top = 556.0
 offset_right = 322.0
-offset_bottom = 614.0
+offset_bottom = 588.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Apply"
@@ -257,6 +257,7 @@ offset_right = 136.0
 offset_bottom = 725.0
 
 [node name="FPS_Mode" type="CheckButton" parent="Control/Options"]
+layout_mode = 0
 offset_left = 278.0
 offset_top = 803.0
 offset_right = 389.0
@@ -299,27 +300,32 @@ alignment = 1
 layout_mode = 2
 
 [node name="Target Time Label" type="Label" parent="Control/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Target Times: (optional)"
 
 [node name="Target_Times" type="HBoxContainer" parent="Control/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="s1_time" type="LineEdit" parent="Control/VBoxContainer/Target_Times"]
 layout_mode = 2
 theme = SubResource("Theme_h14tp")
+text = "---"
 placeholder_text = "T1"
 alignment = 1
 
 [node name="s2_time" type="LineEdit" parent="Control/VBoxContainer/Target_Times"]
 layout_mode = 2
 theme = SubResource("Theme_h14tp")
+text = "---"
 placeholder_text = "T2"
 alignment = 1
 
 [node name="s3_time" type="LineEdit" parent="Control/VBoxContainer/Target_Times"]
 layout_mode = 2
 theme = SubResource("Theme_h14tp")
+text = "---"
 placeholder_text = "T3"
 alignment = 1
 
