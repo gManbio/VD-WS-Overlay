@@ -1,6 +1,6 @@
 extends Control
 
-var FPS = 10
+var FPS = 60
 
 func _ready():
 	Engine.max_fps = FPS
