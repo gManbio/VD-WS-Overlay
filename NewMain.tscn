@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=11 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
 [ext_resource type="PackedScene" uid="uid://whsu0j72038r" path="res://addons/post_processing/node/children/speed_lines.tscn" id="3_4pisg"]
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
-[ext_resource type="PackedScene" uid="uid://dhleujmx3nvox" path="res://TimingRow.tscn" id="3_vm0yg"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
 [ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_rdpxc"]
 
@@ -116,9 +115,6 @@ offset_bottom = 515.0
 horizontal_scroll_mode = 0
 
 [node name="TimingContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
-layout_mode = 2
-
-[node name="Control" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("3_vm0yg")]
 layout_mode = 2
 
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
@@ -294,6 +290,14 @@ offset_right = 400.0
 offset_bottom = 715.0
 button_pressed = true
 text = "Contender Mode"
+
+[node name="FieldGap" type="Label" parent="Control/Options"]
+visible = false
+layout_mode = 0
+offset_left = 47.0
+offset_top = 665.0
+offset_right = 108.0
+offset_bottom = 692.0
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0

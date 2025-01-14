@@ -206,11 +206,20 @@ func update_lap_history(best_lap): # Update the current lap splits and highlight
 
 
 func _on_Button_pressed(): # connect the websocker
-	var ip_input = $Control/Options/IP_Input.text
-	var url = "ws://%s:60003/velocidrone" % ip_input
-	ws.connect_to_url(url)
-	print("Attempting to connect to WebSocket server at " + url)
-	ip_complete = true
+	var url = "ws://%s:60003/velocidrone" % $Control/Options/IP_Input.text
+	var connect_status = ws.connect_to_url(url)
+	if connect_status < 1:
+		print("Attempting to connect to WebSocket server at " + url)
+		ip_complete = true
+	else:
+		print("connection failed with " + str(connect_status))
+		ws.close()
+		ws = WebSocketPeer.new()
+		ip_complete = false
+		connected = false
+		connect_button.text = "Connect"
+		dc_button.visible = false
+		connect_button.visible = true
 
 
 func _on_check_button_toggled(toggled_on): # background color change

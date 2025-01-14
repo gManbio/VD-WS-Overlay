@@ -47,6 +47,10 @@ func set_gate(gate_num):
 
 func set_delta(delta_time):
 	delta.text = str(delta_time)
+	
+	
+func get_delta():
+	return float(delta.text)
 
 
 func set_progress(prog_value, color):

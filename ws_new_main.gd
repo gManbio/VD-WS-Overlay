@@ -24,6 +24,7 @@ var team_order = []
 var score_dict = {}
 var point_mode = false
 var contender_mode = true
+var gap_delta = 0
 
 var timing_row = preload("res://TimingRow.tscn")
 
@@ -186,8 +187,10 @@ func make_leaderboard():
 				break
 	# set all of the values for the timing display
 	if time_container.get_child_count() > 0:
+		# gap_delta = 0
 		for pilot in pilots:
 			if index > time_container.get_child_count():
+				# $Control/Options/FieldGap.text = str(gap_delta)
 				break
 			var hex_color = pilot["data"]["colour"]
 			var color = Color("#" + hex_color)
@@ -221,8 +224,8 @@ func make_leaderboard():
 						current_pos.set_delta(pilot["data"]["time"])
 						current_pos.trigger_burst()
 					else:
-						current_pos.set_delta(leader_time - pilot_time)
-			
+						current_pos.set_delta(leader_time - pilot_time)			
+						# $Control/Options/FieldGap.text = str(gap_delta)
 			else:    
 				if contender_mode:
 					if hex_color == "00FF00": # highlights contender
@@ -237,6 +240,7 @@ func make_leaderboard():
 						current_pos.first_place_burst()
 				else:
 					current_pos.set_delta(0.000)
+			# gap_delta += current_pos.get_delta()
 			index += 1
 
 
@@ -326,13 +330,13 @@ func reset_gate_count():
 
 func _on_Button_pressed():
 	var url = "ws://%s:60003/velocidrone" % ip_input.text
-	var connect_status = ws.connect_to_url(url)
-	if connect_status < 1:
+	var connect_error = ws.connect_to_url(url)
+	if not connect_error:
 		print("Attempting to connect to WebSocket server at " + url)
 		ip_complete = true
 		reset_gate_count()
 	else:
-		print("connection failed with " + str(connect_status))
+		print("connection failed with " + str(connect_error))
 		ws.close()
 		ws = WebSocketPeer.new()
 		ip_complete = false
