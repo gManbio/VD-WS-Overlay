@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=12 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
+[ext_resource type="PackedScene" uid="uid://whsu0j72038r" path="res://addons/post_processing/node/children/speed_lines.tscn" id="3_4pisg"]
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
+[ext_resource type="PackedScene" uid="uid://dhleujmx3nvox" path="res://TimingRow.tscn" id="3_vm0yg"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
 [ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_rdpxc"]
 
@@ -114,6 +116,9 @@ offset_bottom = 515.0
 horizontal_scroll_mode = 0
 
 [node name="TimingContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
+layout_mode = 2
+
+[node name="Control" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("3_vm0yg")]
 layout_mode = 2
 
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
@@ -281,6 +286,15 @@ offset_right = 400.0
 offset_bottom = 743.0
 text = "Low FPS"
 
+[node name="Contendermode" type="CheckButton" parent="Control/Options"]
+layout_mode = 0
+offset_left = 222.0
+offset_top = 684.0
+offset_right = 400.0
+offset_bottom = 715.0
+button_pressed = true
+text = "Contender Mode"
+
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 10.0
 
@@ -290,6 +304,11 @@ one_shot = true
 
 [node name="Polling Timer" type="Timer" parent="."]
 wait_time = 0.25
+
+[node name="ContenderHighlighter" parent="." instance=ExtResource("3_4pisg")]
+offset = Vector2(55.63, 63.14)
+scale = Vector2(0.97, 0.48)
+transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
 
 [connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_disconnect_pressed"]
@@ -302,6 +321,7 @@ wait_time = 0.25
 [connection signal="toggled" from="Control/Options/Pointmode" to="." method="_on_pointmode_toggled"]
 [connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
 [connection signal="toggled" from="Control/Options/FPS_Mode" to="." method="_on_fps_mode_toggled"]
+[connection signal="toggled" from="Control/Options/Contendermode" to="." method="_on_contendermode_toggled"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]

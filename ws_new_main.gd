@@ -11,6 +11,7 @@ var pilots = []
 @onready var ip_dropdown = $Control/Options/ip_dropdown
 @onready var ip_input = $Control/Options/IP_Input
 @onready var score_container = $Control/ScoreContainer
+@onready var con_highlighter = $ContenderHighlighter
 
 var ip_complete = false
 var connected = false
@@ -22,6 +23,7 @@ var new_score = true
 var team_order = []
 var score_dict = {}
 var point_mode = false
+var contender_mode = true
 
 var timing_row = preload("res://TimingRow.tscn")
 
@@ -190,6 +192,7 @@ func make_leaderboard():
 			var hex_color = pilot["data"]["colour"]
 			var color = Color("#" + hex_color)
 			var current_pos = time_container.get_children()[index]
+					
 			current_pos.set_pilot_name(pilot["name"], color)
 			current_pos.set_lap(pilot["data"]["lap"])
 			current_pos.set_gate(pilot["data"]["gate"])
@@ -220,8 +223,14 @@ func make_leaderboard():
 					else:
 						current_pos.set_delta(leader_time - pilot_time)
 			
-			else:    # Sets the delta for first player
-				if pilot["data"]["finished"] == "True":
+			else:    
+				if contender_mode:
+					if hex_color == "00FF00": # highlights contender
+						con_highlighter.visible = true
+					else:
+						con_highlighter.visible = false
+				
+				if pilot["data"]["finished"] == "True":  # Sets the delta for first player
 					current_pos.set_delta(pilot["data"]["time"])
 					if pilot["data"]["position"] == "1":
 						current_pos.trigger_burst()
@@ -298,9 +307,8 @@ func reset_leaderboard():
 	score_board = {}
 	new_score = true
 	team_order = []
-	# this section is new to the reset might cause issues
-	# last_message = {}
 	score_dict = {}
+	last_message = {} # this is to prevent reset from clearing results... untested
 	reset_gate_count()
 	
 	if team_mode:
@@ -318,10 +326,20 @@ func reset_gate_count():
 
 func _on_Button_pressed():
 	var url = "ws://%s:60003/velocidrone" % ip_input.text
-	ws.connect_to_url(url)
-	print("Attempting to connect to WebSocket server at " + url)
-	ip_complete = true
-	reset_gate_count()
+	var connect_status = ws.connect_to_url(url)
+	if connect_status < 1:
+		print("Attempting to connect to WebSocket server at " + url)
+		ip_complete = true
+		reset_gate_count()
+	else:
+		print("connection failed with " + str(connect_status))
+		ws.close()
+		ws = WebSocketPeer.new()
+		ip_complete = false
+		connected = false
+		connect_button.text = "Connect"
+		dc_button.visible = false
+		connect_button.visible = true
 
 
 func _on_Barmode_toggle_pressed(toggled_on):
@@ -415,3 +433,9 @@ func _on_fps_mode_toggled(toggled_on):
 	else:
 		FPS = 60
 		Engine.max_fps = FPS
+
+
+func _on_contendermode_toggled(toggled_on):
+	contender_mode = toggled_on
+	if not toggled_on:
+		con_highlighter.visible = false
