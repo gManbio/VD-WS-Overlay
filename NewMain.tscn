@@ -292,7 +292,6 @@ button_pressed = true
 text = "Contender Mode"
 
 [node name="FieldGap" type="Label" parent="Control/Options"]
-visible = false
 layout_mode = 0
 offset_left = 47.0
 offset_top = 665.0

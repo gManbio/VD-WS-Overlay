@@ -185,9 +185,14 @@ func make_leaderboard():
 			add_timing_row()
 			if len(pilots) == time_container.get_child_count():
 				break
+	if len(pilots) > 1: # this section is for settings the gap of the field
+		var last_place = pilots[-1]["gate_dict"][pilots[-1]["gate_key"]]
+		if pilots[-1]["gate_key"] in pilots[0]["gate_dict"]:
+			var leader = pilots[0]["gate_dict"][pilots[-1]["gate_key"]]
+			gap_delta = leader - last_place
+			$Control/Options/FieldGap.text = str(gap_delta)
 	# set all of the values for the timing display
 	if time_container.get_child_count() > 0:
-		# gap_delta = 0
 		for pilot in pilots:
 			if index > time_container.get_child_count():
 				# $Control/Options/FieldGap.text = str(gap_delta)
@@ -242,7 +247,6 @@ func make_leaderboard():
 					current_pos.set_delta(0.000)
 			# gap_delta += current_pos.get_delta()
 			index += 1
-
 
 # this function is used to keep the team scores from changing order
 func initialize_scoreboard(scores):
