@@ -41,9 +41,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Always On Top"
 
-[node name="GreenBackground" type="CheckButton" parent="TabContainer/Preferences"]
+[node name="borderless_button" type="CheckButton" parent="TabContainer/Preferences"]
 layout_mode = 2
-text = "Green Background"
+text = "Borderless Window"
 
 [node name="Config" type="VBoxContainer" parent="TabContainer"]
 visible = false
@@ -69,5 +69,5 @@ theme_override_font_sizes/font_size = 44
 text = "NOT FUNCTIONAL"
 
 [connection signal="toggled" from="TabContainer/Preferences/always_on_top" to="." method="_on_aot_button_toggled"]
-[connection signal="toggled" from="TabContainer/Preferences/GreenBackground" to="." method="_on_green_button_toggled"]
+[connection signal="toggled" from="TabContainer/Preferences/borderless_button" to="." method="_on_borderless_button_toggled"]
 [connection signal="pressed" from="menu" to="." method="_on_menu_button_pressed"]
