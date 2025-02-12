@@ -22,8 +22,8 @@ var score_board = {}
 var new_score = true
 var team_order = []
 var score_dict = {}
-var point_mode = false
-var contender_mode = true
+var point_mode = true
+var contender_mode = false
 var gap_delta = 0
 
 var timing_row = preload("res://TimingRow.tscn")
@@ -34,7 +34,7 @@ var score_box = preload("res://ScoreBox.tscn")
 var gate_count = 30
 var race_laps = 3
 
-var FPS = 60
+var FPS = 10
 
 
 func _ready():
@@ -288,7 +288,9 @@ func make_scoreboard():
 		score_board[key] = 0
 		if point_mode:
 			for point in scores[key]:
-				team_total += 7 - point
+				var score_result = 7 - point
+				if score_result > 0:
+					team_total += score_result
 			score_board[key] = team_total
 		else:
 			for point in scores[key]:
@@ -436,10 +438,10 @@ func _on_ip_dropdown_item_selected(index):
 
 func _on_fps_mode_toggled(toggled_on):
 	if toggled_on:
-		FPS = 10
+		FPS = 60
 		Engine.max_fps = FPS
 	else:
-		FPS = 60
+		FPS = 10
 		Engine.max_fps = FPS
 
 

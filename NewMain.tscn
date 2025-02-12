@@ -265,6 +265,7 @@ offset_left = 264.0
 offset_top = 806.0
 offset_right = 401.0
 offset_bottom = 837.0
+button_pressed = true
 text = "Point Mode"
 
 [node name="ip_dropdown" type="OptionButton" parent="Control/Options"]
@@ -276,11 +277,11 @@ offset_bottom = 726.0
 
 [node name="FPS_Mode" type="CheckButton" parent="Control/Options"]
 layout_mode = 0
-offset_left = 289.0
+offset_left = 285.0
 offset_top = 712.0
 offset_right = 400.0
 offset_bottom = 743.0
-text = "Low FPS"
+text = "High FPS"
 
 [node name="Contendermode" type="CheckButton" parent="Control/Options"]
 layout_mode = 0
@@ -288,7 +289,6 @@ offset_left = 222.0
 offset_top = 684.0
 offset_right = 400.0
 offset_bottom = 715.0
-button_pressed = true
 text = "Contender Mode"
 
 [node name="FieldGap" type="Label" parent="Control/Options"]
@@ -309,6 +309,7 @@ one_shot = true
 wait_time = 0.25
 
 [node name="ContenderHighlighter" parent="." instance=ExtResource("3_4pisg")]
+visible = true
 offset = Vector2(55.63, 63.14)
 scale = Vector2(0.97, 0.48)
 transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
