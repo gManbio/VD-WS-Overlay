@@ -305,6 +305,7 @@ func make_scoreboard():
 		var color = Color("#" + hex_color)
 		score_container.get_children()[index].set_score(score_board[each])
 		score_container.get_children()[index].set_color(color)
+		score_container.get_children()[index].update_logo("#" + hex_color)
 		index += 1
 
 

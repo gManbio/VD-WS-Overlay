@@ -119,18 +119,18 @@ layout_mode = 2
 
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 527.0
-offset_right = 425.0
-offset_bottom = 639.0
+offset_left = -6.0
+offset_top = 512.0
+offset_right = 409.0
+offset_bottom = 624.0
 alignment = 1
 
 [node name="HSeparator2" type="HSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 652.0
+offset_top = 680.0
 offset_right = 423.0
-offset_bottom = 668.0
+offset_bottom = 696.0
 
 [node name="HSeparator" type="HSeparator" parent="Control"]
 layout_mode = 0
@@ -292,6 +292,7 @@ offset_bottom = 715.0
 text = "Contender Mode"
 
 [node name="FieldGap" type="Label" parent="Control/Options"]
+visible = false
 layout_mode = 0
 offset_left = 47.0
 offset_top = 665.0

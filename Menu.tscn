@@ -91,6 +91,12 @@ offset_bottom = 881.0
 text = "Update Available Here"
 uri = "https://github.com/gManbio/VD-WS-Overlay/releases"
 
+[node name="GridContainer" type="GridContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="pressed" from="VBoxContainer/Multi_Mode_button" to="." method="_on_multi_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Nem_Mode_Button" to="." method="_on_nem_mode_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_button_pressed"]

@@ -12,7 +12,24 @@ offset_right = 105.36
 offset_bottom = 105.0
 script = ExtResource("1_o6mr5")
 
+[node name="Logo" type="TextureRect" parent="."]
+texture_filter = 4
+custom_minimum_size = Vector2(11.785, 4.84)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.249
+anchor_top = 0.752
+anchor_right = 0.738
+anchor_bottom = 1.238
+offset_left = 0.0143585
+offset_top = 0.0399933
+offset_right = -0.0176849
+offset_bottom = 0.00999451
+expand_mode = 3
+stretch_mode = 4
+
 [node name="VSeparator2" type="VSeparator" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -21,16 +38,23 @@ grow_vertical = 2
 
 [node name="Score" type="Label" parent="."]
 custom_minimum_size = Vector2(88.77, 2.08165e-12)
-layout_mode = 0
-offset_left = 8.0
-offset_top = 6.0
-offset_right = 96.0
-offset_bottom = 109.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.077
+anchor_top = 0.057
+anchor_right = 0.927
+anchor_bottom = 1.038
+offset_left = -0.0357208
+offset_top = 0.0149994
+offset_right = -0.741722
+offset_bottom = 0.00998688
+grow_vertical = 2
 theme = ExtResource("1_bbanj")
 text = "-"
 horizontal_alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
