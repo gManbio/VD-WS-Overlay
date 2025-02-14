@@ -1,4 +1,7 @@
-[gd_resource type="Theme" format=3 uid="uid://1ioj4h2iu8ah"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://1ioj4h2iu8ah"]
+
+[ext_resource type="FontFile" uid="uid://bq5f2w3c7r6oa" path="res://ChakraPetch-Regular.ttf" id="1_7es4v"]
 
 [resource]
+default_font = ExtResource("1_7es4v")
 Label/font_sizes/font_size = 70

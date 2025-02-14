@@ -1,3 +1,6 @@
-[gd_resource type="Theme" format=3 uid="uid://khcxakqnogv3"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://khcxakqnogv3"]
+
+[ext_resource type="FontFile" uid="uid://bq5f2w3c7r6oa" path="res://ChakraPetch-Regular.ttf" id="1_c2paj"]
 
 [resource]
+default_font = ExtResource("1_c2paj")
