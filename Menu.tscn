@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://uorb6frg7q4q" path="res://Team Logos/din_black.jpg" id="3_k482a"]
 [ext_resource type="Script" path="res://UpdateCheck.gd" id="4_7csw0"]
 [ext_resource type="Texture2D" uid="uid://drc8lftvun6qj" path="res://Team Logos/mav_black.jpg" id="4_qmt8s"]
-[ext_resource type="Texture2D" uid="uid://bv6rge82bo8go" path="res://Team Logos/mgp_black.jpg" id="5_j827e"]
+[ext_resource type="Texture2D" uid="uid://clvmoj4dim54m" path="res://Team Logos/dmo_black.jpg" id="5_d1i7t"]
 [ext_resource type="Texture2D" uid="uid://krjmr4liytki" path="res://Team Logos/tbs_black.jpg" id="6_r13ol"]
 [ext_resource type="Texture2D" uid="uid://dwhab7skkp5lx" path="res://Team Logos/vd_black.jpg" id="7_wy4hb"]
 
@@ -35,11 +35,11 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="533Black" type="Sprite2D" parent="."]
-position = Vector2(205, 756)
+position = Vector2(70, 756)
 texture = ExtResource("2_dkx2u")
 
 [node name="DinBlack" type="Sprite2D" parent="."]
-position = Vector2(71, 756)
+position = Vector2(208, 756)
 texture = ExtResource("3_k482a")
 
 [node name="MavBlack" type="Sprite2D" parent="."]
@@ -47,15 +47,15 @@ position = Vector2(72, 619)
 texture = ExtResource("4_qmt8s")
 
 [node name="MgpBlack" type="Sprite2D" parent="."]
-position = Vector2(335, 755)
-texture = ExtResource("5_j827e")
+position = Vector2(336, 754)
+texture = ExtResource("5_d1i7t")
 
 [node name="TbsBlack" type="Sprite2D" parent="."]
-position = Vector2(203, 619)
+position = Vector2(340, 619)
 texture = ExtResource("6_r13ol")
 
 [node name="VdBlack" type="Sprite2D" parent="."]
-position = Vector2(334, 619)
+position = Vector2(209, 619)
 texture = ExtResource("7_wy4hb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

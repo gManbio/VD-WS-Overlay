@@ -6,7 +6,7 @@ var team_logos = {
 	"#00FF00": preload("res://Team Logos/533_black.jpg"),
 	"#406BFF": preload("res://Team Logos/din_black.jpg"),
 	"#00FFFF": preload("res://Team Logos/mav_black.jpg"),
-	"#FF0000": preload("res://Team Logos/mgp_black.jpg"),
+	"#FF0000": preload("res://Team Logos/dmo_black.jpg"),
 	"#9F42FF": preload("res://Team Logos/tbs_black.jpg"),
 	"#FFA300": preload("res://Team Logos/vd_black.jpg"),
 }
