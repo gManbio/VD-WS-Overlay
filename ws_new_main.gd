@@ -12,6 +12,9 @@ var pilots = []
 @onready var ip_input = $Control/Options/IP_Input
 @onready var score_container = $Control/ScoreContainer
 @onready var con_highlighter = $ContenderHighlighter
+@onready var pic_viewer = $SubViewport
+
+
 
 var ip_complete = false
 var connected = false
@@ -35,6 +38,7 @@ var gate_count = 30
 var race_laps = 3
 
 var FPS = 10
+
 
 
 func _ready():
@@ -105,7 +109,7 @@ func _handle_websocket_closed():
 
 
 func _process_message(pilotdata):
-	# print(pilotdata)
+	print(pilotdata)
 	if "racestatus" in pilotdata:
 		if pilotdata["racestatus"]["raceAction"] == "start":
 			pilots = []
