@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbney7r3cokgw"]
+
+[ext_resource type="Texture2D" uid="uid://45br8ilsaq2" path="res://FlyYouFools.bold512.png" id="1_vntyy"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.413
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 5.0
+offset_bottom = 5.29999
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FlyYouFools_bold512" type="Sprite2D" parent="."]
+position = Vector2(200, 183.5)
+scale = Vector2(0.765625, 0.724609)
+texture = ExtResource("1_vntyy")
