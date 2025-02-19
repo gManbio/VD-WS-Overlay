@@ -41,7 +41,7 @@ var director_dict = {}
 var fpv_dict = {}
 var follow_dict = {}
 
-var FPS = 60
+var FPS = 5
 
 
 func _ready():
@@ -66,12 +66,12 @@ func _ready():
 		ip_dropdown.select(ip_dropdown.item_count - 2)
 	
 	$HeartbeatTimer.start()
-	# $"Polling Timer".start()
+	$"Polling Timer".start()
 
 
 func _process(delta):
 	if ip_complete:
-		ws.poll()
+		# ws.poll()
 		var state = ws.get_ready_state()
 		match state:
 			WebSocketPeer.STATE_OPEN:
@@ -136,8 +136,13 @@ func check_max_gates(gate):
 
 func _on_timer_timeout():
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
-		ws.send_text("heartbeat")
-		
+		#ws.send_text("heartbeat")
+		#var ping_data: PackedByteArray = "Ping".encode
+		var error_code = ws.send_text("ping")
+		if error_code == OK:
+			print("Ping sent successfully!")
+		else:
+			print("Failed to send ping: ", error_code)	
 
 func update_pilot_data(new_data, pilotname):
 	for pilot_name in new_data.keys():
@@ -343,16 +348,15 @@ func reset_leaderboard():
 
 
 func track_director(gate, user_id):
-
 	if gate in director_dict.keys():
-		ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
+		#ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
 		ws.send_text('{ "command": "cameraselect", "number": '+director_dict[gate]+" }")
-	elif gate in fpv_dict.keys():
-		ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
-		ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
-	elif gate in follow_dict.keys():
-		ws.send_text('{ "command": "cameramode", "mode": "follow" }')
-		ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
+	#elif gate in fpv_dict.keys():
+	#	ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+	#	ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
+	#elif gate in follow_dict.keys():
+	#	ws.send_text('{ "command": "cameramode", "mode": "follow" }')
+	#	ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
 	
 	"""
 	var gate_triggers = $"Control/Options/Camera Director".get_children()
@@ -479,9 +483,8 @@ func _on_menu_button_pressed():
 
 
 func _on_polling_timer_timeout():
-	# ws.poll()
-	pass
-
+	ws.poll()
+	
 
 func _on_ip_dropdown_item_selected(index):
 	ip_input.text = ip_dropdown.get_item_text(index)

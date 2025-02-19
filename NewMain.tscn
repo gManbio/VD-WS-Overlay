@@ -373,6 +373,7 @@ offset_bottom = 432.0
 text = "Gate#"
 
 [node name="FPV Gate" type="Label" parent="Control/Options"]
+visible = false
 layout_mode = 2
 offset_left = 151.0
 offset_top = 409.0
@@ -381,6 +382,7 @@ offset_bottom = 432.0
 text = "FPVGate#"
 
 [node name="FPV Gate2" type="Label" parent="Control/Options"]
+visible = false
 layout_mode = 2
 offset_left = 252.0
 offset_top = 409.0
@@ -526,6 +528,7 @@ offset_bottom = 24.0
 text = "Cam 9"
 
 [node name="FPV Director" type="GridContainer" parent="Control/Options"]
+visible = false
 layout_mode = 0
 offset_left = 155.0
 offset_top = 438.0
@@ -583,6 +586,7 @@ theme = ExtResource("3_kkw68")
 alignment = 1
 
 [node name="Follow Director" type="GridContainer" parent="Control/Options"]
+visible = false
 layout_mode = 0
 offset_left = 261.0
 offset_top = 438.0
@@ -647,6 +651,7 @@ offset_right = 166.0
 offset_bottom = 711.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control/Options"]
+visible = false
 layout_mode = 2
 offset_left = 211.0
 offset_top = 415.0
@@ -661,6 +666,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="Polling Timer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="ContenderHighlighter" parent="." instance=ExtResource("3_4pisg")]
 visible = true
