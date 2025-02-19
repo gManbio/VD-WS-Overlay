@@ -3,12 +3,10 @@
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
 [ext_resource type="PackedScene" uid="uid://whsu0j72038r" path="res://addons/post_processing/node/children/speed_lines.tscn" id="3_4pisg"]
+[ext_resource type="Theme" uid="uid://dl110327s8iqh" path="res://lineedit.tres" id="3_kkw68"]
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
 [ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_rdpxc"]
-
-[sub_resource type="Theme" id="Theme_0k7v3"]
-LineEdit/styles/normal = ExtResource("3_pt8py")
 
 [sub_resource type="Theme" id="Theme_svhul"]
 Button/styles/normal = ExtResource("4_q4i2i")
@@ -23,6 +21,16 @@ Button/styles/normal = ExtResource("4_q4i2i")
 script = ExtResource("1_hy1wg")
 metadata/_edit_horizontal_guides_ = [530.0, 561.0, 604.0]
 metadata/_edit_vertical_guides_ = [357.0]
+
+[node name="Permanent" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_right = -561.3
+offset_bottom = -64.9999
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = -1
@@ -40,6 +48,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 499.0
+offset_right = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -47,13 +57,13 @@ grow_vertical = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.175
-anchor_top = 0.032
-anchor_right = 0.84
-anchor_bottom = 0.06
-offset_left = -4.0
-offset_top = 0.199999
-offset_right = -4.0
+anchor_left = 0.167
+anchor_right = 0.832
+anchor_bottom = 0.075
+offset_left = -0.130005
+offset_top = 36.0
+offset_right = 2.53
+offset_bottom = -6.5
 grow_horizontal = 2
 alignment = 2
 
@@ -128,9 +138,9 @@ alignment = 1
 [node name="HSeparator2" type="HSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 680.0
+offset_top = 650.0
 offset_right = 423.0
-offset_bottom = 696.0
+offset_bottom = 666.0
 
 [node name="HSeparator" type="HSeparator" parent="Control"]
 layout_mode = 0
@@ -157,26 +167,28 @@ offset_bottom = 510.0
 layout_mode = 1
 anchor_right = 1.073
 anchor_bottom = 0.967
-offset_right = 0.164971
-offset_bottom = -0.43206
+offset_left = -489.0
+offset_top = -1.0
+offset_right = -488.835
+offset_bottom = -1.43207
 
 [node name="IP_Input" type="LineEdit" parent="Control/Options"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 16.0
-offset_top = 743.0
-offset_right = 138.0
-offset_bottom = 774.0
-theme = SubResource("Theme_0k7v3")
+offset_left = 99.0
+offset_top = 19.0
+offset_right = 221.0
+offset_bottom = 50.0
+theme = ExtResource("3_kkw68")
 placeholder_text = "Local IP"
 
 [node name="Connect Button" type="Button" parent="Control/Options"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 27.0
-offset_top = 778.0
-offset_right = 103.0
-offset_bottom = 821.0
+offset_left = 6.0
+offset_top = 12.0
+offset_right = 82.0
+offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
@@ -186,15 +198,16 @@ text = "Connect"
 [node name="DC Button" type="Button" parent="Control/Options"]
 visible = false
 layout_mode = 1
-offset_left = 26.0
-offset_top = 779.0
-offset_right = 125.0
-offset_bottom = 819.0
+offset_left = -5.0
+offset_top = 13.0
+offset_right = 94.0
+offset_bottom = 53.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Disconnect"
 
 [node name="Gate Count" type="LineEdit" parent="Control/Options"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 154.0
@@ -204,56 +217,32 @@ offset_bottom = 817.0
 theme = SubResource("Theme_h14tp")
 placeholder_text = "Gate Count"
 
-[node name="CheckButton" type="CheckButton" parent="Control/Options"]
-layout_mode = 0
-offset_left = 257.0
-offset_top = 744.0
-offset_right = 401.0
-offset_bottom = 775.0
-text = "Transparent"
-
-[node name="CheckButton2" type="CheckButton" parent="Control/Options"]
-layout_mode = 0
-offset_left = 274.0
-offset_top = 775.0
-offset_right = 401.0
-offset_bottom = 806.0
-text = "Single Lap"
-
-[node name="CheckButton3" type="CheckButton" parent="Control/Options"]
-layout_mode = 0
-offset_left = 242.0
-offset_top = 834.0
-offset_right = 401.0
-offset_bottom = 865.0
-text = "Team vs Team"
-
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 153.0
-offset_top = 827.0
-offset_right = 211.0
-offset_bottom = 859.0
+offset_left = 230.0
+offset_top = 744.0
+offset_right = 348.0
+offset_bottom = 773.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
-text = "Reset"
+text = "Reset Timing"
 
 [node name="menu" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 29.0
-offset_top = 827.0
-offset_right = 87.0
-offset_bottom = 859.0
+offset_left = 259.0
+offset_top = 802.0
+offset_right = 343.0
+offset_bottom = 857.0
 focus_mode = 0
 theme = SubResource("Theme_rt1a0")
 text = "Menu"
 
 [node name="CopyToClipboardButton" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 152.0
-offset_top = 747.0
-offset_right = 258.0
-offset_bottom = 774.0
+offset_left = 221.0
+offset_top = 287.0
+offset_right = 340.0
+offset_bottom = 347.0
 focus_mode = 0
 theme = ExtResource("4_rdpxc")
 text = "Copy Result"
@@ -261,21 +250,21 @@ text = "Copy Result"
 [node name="Pointmode" type="CheckButton" parent="Control/Options"]
 visible = false
 layout_mode = 0
-offset_left = 264.0
-offset_top = 806.0
-offset_right = 401.0
-offset_bottom = 837.0
+offset_top = 462.0
+offset_right = 137.0
+offset_bottom = 493.0
 button_pressed = true
 text = "Point Mode"
 
 [node name="ip_dropdown" type="OptionButton" parent="Control/Options"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 706.0
-offset_right = 137.0
-offset_bottom = 726.0
+offset_left = 230.0
+offset_top = 19.0
+offset_right = 352.0
+offset_bottom = 39.0
 
 [node name="FPS_Mode" type="CheckButton" parent="Control/Options"]
+visible = false
 layout_mode = 0
 offset_left = 285.0
 offset_top = 712.0
@@ -284,6 +273,7 @@ offset_bottom = 743.0
 text = "High FPS"
 
 [node name="Contendermode" type="CheckButton" parent="Control/Options"]
+visible = false
 layout_mode = 0
 offset_left = 222.0
 offset_top = 684.0
@@ -299,15 +289,378 @@ offset_top = 665.0
 offset_right = 108.0
 offset_bottom = 692.0
 
+[node name="Start Race" type="Button" parent="Control/Options"]
+layout_mode = 0
+offset_top = 287.0
+offset_right = 161.0
+offset_bottom = 361.0
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "Start Race"
+
+[node name="Auto_lock" type="CheckButton" parent="Control/Options"]
+layout_mode = 2
+offset_top = 361.0
+offset_right = 159.0
+offset_bottom = 392.0
+text = "Auto Lock"
+
+[node name="Room Controls" type="VBoxContainer" parent="Control/Options"]
+layout_mode = 0
+offset_top = 157.0
+offset_right = 119.0
+offset_bottom = 269.0
+
+[node name="All Spectator" type="Button" parent="Control/Options/Room Controls"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "All Spectator"
+
+[node name="PastePilots" type="Button" parent="Control/Options/Room Controls"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "Import Pilots"
+
+[node name="Lock Room" type="Button" parent="Control/Options/Room Controls"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "Lock Room"
+
+[node name="Unlock Room" type="Button" parent="Control/Options/Room Controls"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "Unlock Room"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/Options"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 712.0
+offset_right = 155.0
+offset_bottom = 868.0
+alignment = 2
+
+[node name="CheckButton" type="CheckButton" parent="Control/Options/VBoxContainer2"]
+layout_mode = 2
+text = "Transparent"
+
+[node name="CheckButton2" type="CheckButton" parent="Control/Options/VBoxContainer2"]
+layout_mode = 2
+text = "Single Lap"
+
+[node name="CheckButton3" type="CheckButton" parent="Control/Options/VBoxContainer2"]
+layout_mode = 2
+button_pressed = true
+text = "Team vs Team"
+
+[node name="Cam_director_toggle" type="CheckButton" parent="Control/Options"]
+layout_mode = 2
+offset_left = -5.0
+offset_top = 709.0
+offset_right = 163.0
+offset_bottom = 740.0
+text = "Enable Director"
+
+[node name="Gate Label" type="Label" parent="Control/Options"]
+layout_mode = 2
+offset_left = 11.0
+offset_top = 409.0
+offset_right = 60.0
+offset_bottom = 432.0
+text = "Gate#"
+
+[node name="FPV Gate" type="Label" parent="Control/Options"]
+layout_mode = 2
+offset_left = 151.0
+offset_top = 409.0
+offset_right = 227.0
+offset_bottom = 432.0
+text = "FPVGate#"
+
+[node name="FPV Gate2" type="Label" parent="Control/Options"]
+layout_mode = 2
+offset_left = 252.0
+offset_top = 409.0
+offset_right = 339.0
+offset_bottom = 432.0
+text = "FollowGate"
+
+[node name="Camera Director" type="GridContainer" parent="Control/Options"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 438.0
+offset_right = 121.0
+offset_bottom = 705.0
+
+[node name="Cam0" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam0"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 0"
+
+[node name="Cam1" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam1"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 1"
+
+[node name="Cam2" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam2"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 2"
+
+[node name="Cam3" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam3"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 3"
+
+[node name="Cam4" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam4"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 4"
+
+[node name="Cam5" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam5"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 5"
+
+[node name="Cam6" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam6"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 6"
+
+[node name="Cam7" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam7"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 7"
+
+[node name="Cam8" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam8"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 8"
+
+[node name="Cam9" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam9"]
+layout_mode = 2
+offset_left = 67.0
+offset_top = 1.0
+offset_right = 116.0
+offset_bottom = 24.0
+text = "Cam 9"
+
+[node name="FPV Director" type="GridContainer" parent="Control/Options"]
+layout_mode = 0
+offset_left = 155.0
+offset_top = 438.0
+offset_right = 214.0
+offset_bottom = 749.0
+
+[node name="FPV_Gate" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate2" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate3" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate4" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate5" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate6" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate7" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate8" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate9" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="FPV_Gate10" type="LineEdit" parent="Control/Options/FPV Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow Director" type="GridContainer" parent="Control/Options"]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 438.0
+offset_right = 320.0
+offset_bottom = 749.0
+
+[node name="Follow_Gate" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate2" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate3" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate4" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate5" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate6" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate7" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate8" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate9" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Follow_Gate10" type="LineEdit" parent="Control/Options/Follow Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/Options"]
+layout_mode = 2
+offset_left = 107.0
+offset_top = 415.0
+offset_right = 166.0
+offset_bottom = 711.0
+
+[node name="VSeparator2" type="VSeparator" parent="Control/Options"]
+layout_mode = 2
+offset_left = 211.0
+offset_top = 415.0
+offset_right = 270.0
+offset_bottom = 711.0
+
 [node name="HeartbeatTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 
 [node name="Text Renamer" type="Timer" parent="."]
 wait_time = 2.5
 one_shot = true
 
 [node name="Polling Timer" type="Timer" parent="."]
-wait_time = 0.25
 
 [node name="ContenderHighlighter" parent="." instance=ExtResource("3_4pisg")]
 visible = true
@@ -317,9 +670,6 @@ transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
 
 [connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_disconnect_pressed"]
-[connection signal="toggled" from="Control/Options/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="toggled" from="Control/Options/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
-[connection signal="toggled" from="Control/Options/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="reset_leaderboard"]
 [connection signal="pressed" from="Control/Options/menu" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Control/Options/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
@@ -327,6 +677,46 @@ transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
 [connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
 [connection signal="toggled" from="Control/Options/FPS_Mode" to="." method="_on_fps_mode_toggled"]
 [connection signal="toggled" from="Control/Options/Contendermode" to="." method="_on_contendermode_toggled"]
+[connection signal="pressed" from="Control/Options/Start Race" to="." method="_on_start_race_pressed"]
+[connection signal="toggled" from="Control/Options/Auto_lock" to="." method="_on_auto_lock_toggled"]
+[connection signal="pressed" from="Control/Options/Room Controls/All Spectator" to="." method="_on_all_spectator_pressed"]
+[connection signal="pressed" from="Control/Options/Room Controls/PastePilots" to="." method="_send_pilot_list_button_pressed"]
+[connection signal="pressed" from="Control/Options/Room Controls/Lock Room" to="." method="_on_lock_room_pressed"]
+[connection signal="pressed" from="Control/Options/Room Controls/Unlock Room" to="." method="_on_unlock_room_pressed"]
+[connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
+[connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
+[connection signal="toggled" from="Control/Options/Cam_director_toggle" to="." method="_on_cam_director_toggle_toggled"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam0" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam1" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam2" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam3" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam4" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam5" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam6" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam7" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam8" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Cam9" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate2" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate3" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate4" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate5" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate6" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate7" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate8" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate9" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate10" to="." method="_on_fpv_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate2" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate3" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate4" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate5" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate6" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate7" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate8" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate9" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate10" to="." method="_on_follow_gate_text_changed"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]

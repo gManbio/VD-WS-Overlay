@@ -17,7 +17,7 @@ var ip_complete = false
 var connected = false
 var single_lap_display = false
 var last_message = {}
-var team_mode = false
+var team_mode = true
 var score_board = {}
 var new_score = true
 var team_order = []
@@ -25,6 +25,10 @@ var score_dict = {}
 var point_mode = true
 var contender_mode = false
 var gap_delta = 0
+var auto_lock = false
+var director_mode = false
+
+var currently_spectating = "None"
 
 var timing_row = preload("res://TimingRow.tscn")
 
@@ -33,8 +37,11 @@ var score_box = preload("res://ScoreBox.tscn")
 #fall back default values
 var gate_count = 30
 var race_laps = 3
+var director_dict = {}
+var fpv_dict = {}
+var follow_dict = {}
 
-var FPS = 10
+var FPS = 60
 
 
 func _ready():
@@ -59,12 +66,12 @@ func _ready():
 		ip_dropdown.select(ip_dropdown.item_count - 2)
 	
 	$HeartbeatTimer.start()
-	$"Polling Timer".start()
+	# $"Polling Timer".start()
 
 
 func _process(delta):
 	if ip_complete:
-		#ws.poll()
+		ws.poll()
 		var state = ws.get_ready_state()
 		match state:
 			WebSocketPeer.STATE_OPEN:
@@ -89,6 +96,7 @@ func _handle_websocket_messages():
 		if pilotdata == last_message:
 			return
 		last_message = pilotdata
+		#print(last_message)
 		_process_message(pilotdata)
 
 
@@ -116,8 +124,10 @@ func _process_message(pilotdata):
 	elif "racedata" in pilotdata:
 		for pilot_name in pilotdata["racedata"]:
 			_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
-
-
+	if "spectatorChange" in pilotdata:
+		currently_spectating = pilotdata["spectatorChange"]
+		
+		
 func check_max_gates(gate):
 	if gate > gate_count:
 		gate_count = gate
@@ -127,7 +137,7 @@ func check_max_gates(gate):
 func _on_timer_timeout():
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		ws.send_text("heartbeat")
-
+		
 
 func update_pilot_data(new_data, pilotname):
 	for pilot_name in new_data.keys():
@@ -205,6 +215,10 @@ func make_leaderboard():
 			current_pos.set_lap(pilot["data"]["lap"])
 			current_pos.set_gate(pilot["data"]["gate"])
 			current_pos.set_hex_color(hex_color)
+			if director_mode:
+				if pilot["name"] == currently_spectating:
+					track_director(pilot["data"]["gate"], pilot["data"]["uid"])
+						
 			var lap_mod = 0
 			if single_lap_display:  # adjusts the lap progress bar
 				current_pos.set_progress_range(0, gate_count)
@@ -328,6 +342,37 @@ func reset_leaderboard():
 			child.queue_free()
 
 
+func track_director(gate, user_id):
+
+	if gate in director_dict.keys():
+		ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
+		ws.send_text('{ "command": "cameraselect", "number": '+director_dict[gate]+" }")
+	elif gate in fpv_dict.keys():
+		ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+		ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
+	elif gate in follow_dict.keys():
+		ws.send_text('{ "command": "cameramode", "mode": "follow" }')
+		ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
+	
+	"""
+	var gate_triggers = $"Control/Options/Camera Director".get_children()
+	var fpv_triggers = $"Control/Options/FPV Director".get_children()
+	var index = 0
+	for trigger in gate_triggers:
+		if trigger.text == gate:
+			ws.send_text('{ "command": "cameraselect", "number": '+str(index)+" }")
+		index += 1
+		if trigger.get_children()[1].get_fpv():
+				print(str(gate)+"  toggle fpv")
+				ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+				#ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
+			else:
+				#ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
+				ws.send_text('{ "command": "cameraselect", "number": '+str(index)+" }")
+	"""
+
+
+
 func reset_gate_count():
 	if int($"Control/Options//Gate Count".text) < 1:
 		gate_count = 4
@@ -372,11 +417,11 @@ func _on_TeamvsTeam_toggle_pressed(toggled_on):
 	if toggled_on:
 		team_mode = true
 		score_container.visible = true
-		$Control/Options/Pointmode.visible = true
+		#$Control/Options/Pointmode.visible = true
 	else:
 		team_mode = false
 		score_container.visible = false
-		$Control/Options/Pointmode.visible = false
+		#$Control/Options/Pointmode.visible = false
 
 
 func _on_check_button_toggled(toggled_on):
@@ -420,6 +465,10 @@ func _on_copy_to_clipboard_button_pressed():
 	$"Text Renamer".start()
 
 
+func _send_pilot_list_button_pressed():
+	var pilot_load_string = '{ "command": "activate", "pilots": ['+str(DisplayServer.clipboard_get())+"] }"
+	ws.send_text(pilot_load_string)
+
 func _on_text_renamer_timeout():
 	$Control/Options/CopyToClipboardButton.text = "Copy Result"
 
@@ -430,7 +479,8 @@ func _on_menu_button_pressed():
 
 
 func _on_polling_timer_timeout():
-	ws.poll()
+	# ws.poll()
+	pass
 
 
 func _on_ip_dropdown_item_selected(index):
@@ -450,3 +500,55 @@ func _on_contendermode_toggled(toggled_on):
 	contender_mode = toggled_on
 	if not toggled_on:
 		con_highlighter.visible = false
+
+
+func _on_lock_room_pressed():
+	ws.send_text('{ "command": "lock" }')
+
+
+func _on_unlock_room_pressed():
+	ws.send_text('{ "command": "unlock" }')
+
+
+func _on_start_race_pressed():
+	if auto_lock:
+		ws.send_text('{ "command": "lock" }')
+	ws.send_text('{ "command": "startrace" }')
+
+
+func _on_all_spectator_pressed():
+	ws.send_text('{ "command": "allspectate" }')
+
+
+func _on_auto_lock_toggled(toggled_on):
+	auto_lock = toggled_on
+
+
+func _on_cam_director_toggle_toggled(toggled_on):
+	director_mode = toggled_on
+	_on_cam_text_changed("none")
+	_on_fpv_gate_text_changed("none")
+
+
+func _on_cam_text_changed(new_text):
+	var index = 0
+	director_dict.clear()
+	for each in $"Control/Options/Camera Director".get_children():
+		director_dict[each.text] = str(index)
+		index += 1
+
+
+func _on_fpv_gate_text_changed(new_text):
+	var index = 0
+	fpv_dict.clear()
+	for each in $"Control/Options/FPV Director".get_children():
+		fpv_dict[each.text] = str(index)
+		index += 1
+
+
+func _on_follow_gate_text_changed(new_text):
+	var index = 0
+	follow_dict.clear()
+	for each in $"Control/Options/Follow Director".get_children():
+		follow_dict[each.text] = str(index)
+		index += 1

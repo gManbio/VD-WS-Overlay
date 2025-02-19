@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dwvsgrp45xty2"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dwvsgrp45xty2"]
 
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="1_7tjap"]
+[ext_resource type="FontFile" uid="uid://bq5f2w3c7r6oa" path="res://ChakraPetch-Regular.ttf" id="2_3bala"]
 
 [resource]
+default_font = ExtResource("2_3bala")
 Button/styles/normal = ExtResource("1_7tjap")

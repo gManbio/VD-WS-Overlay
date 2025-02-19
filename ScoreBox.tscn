@@ -13,7 +13,6 @@ offset_bottom = 105.0
 script = ExtResource("1_o6mr5")
 
 [node name="Logo" type="TextureRect" parent="."]
-visible = false
 texture_filter = 4
 custom_minimum_size = Vector2(11.785, 4.84)
 layout_mode = 1

@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dl110327s8iqh"]
+
+[ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="1_l5nfj"]
+
+[resource]
+LineEdit/styles/normal = ExtResource("1_l5nfj")
