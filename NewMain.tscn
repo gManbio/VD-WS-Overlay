@@ -666,10 +666,9 @@ wait_time = 2.5
 one_shot = true
 
 [node name="Polling Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.25
 
 [node name="ContenderHighlighter" parent="." instance=ExtResource("3_4pisg")]
-visible = true
 offset = Vector2(55.63, 63.14)
 scale = Vector2(0.97, 0.48)
 transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)

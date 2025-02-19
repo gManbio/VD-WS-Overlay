@@ -41,7 +41,7 @@ var director_dict = {}
 var fpv_dict = {}
 var follow_dict = {}
 
-var FPS = 5
+var FPS = 60
 
 
 func _ready():
@@ -96,7 +96,7 @@ func _handle_websocket_messages():
 		if pilotdata == last_message:
 			return
 		last_message = pilotdata
-		#print(last_message)
+		print(last_message)
 		_process_message(pilotdata)
 
 
@@ -138,11 +138,12 @@ func _on_timer_timeout():
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		#ws.send_text("heartbeat")
 		#var ping_data: PackedByteArray = "Ping".encode
-		var error_code = ws.send_text("ping")
-		if error_code == OK:
-			print("Ping sent successfully!")
-		else:
-			print("Failed to send ping: ", error_code)	
+		ws.send_text("ping")
+		#var error_code = ws.send_text("ping")
+		#if error_code == OK:
+		#	print("Ping sent successfully!")
+		#else:
+		#	print("Failed to send ping: ", error_code)	
 
 func update_pilot_data(new_data, pilotname):
 	for pilot_name in new_data.keys():
