@@ -693,6 +693,9 @@ one_shot = true
 [node name="Polling Timer" type="Timer" parent="."]
 wait_time = 0.25
 
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.1
+
 [node name="ContenderHighlighter" parent="." instance=ExtResource("3_4pisg")]
 offset = Vector2(55.63, 63.14)
 scale = Vector2(0.97, 0.48)
@@ -764,3 +767,4 @@ transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

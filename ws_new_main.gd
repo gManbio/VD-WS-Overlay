@@ -27,6 +27,7 @@ var contender_mode = false
 var gap_delta = 0
 var auto_lock = false
 var director_mode = false
+var cool_down = false
 
 var currently_spectating = "None"
 var current_spec_mode = "None"
@@ -365,6 +366,7 @@ func track_director(gate, user_id):
 			if current_spec_mode != "spectate":
 				ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
 				current_spec_mode = "spectate"
+				$Cooldown.start()
 			ws.send_text('{ "command": "cameraselect", "number": '+director_dict[gate]+" }")
 
 
@@ -527,3 +529,8 @@ func _on_cam_text_changed(new_text):
 	director_dict.clear()
 	for each in $"Control/Options/Camera Director".get_children():
 		director_dict[each.text] = each.get_child(0).text
+
+
+func _on_cooldown_timeout():
+	cool_down = false
+	pass # Replace with function body.
