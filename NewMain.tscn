@@ -239,10 +239,10 @@ text = "Menu"
 
 [node name="CopyToClipboardButton" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 221.0
-offset_top = 287.0
-offset_right = 340.0
-offset_bottom = 347.0
+offset_left = 6.0
+offset_top = 422.0
+offset_right = 125.0
+offset_bottom = 482.0
 focus_mode = 0
 theme = ExtResource("4_rdpxc")
 text = "Copy Result"
@@ -358,18 +358,17 @@ text = "Team vs Team"
 
 [node name="Cam_director_toggle" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
-offset_left = -5.0
-offset_top = 709.0
-offset_right = 163.0
-offset_bottom = 740.0
+offset_top = 91.0
+offset_right = 168.0
+offset_bottom = 122.0
 text = "Enable Director"
 
 [node name="Gate Label" type="Label" parent="Control/Options"]
 layout_mode = 2
-offset_left = 11.0
-offset_top = 409.0
-offset_right = 60.0
-offset_bottom = 432.0
+offset_left = 212.0
+offset_top = 91.0
+offset_right = 261.0
+offset_bottom = 114.0
 text = "Gate#"
 
 [node name="FPV Gate" type="Label" parent="Control/Options"]
@@ -390,265 +389,291 @@ offset_right = 339.0
 offset_bottom = 432.0
 text = "FollowGate"
 
+[node name="Cam_Label1" type="Label" parent="Control/Options"]
+layout_mode = 2
+offset_left = 278.0
+offset_top = 91.0
+offset_right = 327.0
+offset_bottom = 114.0
+text = "Cam"
+
 [node name="Camera Director" type="GridContainer" parent="Control/Options"]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 438.0
-offset_right = 121.0
-offset_bottom = 705.0
+offset_left = 206.0
+offset_top = 120.0
+offset_right = 329.0
+offset_bottom = 715.0
 
-[node name="Cam0" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam0"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 0"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam1" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate11" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam1"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 1"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate11"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam2" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate12" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam2"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 2"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate12"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam3" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate13" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam3"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 3"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate13"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam4" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate14" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam4"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 4"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate14"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam5" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate15" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam5"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 5"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate15"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam6" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate16" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam6"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 6"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate16"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam7" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate17" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam7"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 7"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate17"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam8" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate18" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam8"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 8"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate18"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Cam9" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="Gate19" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Cam_Label1" type="Label" parent="Control/Options/Camera Director/Cam9"]
-layout_mode = 2
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 116.0
-offset_bottom = 24.0
-text = "Cam 9"
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate19"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="FPV Director" type="GridContainer" parent="Control/Options"]
-visible = false
-layout_mode = 0
-offset_left = 155.0
-offset_top = 438.0
-offset_right = 214.0
-offset_bottom = 749.0
-
-[node name="FPV_Gate" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Gate20" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate2" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate20"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate21" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate3" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate21"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate22" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate4" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate22"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate2" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate5" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate2"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate3" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate6" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate3"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate4" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate7" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate4"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate5" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate8" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate5"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate6" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate9" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate6"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate7" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="FPV_Gate10" type="LineEdit" parent="Control/Options/FPV Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate7"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate8" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Follow Director" type="GridContainer" parent="Control/Options"]
-visible = false
-layout_mode = 0
-offset_left = 261.0
-offset_top = 438.0
-offset_right = 320.0
-offset_bottom = 749.0
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate8"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
 
-[node name="Follow_Gate" type="LineEdit" parent="Control/Options/Follow Director"]
+[node name="Gate9" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Follow_Gate2" type="LineEdit" parent="Control/Options/Follow Director"]
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate9"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate10" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Follow_Gate3" type="LineEdit" parent="Control/Options/Follow Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Follow_Gate4" type="LineEdit" parent="Control/Options/Follow Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Follow_Gate5" type="LineEdit" parent="Control/Options/Follow Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Follow_Gate6" type="LineEdit" parent="Control/Options/Follow Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Follow_Gate7" type="LineEdit" parent="Control/Options/Follow Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Follow_Gate8" type="LineEdit" parent="Control/Options/Follow Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Follow_Gate9" type="LineEdit" parent="Control/Options/Follow Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Follow_Gate10" type="LineEdit" parent="Control/Options/Follow Director"]
-layout_mode = 2
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate10"]
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
 theme = ExtResource("3_kkw68")
 alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/Options"]
 layout_mode = 2
-offset_left = 107.0
-offset_top = 415.0
-offset_right = 166.0
-offset_bottom = 711.0
+offset_left = 155.0
+offset_top = 101.0
+offset_right = 214.0
+offset_bottom = 715.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control/Options"]
 visible = false
@@ -692,36 +717,50 @@ transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/Cam_director_toggle" to="." method="_on_cam_director_toggle_toggled"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam0" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam1" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam2" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam3" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam4" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam5" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam6" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam7" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam8" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Cam9" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate2" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate3" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate4" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate5" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate6" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate7" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate8" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate9" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/FPV Director/FPV_Gate10" to="." method="_on_fpv_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate2" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate3" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate4" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate5" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate6" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate7" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate8" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate9" to="." method="_on_follow_gate_text_changed"]
-[connection signal="text_changed" from="Control/Options/Follow Director/Follow_Gate10" to="." method="_on_follow_gate_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate11" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate11/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate12" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate12/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate13" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate13/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate14" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate14/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate15" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate15/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate16" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate16/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate17" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate17/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate18" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate18/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate19" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate19/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate20" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate20/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate21" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate21/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate22" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate22/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate2" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate2/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate3" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate3/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate4" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate4/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate5" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate5/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate6" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate6/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate7" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate7/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate8" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate8/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate9" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate9/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate10" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate10/Cam" to="." method="_on_cam_text_changed"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]

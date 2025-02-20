@@ -29,6 +29,7 @@ var auto_lock = false
 var director_mode = false
 
 var currently_spectating = "None"
+var current_spec_mode = "None"
 
 var timing_row = preload("res://TimingRow.tscn")
 
@@ -38,8 +39,6 @@ var score_box = preload("res://ScoreBox.tscn")
 var gate_count = 30
 var race_laps = 3
 var director_dict = {}
-var fpv_dict = {}
-var follow_dict = {}
 
 var FPS = 60
 
@@ -96,7 +95,7 @@ func _handle_websocket_messages():
 		if pilotdata == last_message:
 			return
 		last_message = pilotdata
-		print(last_message)
+		#print(last_message)
 		_process_message(pilotdata)
 
 
@@ -168,7 +167,13 @@ func update_pilot_data(new_data, pilotname):
 			var lap_gate_key = lap+gate
 			var gd = {lap_gate_key: float(new_data["time"])}
 			pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
-		
+			
+			""" # this section is to auto reset
+			if new_data["position"] == "1":
+				if new_data["lap"] == "1":
+					if new_data["gate"] == "1":
+						reset_leaderboard()
+			"""
 
 
 func sort_pilots():
@@ -350,32 +355,17 @@ func reset_leaderboard():
 
 func track_director(gate, user_id):
 	if gate in director_dict.keys():
-		#ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
-		ws.send_text('{ "command": "cameraselect", "number": '+director_dict[gate]+" }")
-	#elif gate in fpv_dict.keys():
-	#	ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
-	#	ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
-	#elif gate in follow_dict.keys():
-	#	ws.send_text('{ "command": "cameramode", "mode": "follow" }')
-	#	ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
-	
-	"""
-	var gate_triggers = $"Control/Options/Camera Director".get_children()
-	var fpv_triggers = $"Control/Options/FPV Director".get_children()
-	var index = 0
-	for trigger in gate_triggers:
-		if trigger.text == gate:
-			ws.send_text('{ "command": "cameraselect", "number": '+str(index)+" }")
-		index += 1
-		if trigger.get_children()[1].get_fpv():
-				print(str(gate)+"  toggle fpv")
-				ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
-				#ws.send_text('{ "command": "cameraplayer", "uid": '+str(user_id)+" }")
-			else:
-				#ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
-				ws.send_text('{ "command": "cameraselect", "number": '+str(index)+" }")
-	"""
-
+		if director_dict[gate] == "FPV":
+			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+			current_spec_mode = "FPV"
+		elif director_dict[gate] == "FOL":
+			ws.send_text('{ "command": "cameramode", "mode": "follow" }')
+			current_spec_mode = "Follow"
+		else:
+			if current_spec_mode != "spectate":
+				ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
+				current_spec_mode = "spectate"
+			ws.send_text('{ "command": "cameraselect", "number": '+director_dict[gate]+" }")
 
 
 func reset_gate_count():
@@ -531,28 +521,9 @@ func _on_auto_lock_toggled(toggled_on):
 func _on_cam_director_toggle_toggled(toggled_on):
 	director_mode = toggled_on
 	_on_cam_text_changed("none")
-	_on_fpv_gate_text_changed("none")
 
 
 func _on_cam_text_changed(new_text):
-	var index = 0
 	director_dict.clear()
 	for each in $"Control/Options/Camera Director".get_children():
-		director_dict[each.text] = str(index)
-		index += 1
-
-
-func _on_fpv_gate_text_changed(new_text):
-	var index = 0
-	fpv_dict.clear()
-	for each in $"Control/Options/FPV Director".get_children():
-		fpv_dict[each.text] = str(index)
-		index += 1
-
-
-func _on_follow_gate_text_changed(new_text):
-	var index = 0
-	follow_dict.clear()
-	for each in $"Control/Options/Follow Director".get_children():
-		follow_dict[each.text] = str(index)
-		index += 1
+		director_dict[each.text] = each.get_child(0).text
