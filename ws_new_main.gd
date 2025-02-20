@@ -149,6 +149,11 @@ func update_pilot_data(new_data, pilotname):
 	for pilot_name in new_data.keys():
 		var found = false
 		for pilot in pilots:
+			if new_data["position"] == "1":
+				if new_data["lap"] == "1":
+					if new_data["gate"] == "1":
+						reset_leaderboard()
+						#print("reset")
 			if pilot["name"] == pilotname:
 			# Update existing pilot data
 				if new_data["gate"] != pilot["data"]["gate"]:
@@ -168,13 +173,15 @@ func update_pilot_data(new_data, pilotname):
 			var lap_gate_key = lap+gate
 			var gd = {lap_gate_key: float(new_data["time"])}
 			pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
+			#print(new_data)
 			
-			""" # this section is to auto reset
+			# this section is to auto reset
 			if new_data["position"] == "1":
 				if new_data["lap"] == "1":
 					if new_data["gate"] == "1":
 						reset_leaderboard()
-			"""
+						#print("reset")
+
 
 
 func sort_pilots():
@@ -358,10 +365,10 @@ func track_director(gate, user_id):
 	if gate in director_dict.keys():
 		if director_dict[gate] == "FPV":
 			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
-			current_spec_mode = "FPV"
+			current_spec_mode = "fpv"
 		elif director_dict[gate] == "FOL":
 			ws.send_text('{ "command": "cameramode", "mode": "follow" }')
-			current_spec_mode = "Follow"
+			current_spec_mode = "follow"
 		else:
 			if current_spec_mode != "spectate":
 				ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
