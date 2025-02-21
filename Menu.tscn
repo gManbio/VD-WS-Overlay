@@ -108,7 +108,7 @@ horizontal_alignment = 1
 
 [node name="UpdateScript" type="Node" parent="."]
 script = ExtResource("4_7csw0")
-CURRENT_VERSION = "1.2.0"
+CURRENT_VERSION = "1.2.3"
 
 [node name="VersionCheckRequest" type="HTTPRequest" parent="UpdateScript"]
 
