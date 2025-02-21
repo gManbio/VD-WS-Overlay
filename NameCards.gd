@@ -75,10 +75,27 @@ func update_portrait(user_id):
 			portrait.texture = placeholder
 		print(user_id)
 		current_id = user_id
-func update_nametag(name, color):
+
+
+func update_nametag(name, color, uid):
 	if name != current_name:
-		name_tag.text = name
-		name_tag.modulate = color
-		print(name)
-		current_name = name
+		if int(uid) in image_dict:
+			var filename = get_pilot_name(uid)
+			current_name = filename
+			name_tag.text = filename
+			name_tag.modulate = color
+		else:
+			name_tag.text = name
+			name_tag.modulate = color
+			current_name = name
+	
+
+func get_pilot_name(uid):
+	if int(uid) in image_dict:
+		var full_path: String = image_dict[int(uid)].resource_path
+		var path_no_ext = full_path.get_basename()
+		var file_no_ext = path_no_ext.get_file()
+		return file_no_ext
+	else:
+		return ""  # or some fallback
 	

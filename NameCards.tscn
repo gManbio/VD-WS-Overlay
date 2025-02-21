@@ -16,9 +16,9 @@ texture = ExtResource("2_o5ykb")
 metadata/_edit_use_anchors_ = true
 
 [node name="Name" type="Label" parent="."]
-offset_left = 30.0
+offset_left = -530.0
 offset_top = -107.0
-offset_right = 875.0
+offset_right = 1433.0
 offset_bottom = 129.0
 theme = ExtResource("2_oqj58")
 text = "Pilot Name"

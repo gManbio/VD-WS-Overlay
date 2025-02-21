@@ -13,6 +13,7 @@ var pilots = []
 @onready var score_container = $Control/ScoreContainer
 @onready var con_highlighter = $ContenderHighlighter
 @onready var portrait_box = $Control/PilotPortrait
+@onready var missing_label = $Control/Options/MissingPilot
 
 var ip_complete = false
 var connected = false
@@ -29,6 +30,7 @@ var gap_delta = 0
 var auto_lock = false
 var director_mode = false
 var cool_down = false
+var missing_pilot_count = 0
 
 var currently_spectating = "None"
 var current_spec_mode = "None"
@@ -125,8 +127,10 @@ func _process_message(pilotdata):
 	elif "racedata" in pilotdata:
 		for pilot_name in pilotdata["racedata"]:
 			_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
-	if "spectatorChange" in pilotdata:
+	elif "spectatorChange" in pilotdata:
 		currently_spectating = pilotdata["spectatorChange"]
+	elif "ActivateError" in pilotdata:
+		_on_activate_error(pilotdata["ActivateError"]["UIDNotFound"])
 		
 		
 func check_max_gates(gate):
@@ -137,14 +141,8 @@ func check_max_gates(gate):
 
 func _on_timer_timeout():
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
-		#ws.send_text("heartbeat")
-		#var ping_data: PackedByteArray = "Ping".encode
 		ws.send_text("ping")
-		#var error_code = ws.send_text("ping")
-		#if error_code == OK:
-		#	print("Ping sent successfully!")
-		#else:
-		#	print("Failed to send ping: ", error_code)	
+
 
 func update_pilot_data(new_data, pilotname):
 	for pilot_name in new_data.keys():
@@ -169,7 +167,7 @@ func update_pilot_data(new_data, pilotname):
 				if pilotname == currently_spectating:
 					portrait_box.update_portrait(pilot["data"]["uid"])
 					var color = Color("#" + pilot["data"]["colour"])
-					portrait_box.update_nametag(pilotname, color)
+					portrait_box.update_nametag(pilotname, color, pilot["data"]["uid"])
 				break
 		if not found:
 			# Add new pilot
@@ -368,7 +366,7 @@ func reset_leaderboard():
 
 func track_director(gate, user_id):
 	if gate in director_dict.keys():
-		if director_dict[gate] == "FPV":
+		if director_dict[gate].to_lower() == "fpv":
 			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
 			current_spec_mode = "fpv"
 		#elif director_dict[gate] == "FOL":
@@ -474,8 +472,11 @@ func _on_copy_to_clipboard_button_pressed():
 
 
 func _send_pilot_list_button_pressed():
-	var pilot_load_string = '{ "command": "activate", "pilots": ['+str(DisplayServer.clipboard_get())+"] }"
+	missing_pilot_count = 0
+	var pilot_load_string = '{ "command": "activate", "pilots": '+str(DisplayServer.clipboard_get())+" }"
 	ws.send_text(pilot_load_string)
+	$Cooldown.start()
+	
 
 func _on_text_renamer_timeout():
 	$Control/Options/CopyToClipboardButton.text = "Copy Result"
@@ -543,8 +544,13 @@ func _on_cam_text_changed(new_text):
 
 
 func _on_cooldown_timeout():
-	cool_down = false
-	pass # Replace with function body.
+	missing_label.text = str(missing_pilot_count)+" missing"
+	missing_label.visible = true
+	$HideTimer.start()
+
+
+func _on_hide_timer_timeout():
+	missing_label.visible = false
 
 
 func _on_save_button_pressed():
@@ -561,12 +567,10 @@ func _apply_director_dict_to_ui():
 	var container = $"Control/Options/Camera Director"
 	var children = container.get_children()
 
-	# 2) Get all dictionary keys (the gate names) and optionally sort them
+	# 2) Get all dictionary keys (the gate names)
 	var dict_keys = director_dict.keys()
-	dict_keys.sort()
 
 	# 3) Fill each child with the corresponding gate/camera pair
-	#    We'll do this index-based, so we assume the number of children is at least as many as the keys.
 
 	for i in range(min(children.size(), dict_keys.size())):
 		var child = children[i]
@@ -577,39 +581,82 @@ func _apply_director_dict_to_ui():
 		child.get_child(0).text = director_dict[gate_key]
 
 
-func _on_save_file_dialog_file_selected(chosen_path):
+func _on_save_file_dialog_file_selected(chosen_path: String):
 	var file = FileAccess.open(chosen_path, FileAccess.WRITE)
-	if file:
-		var data_to_store = {
-			"director_dict": director_dict
-		}
-		file.store_string(JSON.stringify(data_to_store))
-		file.close()
-	else:
-		print("failed")
-
-
-func _on_load_file_dialog_file_selected(path):
-
-	if not FileAccess.file_exists(path):
-		print("No saved config found!")
+	if not file:
+		print("Failed to open file for writing:", chosen_path)
 		return
+	
+	# Get the container of your gate/camera rows
+	var container = $"Control/Options/Camera Director"
+	var children = container.get_children()
+	
+	# Build an array that preserves the row order
+	var director_list = []
+	for child in children:
+		director_list.append({
+			"gate": child.text,
+			"camera": child.get_child(0).text
+		})
+	
+	# Wrap the array in a dictionary so we have a clear top-level key
+	var data_to_store = {
+		"director_list": director_list
+	}
+	
+	file.store_string(JSON.stringify(data_to_store))
+	file.close()
+	print("Saved array-based config to:", chosen_path)
 
+
+func _on_load_file_dialog_file_selected(path: String):
+	if not FileAccess.file_exists(path):
+		print("No saved config found at", path)
+		return
+	
 	var file = FileAccess.open(path, FileAccess.READ)
-	if file:
-		var contents = file.get_as_text()
-		file.close()
-
-		var json_result = JSON.parse_string(contents)
-		if json_result is Dictionary:
-			if "director_dict" in json_result:
-				director_dict = json_result["director_dict"]
-				print("Director config loaded from:", path)
-				print(director_dict)
-				_apply_director_dict_to_ui()
-			else:
-				print("Malformed JSON: No 'director_dict' key")
-		else:
-			print("Failed to parse JSON from file:", path)
-	else:
+	if not file:
 		print("Failed to open file for reading:", path)
+		return
+	
+	var contents = file.get_as_text()
+	file.close()
+	
+	var json_result = JSON.parse_string(contents)
+	if json_result is Dictionary:
+		if "director_list" in json_result:
+			var director_list = json_result["director_list"]
+			
+			# Now apply that list to our UI in order
+			var container = $"Control/Options/Camera Director"
+			var children = container.get_children()
+
+			# We clear any old dictionary if we still use it
+			director_dict.clear()
+
+			# Go row by row, up to how many we actually have in the list
+			for i in range(min(director_list.size(), children.size())):
+				var entry = director_list[i]
+				# Make sure 'gate' and 'camera' exist in the entry
+				if entry.has("gate") and entry.has("camera"):
+					children[i].text = entry["gate"]
+					children[i].get_child(0).text = entry["camera"]
+
+					# Optional: Rebuild your director_dict if you want
+					director_dict[entry["gate"]] = entry["camera"]
+			
+			print("Loaded array-based config from:", path)
+		else:
+			print("Malformed JSON: No 'director_list' key found.")
+	else:
+		print("Failed to parse JSON from file:", path)
+
+var missing_list = []
+
+func _on_activate_error(error_user):
+	missing_pilot_count += 1
+	missing_list.append(portrait_box.get_pilot_name(error_user))
+	print(missing_list)
+	$Cooldown.start()
+
+
