@@ -749,6 +749,21 @@ offset = Vector2(55.63, 63.14)
 scale = Vector2(0.97, 0.48)
 transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
 
+[node name="SaveFileDialog" type="FileDialog" parent="."]
+title = "Save Spectator Cues"
+access = 2
+filters = PackedStringArray("*.json ; JSON files")
+use_native_dialog = true
+
+[node name="LoadFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(312, 154)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.json ; JSON files")
+use_native_dialog = true
+
 [connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_disconnect_pressed"]
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="reset_leaderboard"]
@@ -818,3 +833,5 @@ transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="file_selected" from="SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
+[connection signal="file_selected" from="LoadFileDialog" to="." method="_on_load_file_dialog_file_selected"]

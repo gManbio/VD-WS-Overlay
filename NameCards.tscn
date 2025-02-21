@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://di22e60dd02jq"]
 
 [ext_resource type="Script" path="res://NameCards.gd" id="1_qwnbd"]
-[ext_resource type="Texture2D" uid="uid://ckpsbblf740t5" path="res://pilot_images/placeholder.jpg" id="2_o5ykb"]
+[ext_resource type="Texture2D" uid="uid://ch6hki84cjshd" path="res://pilot_images/placeholder.jpg" id="2_o5ykb"]
 [ext_resource type="Theme" uid="uid://x2175fp860iw" path="res://nameLabel.tres" id="2_oqj58"]
 
 [node name="PilotPortrait" type="Node2D"]

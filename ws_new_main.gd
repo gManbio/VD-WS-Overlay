@@ -548,48 +548,13 @@ func _on_cooldown_timeout():
 
 
 func _on_save_button_pressed():
-	print(director_dict)
-	
-	var save_path = "user://director_config.json"
-
-	var file = FileAccess.open(save_path, FileAccess.WRITE)
-	if file:
-		var data_to_store = {
-			"director_dict": director_dict
-		}
-		file.store_string(JSON.stringify(data_to_store))
-		file.close()
-		print("Director config saved to:", save_path)
-	else:
-		print("Failed to open file for writing:", save_path)
+	# Bring up the FileDialog
+	$"SaveFileDialog".popup_centered()
 
 
 func _on_load_button_pressed():
-	var load_path = "user://director_config.json"
-
-	if not FileAccess.file_exists(load_path):
-		print("No saved config found!")
-		return
-
-	var file = FileAccess.open(load_path, FileAccess.READ)
-	if file:
-		var contents = file.get_as_text()
-		file.close()
-
-		var json_result = JSON.parse_string(contents)
-		if json_result is Dictionary:
-			if "director_dict" in json_result:
-				director_dict = json_result["director_dict"]
-				print("Director config loaded from:", load_path)
-				print(director_dict)
-				_apply_director_dict_to_ui()
-			else:
-				print("Malformed JSON: No 'director_dict' key")
-		else:
-			print("Failed to parse JSON from file:", load_path)
-	else:
-		print("Failed to open file for reading:", load_path)
-
+	$"LoadFileDialog".popup_centered()
+	
 
 func _apply_director_dict_to_ui():
 	# 1) Get the container node holding all your gate/camera rows
@@ -610,3 +575,41 @@ func _apply_director_dict_to_ui():
 		child.text = gate_key
 		# Then the text of child(0) is the camera/FPV value
 		child.get_child(0).text = director_dict[gate_key]
+
+
+func _on_save_file_dialog_file_selected(chosen_path):
+	var file = FileAccess.open(chosen_path, FileAccess.WRITE)
+	if file:
+		var data_to_store = {
+			"director_dict": director_dict
+		}
+		file.store_string(JSON.stringify(data_to_store))
+		file.close()
+	else:
+		print("failed")
+
+
+func _on_load_file_dialog_file_selected(path):
+
+	if not FileAccess.file_exists(path):
+		print("No saved config found!")
+		return
+
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file:
+		var contents = file.get_as_text()
+		file.close()
+
+		var json_result = JSON.parse_string(contents)
+		if json_result is Dictionary:
+			if "director_dict" in json_result:
+				director_dict = json_result["director_dict"]
+				print("Director config loaded from:", path)
+				print(director_dict)
+				_apply_director_dict_to_ui()
+			else:
+				print("Malformed JSON: No 'director_dict' key")
+		else:
+			print("Failed to parse JSON from file:", path)
+	else:
+		print("Failed to open file for reading:", path)
