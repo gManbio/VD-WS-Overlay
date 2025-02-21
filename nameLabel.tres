@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://x2175fp860iw"]
+
+[ext_resource type="FontFile" uid="uid://bf4guco58wcq8" path="res://Road_Rage.otf" id="1_mir63"]
+
+[resource]
+default_font = ExtResource("1_mir63")
+default_font_size = 150

@@ -12,6 +12,7 @@ var pilots = []
 @onready var ip_input = $Control/Options/IP_Input
 @onready var score_container = $Control/ScoreContainer
 @onready var con_highlighter = $ContenderHighlighter
+@onready var portrait_box = $Control/PilotPortrait
 
 var ip_complete = false
 var connected = false
@@ -165,6 +166,10 @@ func update_pilot_data(new_data, pilotname):
 					pilot["gate_key"] = lap_gate_key
 				pilot["data"] = new_data
 				found = true
+				if pilotname == currently_spectating:
+					portrait_box.update_portrait(pilot["data"]["uid"])
+					var color = Color("#" + pilot["data"]["colour"])
+					portrait_box.update_nametag(pilotname, color)
 				break
 		if not found:
 			# Add new pilot
@@ -173,7 +178,6 @@ func update_pilot_data(new_data, pilotname):
 			var lap_gate_key = lap+gate
 			var gd = {lap_gate_key: float(new_data["time"])}
 			pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
-			#print(new_data)
 			
 			# this section is to auto reset
 			if new_data["position"] == "1":
@@ -234,10 +238,11 @@ func make_leaderboard():
 			current_pos.set_lap(pilot["data"]["lap"])
 			current_pos.set_gate(pilot["data"]["gate"])
 			current_pos.set_hex_color(hex_color)
+			
 			if director_mode:
 				if pilot["name"] == currently_spectating:
 					track_director(pilot["data"]["gate"], pilot["data"]["uid"])
-						
+					
 			var lap_mod = 0
 			if single_lap_display:  # adjusts the lap progress bar
 				current_pos.set_progress_range(0, gate_count)
@@ -366,14 +371,13 @@ func track_director(gate, user_id):
 		if director_dict[gate] == "FPV":
 			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
 			current_spec_mode = "fpv"
-		elif director_dict[gate] == "FOL":
-			ws.send_text('{ "command": "cameramode", "mode": "follow" }')
-			current_spec_mode = "follow"
+		#elif director_dict[gate] == "FOL":
+		#	ws.send_text('{ "command": "cameramode", "mode": "follow" }')
+		#	current_spec_mode = "follow"
 		else:
 			if current_spec_mode != "spectate":
 				ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
 				current_spec_mode = "spectate"
-				$Cooldown.start()
 			ws.send_text('{ "command": "cameraselect", "number": '+director_dict[gate]+" }")
 
 
@@ -541,3 +545,68 @@ func _on_cam_text_changed(new_text):
 func _on_cooldown_timeout():
 	cool_down = false
 	pass # Replace with function body.
+
+
+func _on_save_button_pressed():
+	print(director_dict)
+	
+	var save_path = "user://director_config.json"
+
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	if file:
+		var data_to_store = {
+			"director_dict": director_dict
+		}
+		file.store_string(JSON.stringify(data_to_store))
+		file.close()
+		print("Director config saved to:", save_path)
+	else:
+		print("Failed to open file for writing:", save_path)
+
+
+func _on_load_button_pressed():
+	var load_path = "user://director_config.json"
+
+	if not FileAccess.file_exists(load_path):
+		print("No saved config found!")
+		return
+
+	var file = FileAccess.open(load_path, FileAccess.READ)
+	if file:
+		var contents = file.get_as_text()
+		file.close()
+
+		var json_result = JSON.parse_string(contents)
+		if json_result is Dictionary:
+			if "director_dict" in json_result:
+				director_dict = json_result["director_dict"]
+				print("Director config loaded from:", load_path)
+				print(director_dict)
+				_apply_director_dict_to_ui()
+			else:
+				print("Malformed JSON: No 'director_dict' key")
+		else:
+			print("Failed to parse JSON from file:", load_path)
+	else:
+		print("Failed to open file for reading:", load_path)
+
+
+func _apply_director_dict_to_ui():
+	# 1) Get the container node holding all your gate/camera rows
+	var container = $"Control/Options/Camera Director"
+	var children = container.get_children()
+
+	# 2) Get all dictionary keys (the gate names) and optionally sort them
+	var dict_keys = director_dict.keys()
+	dict_keys.sort()
+
+	# 3) Fill each child with the corresponding gate/camera pair
+	#    We'll do this index-based, so we assume the number of children is at least as many as the keys.
+
+	for i in range(min(children.size(), dict_keys.size())):
+		var child = children[i]
+		var gate_key = dict_keys[i]
+		# Set the text of the parent node to the gate (key)
+		child.text = gate_key
+		# Then the text of child(0) is the camera/FPV value
+		child.get_child(0).text = director_dict[gate_key]

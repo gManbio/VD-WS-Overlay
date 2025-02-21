@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://wrcbtcwy03i8"]
 
 [ext_resource type="Script" path="res://sectorRow.gd" id="1_uj1rn"]
-[ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_jbmh4"]
+[ext_resource type="Theme" uid="uid://x2175fp860iw" path="res://nameLabel.tres" id="2_acmb4"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(276.325, 25.86)
@@ -23,7 +23,7 @@ alignment = 2
 clip_contents = true
 custom_minimum_size = Vector2(64.725, 25)
 layout_mode = 2
-theme = ExtResource("2_jbmh4")
+theme = ExtResource("2_acmb4")
 text = "---"
 horizontal_alignment = 1
 text_overrun_behavior = 1
@@ -35,7 +35,7 @@ layout_mode = 2
 clip_contents = true
 custom_minimum_size = Vector2(42, 25)
 layout_mode = 2
-theme = ExtResource("2_jbmh4")
+theme = ExtResource("2_acmb4")
 text = "---"
 horizontal_alignment = 1
 text_overrun_behavior = 1
@@ -47,7 +47,7 @@ layout_mode = 2
 clip_contents = true
 custom_minimum_size = Vector2(42, 25)
 layout_mode = 2
-theme = ExtResource("2_jbmh4")
+theme = ExtResource("2_acmb4")
 text = "---"
 horizontal_alignment = 1
 clip_text = true
@@ -60,7 +60,7 @@ layout_mode = 2
 clip_contents = true
 custom_minimum_size = Vector2(42, 25)
 layout_mode = 2
-theme = ExtResource("2_jbmh4")
+theme = ExtResource("2_acmb4")
 text = "---"
 horizontal_alignment = 1
 clip_text = true
@@ -73,7 +73,7 @@ layout_mode = 2
 clip_contents = true
 custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
-theme = ExtResource("2_jbmh4")
+theme = ExtResource("2_acmb4")
 text = "---"
 horizontal_alignment = 1
 clip_text = true

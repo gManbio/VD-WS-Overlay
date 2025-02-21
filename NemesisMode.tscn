@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bd746tlbaason"]
 
 [ext_resource type="Script" path="res://nemesis_mode.gd" id="1_yjsf6"]
-[ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_1g53q"]
+[ext_resource type="Theme" uid="uid://x2175fp860iw" path="res://nameLabel.tres" id="2_3wcum"]
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_r220b"]
 [ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_ewqf6"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="5_bhduw"]
@@ -52,7 +52,7 @@ alignment = 2
 clip_contents = true
 custom_minimum_size = Vector2(64.725, 25)
 layout_mode = 2
-theme = ExtResource("2_1g53q")
+theme = ExtResource("2_3wcum")
 text = "
 "
 horizontal_alignment = 1
@@ -65,7 +65,7 @@ layout_mode = 2
 clip_contents = true
 custom_minimum_size = Vector2(42, 25)
 layout_mode = 2
-theme = ExtResource("2_1g53q")
+theme = ExtResource("2_3wcum")
 text = "1
 "
 horizontal_alignment = 1
@@ -78,7 +78,7 @@ layout_mode = 2
 clip_contents = true
 custom_minimum_size = Vector2(42, 25)
 layout_mode = 2
-theme = ExtResource("2_1g53q")
+theme = ExtResource("2_3wcum")
 text = "2
 "
 horizontal_alignment = 1
@@ -92,7 +92,7 @@ layout_mode = 2
 clip_contents = true
 custom_minimum_size = Vector2(42, 25)
 layout_mode = 2
-theme = ExtResource("2_1g53q")
+theme = ExtResource("2_3wcum")
 text = "3
 "
 horizontal_alignment = 1
@@ -106,7 +106,7 @@ layout_mode = 2
 clip_contents = true
 custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
-theme = ExtResource("2_1g53q")
+theme = ExtResource("2_3wcum")
 text = "Total"
 horizontal_alignment = 1
 text_overrun_behavior = 1

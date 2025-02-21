@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=12 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
@@ -7,6 +7,7 @@
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
 [ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_rdpxc"]
+[ext_resource type="PackedScene" uid="uid://di22e60dd02jq" path="res://NameCards.tscn" id="7_ywn4m"]
 
 [sub_resource type="Theme" id="Theme_svhul"]
 Button/styles/normal = ExtResource("4_q4i2i")
@@ -138,9 +139,9 @@ alignment = 1
 [node name="HSeparator2" type="HSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 650.0
+offset_top = 637.0
 offset_right = 423.0
-offset_bottom = 666.0
+offset_bottom = 653.0
 
 [node name="HSeparator" type="HSeparator" parent="Control"]
 layout_mode = 0
@@ -219,10 +220,10 @@ placeholder_text = "Gate Count"
 
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 230.0
-offset_top = 744.0
-offset_right = 348.0
-offset_bottom = 773.0
+offset_left = 227.0
+offset_top = 755.0
+offset_right = 345.0
+offset_bottom = 784.0
 focus_mode = 0
 theme = SubResource("Theme_svhul")
 text = "Reset Timing"
@@ -305,6 +306,26 @@ offset_right = 159.0
 offset_bottom = 392.0
 text = "Auto Lock"
 
+[node name="Save Button" type="Button" parent="Control/Options"]
+layout_mode = 2
+offset_left = 61.0
+offset_top = 660.0
+offset_right = 180.0
+offset_bottom = 685.0
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "Save"
+
+[node name="Load Button" type="Button" parent="Control/Options"]
+layout_mode = 2
+offset_left = 61.0
+offset_top = 628.0
+offset_right = 180.0
+offset_bottom = 653.0
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "Load"
+
 [node name="Room Controls" type="VBoxContainer" parent="Control/Options"]
 layout_mode = 0
 offset_top = 157.0
@@ -358,9 +379,10 @@ text = "Team vs Team"
 
 [node name="Cam_director_toggle" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
-offset_top = 91.0
-offset_right = 168.0
-offset_bottom = 122.0
+offset_left = 34.0
+offset_top = 687.0
+offset_right = 202.0
+offset_bottom = 718.0
 text = "Enable Director"
 
 [node name="Gate Label" type="Label" parent="Control/Options"]
@@ -692,9 +714,9 @@ alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/Options"]
 layout_mode = 2
-offset_left = 155.0
+offset_left = 161.0
 offset_top = 101.0
-offset_right = 214.0
+offset_right = 220.0
 offset_bottom = 715.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control/Options"]
@@ -704,6 +726,10 @@ offset_left = 211.0
 offset_top = 415.0
 offset_right = 270.0
 offset_bottom = 711.0
+
+[node name="PilotPortrait" parent="Control" instance=ExtResource("7_ywn4m")]
+position = Vector2(117, 686)
+scale = Vector2(0.185, 0.185)
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -734,6 +760,8 @@ transform = Transform2D(0.97, 2.08165e-12, 2.08165e-12, 0.48, 55.63, 63.14)
 [connection signal="toggled" from="Control/Options/Contendermode" to="." method="_on_contendermode_toggled"]
 [connection signal="pressed" from="Control/Options/Start Race" to="." method="_on_start_race_pressed"]
 [connection signal="toggled" from="Control/Options/Auto_lock" to="." method="_on_auto_lock_toggled"]
+[connection signal="pressed" from="Control/Options/Save Button" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Control/Options/Load Button" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/All Spectator" to="." method="_on_all_spectator_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/PastePilots" to="." method="_send_pilot_list_button_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/Lock Room" to="." method="_on_lock_room_pressed"]
