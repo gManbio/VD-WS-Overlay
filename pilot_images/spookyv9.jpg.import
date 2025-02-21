@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2un0fwbx5hte"
-path="res://.godot/imported/flyingpizza.jpg-85c93d72ef6ae59c2ab11368f4cacc56.ctex"
+uid="uid://jx87n4o7yw71"
+path="res://.godot/imported/spookyv9.jpg-07fdbcc881432750cfae43ec1965e0c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pilot_images/flyingpizza.jpg"
-dest_files=["res://.godot/imported/flyingpizza.jpg-85c93d72ef6ae59c2ab11368f4cacc56.ctex"]
+source_file="res://pilot_images/spookyv9.jpg"
+dest_files=["res://.godot/imported/spookyv9.jpg-07fdbcc881432750cfae43ec1965e0c3.ctex"]
 
 [params]
 

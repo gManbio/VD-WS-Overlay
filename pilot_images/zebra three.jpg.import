@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beovh5t4li58d"
-path="res://.godot/imported/rofl.jpg-529b800fc19b1147534d1defbda77ba8.ctex"
+uid="uid://ckek6s0unu8hu"
+path="res://.godot/imported/zebra three.jpg-0a920f4de0f071a271d0843675ba2494.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pilot_images/rofl.jpg"
-dest_files=["res://.godot/imported/rofl.jpg-529b800fc19b1147534d1defbda77ba8.ctex"]
+source_file="res://pilot_images/zebra three.jpg"
+dest_files=["res://.godot/imported/zebra three.jpg-0a920f4de0f071a271d0843675ba2494.ctex"]
 
 [params]
 

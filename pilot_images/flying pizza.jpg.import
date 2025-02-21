@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpn6mp28b0kpk"
-path="res://.godot/imported/goodvibes.jpg-70f357f3e96c5989356ddf36f14c6599.ctex"
+uid="uid://c2un0fwbx5hte"
+path="res://.godot/imported/flying pizza.jpg-afc2147ae9082adc029152b1f741af15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pilot_images/goodvibes.jpg"
-dest_files=["res://.godot/imported/goodvibes.jpg-70f357f3e96c5989356ddf36f14c6599.ctex"]
+source_file="res://pilot_images/flying pizza.jpg"
+dest_files=["res://.godot/imported/flying pizza.jpg-afc2147ae9082adc029152b1f741af15.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckek6s0unu8hu"
-path="res://.godot/imported/zebra.jpg-66b1714847f42131d96bea1a40a0128c.ctex"
+uid="uid://cv587ovdoodgk"
+path="res://.godot/imported/big ramon.jpg-655e04acf25139bc2e445d8a1118ef83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pilot_images/zebra.jpg"
-dest_files=["res://.godot/imported/zebra.jpg-66b1714847f42131d96bea1a40a0128c.ctex"]
+source_file="res://pilot_images/big ramon.jpg"
+dest_files=["res://.godot/imported/big ramon.jpg-655e04acf25139bc2e445d8a1118ef83.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvuso3wqpi62c"
-path="res://.godot/imported/freedomduck.jpg-3a204ba4669a9e57faa602a5d515f828.ctex"
+uid="uid://beovh5t4li58d"
+path="res://.godot/imported/roflcopter.jpg-16c601f8818b03bf7a7ec2306dd10999.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pilot_images/freedomduck.jpg"
-dest_files=["res://.godot/imported/freedomduck.jpg-3a204ba4669a9e57faa602a5d515f828.ctex"]
+source_file="res://pilot_images/roflcopter.jpg"
+dest_files=["res://.godot/imported/roflcopter.jpg-16c601f8818b03bf7a7ec2306dd10999.ctex"]
 
 [params]
 

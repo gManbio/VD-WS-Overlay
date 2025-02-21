@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jx87n4o7yw71"
-path="res://.godot/imported/spooky.jpg-954379efa605da4663d40c8a1d6075fa.ctex"
+uid="uid://cvuso3wqpi62c"
+path="res://.godot/imported/freedom duck.jpg-a1038a45cac3c90001a36222a5dc676c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pilot_images/spooky.jpg"
-dest_files=["res://.godot/imported/spooky.jpg-954379efa605da4663d40c8a1d6075fa.ctex"]
+source_file="res://pilot_images/freedom duck.jpg"
+dest_files=["res://.godot/imported/freedom duck.jpg-a1038a45cac3c90001a36222a5dc676c.ctex"]
 
 [params]
 
