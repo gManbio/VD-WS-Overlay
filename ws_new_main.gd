@@ -546,6 +546,7 @@ func _on_cam_text_changed(new_text):
 func _on_cooldown_timeout():
 	missing_label.text = str(missing_pilot_count)+" missing"
 	missing_label.visible = true
+	missing_pilot_alert()
 	$HideTimer.start()
 
 
@@ -560,6 +561,12 @@ func _on_save_button_pressed():
 
 func _on_load_button_pressed():
 	$"LoadFileDialog".popup_centered()
+	
+	
+func missing_pilot_alert():
+	$MissingPilotAlert.dialog_text = "\n".join(missing_list)
+	$MissingPilotAlert.popup_centered()
+	
 	
 
 func _apply_director_dict_to_ui():
@@ -656,7 +663,7 @@ var missing_list = []
 func _on_activate_error(error_user):
 	missing_pilot_count += 1
 	missing_list.append(portrait_box.get_pilot_name(error_user))
-	print(missing_list)
+	# print(missing_list)
 	$Cooldown.start()
 
 

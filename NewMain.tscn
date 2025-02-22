@@ -778,6 +778,11 @@ access = 2
 filters = PackedStringArray("*.json ; JSON files")
 use_native_dialog = true
 
+[node name="MissingPilotAlert" type="AcceptDialog" parent="."]
+title = "Missing Pilots"
+initial_position = 4
+size = Vector2i(150, 100)
+
 [connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_disconnect_pressed"]
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="reset_leaderboard"]
