@@ -24,6 +24,7 @@ var first_bursted = false
 
 var color_out = "#"
 
+var user_id = 0
 
 func _ready():
 	pass
@@ -104,6 +105,14 @@ func set_hex_color(hex_color):
 	color_out = hex_color
 
 
+func set_user_id(uid):
+	user_id = int(uid)
+	
+	
+func get_user_id():
+	return user_id
+	
+
 func reset():
 	pilot_name.text = "--"
 	pilot_name.modulate = Color(Color.WHITE)
@@ -113,3 +122,4 @@ func reset():
 	progress_bar.value = 0
 	progress_bar.modulate = Color(Color.WHITE)
 	bursted = false
+	user_id = 0

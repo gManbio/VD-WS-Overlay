@@ -111,6 +111,8 @@ func _handle_websocket_closed():
 	# Reset connected state and UI
 	connected = false
 	connect_button.text = "Connect"
+	connect_button.visible = true
+	dc_button.visible = false
 	reset_leaderboard()
 	ip_complete = false
 
@@ -168,6 +170,7 @@ func update_pilot_data(new_data, pilotname):
 					portrait_box.update_portrait(pilot["data"]["uid"])
 					var color = Color("#" + pilot["data"]["colour"])
 					portrait_box.update_nametag(pilotname, color, pilot["data"]["uid"])
+					portrait_box.update_position(pilot["data"]["position"], color)
 				break
 		if not found:
 			# Add new pilot
@@ -263,9 +266,11 @@ func make_leaderboard():
 					var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
 					if pilot["data"]["finished"] == "True":
 						current_pos.set_delta(pilot["data"]["time"])
+						current_pos.set_user_id(pilot["data"]["uid"])
 						current_pos.trigger_burst()
 					else:
-						current_pos.set_delta(leader_time - pilot_time)			
+						current_pos.set_delta(leader_time - pilot_time)
+						current_pos.set_user_id(pilot["data"]["uid"])
 						# $Control/Options/FieldGap.text = str(gap_delta)
 			else:    
 				if contender_mode:
@@ -276,11 +281,13 @@ func make_leaderboard():
 				
 				if pilot["data"]["finished"] == "True":  # Sets the delta for first player
 					current_pos.set_delta(pilot["data"]["time"])
+					current_pos.set_user_id(pilot["data"]["uid"])
 					if pilot["data"]["position"] == "1":
 						current_pos.trigger_burst()
 						current_pos.first_place_burst()
 				else:
 					current_pos.set_delta(0.000)
+					current_pos.set_user_id(pilot["data"]["uid"])
 			# gap_delta += current_pos.get_delta()
 			index += 1
 
@@ -667,3 +674,19 @@ func _on_activate_error(error_user):
 	$Cooldown.start()
 
 
+func find_closest_chase():
+	var chase_dict = {}
+	var delta_list = []
+	for time_row in time_container.get_children():
+		var delta = time_row.get_delta()
+		if delta != 0:
+			chase_dict[delta] = time_row.get_user_id()
+			delta_list.append(delta)
+	if len(delta_list) == 0:
+		return
+	delta_list.sort()
+	var chase_pilot = chase_dict[delta_list[-1]]
+	# ws.send_text('{ "command": "cameraplayer", "uid": "fpv" }')
+	var chase_load_string = '{ "command": "cameraplayer", "uid": '+str(chase_pilot)+" }"
+	ws.send_text(chase_load_string)
+	

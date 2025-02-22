@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var portrait = $PilotImage
 @onready var name_tag = $Name
+@onready var pos_tag = $Pos
+
 var placeholder = preload("res://pilot_images/placeholder.jpg")
 
 # convert currently spectating to a UID and hex color to modulate the text
@@ -73,7 +75,6 @@ func update_portrait(user_id):
 			portrait.texture = image_dict[int(user_id)]
 		else:
 			portrait.texture = placeholder
-		print(user_id)
 		current_id = user_id
 
 
@@ -99,3 +100,7 @@ func get_pilot_name(uid):
 	else:
 		return ""  # or some fallback
 	
+	
+func update_position(position, color):
+	pos_tag.text = position 
+	pos_tag.modulate = color

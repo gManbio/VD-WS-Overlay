@@ -257,6 +257,16 @@ focus_mode = 0
 theme = ExtResource("4_rdpxc")
 text = "Copy Result"
 
+[node name="Chase Cam" type="Button" parent="Control/Options"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 521.0
+offset_right = 180.0
+offset_bottom = 575.0
+focus_mode = 0
+theme = ExtResource("4_rdpxc")
+text = "Chase Cam"
+
 [node name="Pointmode" type="CheckButton" parent="Control/Options"]
 visible = false
 layout_mode = 0
@@ -788,6 +798,7 @@ size = Vector2i(150, 100)
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="reset_leaderboard"]
 [connection signal="pressed" from="Control/Options/menu" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Control/Options/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
+[connection signal="pressed" from="Control/Options/Chase Cam" to="." method="find_closest_chase"]
 [connection signal="toggled" from="Control/Options/Pointmode" to="." method="_on_pointmode_toggled"]
 [connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
 [connection signal="toggled" from="Control/Options/FPS_Mode" to="." method="_on_fps_mode_toggled"]
