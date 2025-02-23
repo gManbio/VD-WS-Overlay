@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=14 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://whsu0j72038r" path="res://addons/post_processing/node/children/speed_lines.tscn" id="3_4pisg"]
 [ext_resource type="Theme" uid="uid://dl110327s8iqh" path="res://lineedit.tres" id="3_kkw68"]
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
+[ext_resource type="PackedScene" uid="uid://dhleujmx3nvox" path="res://TimingRow.tscn" id="4_50ag0"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
 [ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_rdpxc"]
 [ext_resource type="PackedScene" uid="uid://di22e60dd02jq" path="res://NameCards.tscn" id="7_ywn4m"]
@@ -133,6 +134,36 @@ offset_bottom = 515.0
 horizontal_scroll_mode = 0
 
 [node name="TimingContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
+layout_mode = 2
+
+[node name="Control" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control2" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control3" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control4" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control5" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control6" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control7" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control8" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control9" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
+layout_mode = 2
+
+[node name="Control10" parent="Control/ScrollContainer/TimingContainer" instance=ExtResource("4_50ag0")]
 layout_mode = 2
 
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]

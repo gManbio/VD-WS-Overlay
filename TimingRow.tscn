@@ -99,11 +99,11 @@ point_count = 3
 [sub_resource type="Theme" id="Theme_sgklj"]
 
 [node name="Control" type="Control"]
-custom_minimum_size = Vector2(276.325, 40.16)
+custom_minimum_size = Vector2(275.445, 34.78)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 276.325
-offset_bottom = 40.16
+offset_right = 275.445
+offset_bottom = 35.0
 script = ExtResource("1_58ja3")
 
 [node name="PilotImage" type="TextureRect" parent="."]
@@ -132,7 +132,7 @@ clip_contents = true
 custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
 theme = ExtResource("1_nvajw")
-text = "---"
+text = "Test Pilot"
 text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Timing Box"]
@@ -174,7 +174,7 @@ clip_contents = true
 custom_minimum_size = Vector2(60.015, 25)
 layout_mode = 2
 theme = ExtResource("1_nvajw")
-text = "---"
+text = "-2.087"
 clip_text = true
 text_overrun_behavior = 1
 
@@ -249,10 +249,11 @@ offset_top = 29.0
 offset_right = 230.0
 offset_bottom = 34.0
 theme = SubResource("Theme_sgklj")
-value = 25.32
+value = 100.0
 show_percentage = false
 
 [node name="Lap 2 Wittness" type="VSeparator" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 164.0
 offset_top = 30.0
@@ -260,6 +261,7 @@ offset_right = 169.0
 offset_bottom = 33.0
 
 [node name="Lap 1 Wittness" type="VSeparator" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 104.0
 offset_top = 30.0
