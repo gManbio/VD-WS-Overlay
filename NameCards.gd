@@ -103,4 +103,4 @@ func get_pilot_name(uid):
 	
 func update_position(position, color):
 	pos_tag.text = position 
-	pos_tag.modulate = color
+	# pos_tag.modulate = color
