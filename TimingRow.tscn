@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://dhleujmx3nvox"]
+[gd_scene load_steps=27 format=3 uid="uid://dhleujmx3nvox"]
 
 [ext_resource type="Script" path="res://TimingRow.gd" id="1_58ja3"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="1_nvajw"]
+[ext_resource type="Texture2D" uid="uid://ch6hki84cjshd" path="res://pilot_images/placeholder.jpg" id="2_wgmcl"]
 [ext_resource type="Script" path="res://addons/BurstParticles2D/BurstParticles2D.gd" id="3_wp5fi"]
 [ext_resource type="Texture2D" uid="uid://ovw18l4dc1fv" path="res://addons/BurstParticles2D/BurstParticles2D-demo/orb.png" id="4_m57kb"]
 
@@ -101,17 +102,30 @@ point_count = 3
 custom_minimum_size = Vector2(276.325, 40.16)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 274.0
-offset_bottom = 40.0
+offset_right = 276.325
+offset_bottom = 40.16
 script = ExtResource("1_58ja3")
+
+[node name="PilotImage" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 1.0
+offset_right = 35.0
+offset_bottom = 34.0
+texture = ExtResource("2_wgmcl")
+expand_mode = 3
+stretch_mode = 4
 
 [node name="Timing Box" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(200, 0)
 layout_direction = 2
 layout_mode = 2
-offset_right = 268.0
+offset_left = 42.0
+offset_right = 242.0
 offset_bottom = 25.0
-alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="Timing Box"]
+visible = false
+layout_mode = 2
 
 [node name="Name" type="Label" parent="Timing Box"]
 clip_contents = true
@@ -119,13 +133,14 @@ custom_minimum_size = Vector2(115.86, 25)
 layout_mode = 2
 theme = ExtResource("1_nvajw")
 text = "---"
-horizontal_alignment = 1
 text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Timing Box"]
+visible = false
 layout_mode = 2
 
 [node name="Lap" type="Label" parent="Timing Box"]
+visible = false
 clip_contents = true
 custom_minimum_size = Vector2(25.005, 25)
 layout_mode = 2
@@ -135,10 +150,8 @@ text = "---
 horizontal_alignment = 1
 text_overrun_behavior = 1
 
-[node name="VSeparator2" type="VSeparator" parent="Timing Box"]
-layout_mode = 2
-
 [node name="Gate" type="Label" parent="Timing Box"]
+visible = false
 clip_contents = true
 custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
@@ -149,6 +162,11 @@ clip_text = true
 text_overrun_behavior = 1
 
 [node name="VSeparator3" type="VSeparator" parent="Timing Box"]
+visible = false
+layout_mode = 2
+
+[node name="Container" type="Container" parent="Timing Box"]
+custom_minimum_size = Vector2(4.235, 0)
 layout_mode = 2
 
 [node name="Delta" type="Label" parent="Timing Box"]
@@ -193,7 +211,7 @@ color_offset_curve = SubResource("Curve_4uv48")
 alpha_curve = SubResource("Curve_bupj0")
 
 [node name="finish_celebration" type="Node2D" parent="Timing Box"]
-position = Vector2(217, 24)
+position = Vector2(148, 14)
 scale = Vector2(0.01, 0.01)
 script = ExtResource("3_wp5fi")
 num_particles = 41
@@ -226,23 +244,24 @@ alpha_curve = SubResource("Curve_wd7ay")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 2
+offset_left = 42.0
 offset_top = 29.0
-offset_right = 268.0
-offset_bottom = 33.0
+offset_right = 230.0
+offset_bottom = 34.0
 theme = SubResource("Theme_sgklj")
-value = 66.0
+value = 25.32
 show_percentage = false
 
 [node name="Lap 2 Wittness" type="VSeparator" parent="."]
 layout_mode = 0
-offset_left = 175.0
-offset_top = 25.0
-offset_right = 180.0
-offset_bottom = 37.0
+offset_left = 164.0
+offset_top = 30.0
+offset_right = 169.0
+offset_bottom = 33.0
 
 [node name="Lap 1 Wittness" type="VSeparator" parent="."]
 layout_mode = 0
-offset_left = 89.0
-offset_top = 25.0
-offset_right = 94.0
-offset_bottom = 37.0
+offset_left = 104.0
+offset_top = 30.0
+offset_right = 109.0
+offset_bottom = 33.0

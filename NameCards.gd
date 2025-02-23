@@ -65,9 +65,12 @@ var image_dict = {
 266417: preload("res://pilot_images/zebra three.jpg")
 }
 
+var default_color = Color("#FFFFFF")
+
 var current_id = 0000
 
 var current_name = "None"
+
 
 func update_portrait(user_id):
 	if user_id != current_id:
@@ -81,8 +84,8 @@ func update_portrait(user_id):
 func update_nametag(name, color, uid):
 	if name != current_name:
 		if int(uid) in image_dict:
-			var filename = get_pilot_name(uid)
-			current_name = filename
+			var filename = get_pilot_name(uid, name)
+			current_name = name
 			name_tag.text = filename
 			name_tag.modulate = color
 		else:
@@ -91,16 +94,33 @@ func update_nametag(name, color, uid):
 			current_name = name
 	
 
-func get_pilot_name(uid):
+func get_pilot_name(uid, name):
 	if int(uid) in image_dict:
 		var full_path: String = image_dict[int(uid)].resource_path
 		var path_no_ext = full_path.get_basename()
 		var file_no_ext = path_no_ext.get_file()
 		return file_no_ext
 	else:
-		return ""  # or some fallback
+		return name  # or some fallback
 	
 	
 func update_position(position, color):
 	pos_tag.text = position 
 	# pos_tag.modulate = color
+
+
+func get_image(user_id):
+	if int(user_id) in image_dict:
+		portrait.texture = image_dict[int(user_id)]
+		return image_dict[int(user_id)]
+	else:
+		return placeholder
+
+
+func reset():
+	update_position("-", default_color)
+	portrait.texture = placeholder
+	current_id = 0000
+	current_name = "None"
+	name_tag.text = "Pilot"
+	name_tag.modulate = default_color

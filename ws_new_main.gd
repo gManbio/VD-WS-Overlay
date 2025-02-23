@@ -234,11 +234,15 @@ func make_leaderboard():
 			var hex_color = pilot["data"]["colour"]
 			var color = Color("#" + hex_color)
 			var current_pos = time_container.get_children()[index]
-					
-			current_pos.set_pilot_name(pilot["name"], color)
+			
+			var clean_name = portrait_box.get_pilot_name(pilot["data"]["uid"], pilot["name"])
+			
+			# this change could break stuff... here we go
+			current_pos.set_pilot_name(clean_name, color)
 			current_pos.set_lap(pilot["data"]["lap"])
 			current_pos.set_gate(pilot["data"]["gate"])
 			current_pos.set_hex_color(hex_color)
+			current_pos.set_portrait(portrait_box.get_image(pilot["data"]["uid"]))
 			
 			if director_mode:
 				if pilot["name"] == currently_spectating:
@@ -363,6 +367,7 @@ func reset_leaderboard():
 	team_order = []
 	score_dict = {}
 	last_message = {} # this is to prevent reset from clearing results... untested
+	portrait_box.reset()
 	reset_gate_count()
 	
 	if team_mode:
@@ -669,7 +674,7 @@ var missing_list = []
 
 func _on_activate_error(error_user):
 	missing_pilot_count += 1
-	missing_list.append(portrait_box.get_pilot_name(error_user))
+	missing_list.append(portrait_box.get_pilot_name(error_user, "None"))
 	# print(missing_list)
 	$Cooldown.start()
 
@@ -690,3 +695,9 @@ func find_closest_chase():
 	var chase_load_string = '{ "command": "cameraplayer", "uid": '+str(chase_pilot)+" }"
 	ws.send_text(chase_load_string)
 	
+
+func _lead_cam_pressed():
+	if len(time_container.get_children()) > 0:
+		var lead_pilot = time_container.get_children()[0]
+		var lead_load_string = '{ "command": "cameraplayer", "uid": '+str(lead_pilot)+" }"
+		ws.send_text(lead_load_string)

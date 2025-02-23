@@ -18,6 +18,8 @@ extends Control
 
 @onready var lap2_wittness = $"Lap 2 Wittness"
 
+@onready var portrait = $PilotImage
+
 var bursted = false
 
 var first_bursted = false
@@ -25,6 +27,7 @@ var first_bursted = false
 var color_out = "#"
 
 var user_id = 0
+
 
 func _ready():
 	pass
@@ -66,8 +69,8 @@ func set_progress_range(min, max):
 
 func toggle_wittness(is_on):
 	if is_on:
-		lap1_wittness.visible = true
-		lap2_wittness.visible = true
+		lap1_wittness.visible = false
+		lap2_wittness.visible = false
 	else:
 		lap1_wittness.visible = false
 		lap2_wittness.visible = false
@@ -107,11 +110,15 @@ func set_hex_color(hex_color):
 
 func set_user_id(uid):
 	user_id = int(uid)
-	
-	
+
+
 func get_user_id():
 	return user_id
-	
+
+
+func set_portrait(image):
+	portrait.texture = image
+
 
 func reset():
 	pilot_name.text = "--"
