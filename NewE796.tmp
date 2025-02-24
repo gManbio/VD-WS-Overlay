@@ -235,7 +235,6 @@ theme = ExtResource("6_oakrc")
 placeholder_text = "Local IP"
 
 [node name="score debug" type="LineEdit" parent="Control/Options"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 400.0
@@ -247,7 +246,6 @@ text = "10"
 placeholder_text = "Score Debug"
 
 [node name="Label" type="Label" parent="Control/Options/score debug"]
-visible = false
 layout_mode = 0
 offset_left = -11.0
 offset_top = -23.0
@@ -1042,6 +1040,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.478431)
 
+[connection signal="text_changed" from="Control/Options/score debug" to="." method="_on_score_debug_text_changed"]
 [connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_disconnect_pressed"]
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="reset_leaderboard"]

@@ -13,7 +13,7 @@ var team_logos = {
 	"#FFA300": preload("res://Team Logos/vd.jpg"),
 }
 
-
+var score_threshold = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,7 +21,7 @@ func _ready():
 
 
 func set_score(input_score):
-	var temp_score = input_score - 10
+	var temp_score = input_score - score_threshold
 	if temp_score <= 0:
 		score.text = ""
 	else:
@@ -46,5 +46,4 @@ func update_logo(p1_team):
 		logo.texture = team_logos[p1_team]
 	else:
 		logo.texture = fyf
-	
 

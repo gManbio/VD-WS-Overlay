@@ -701,3 +701,4 @@ func _lead_cam_pressed():
 		var lead_pilot = time_container.get_children()[0]
 		var lead_load_string = '{ "command": "cameraplayer", "uid": '+str(lead_pilot)+" }"
 		ws.send_text(lead_load_string)
+
