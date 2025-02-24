@@ -21,7 +21,7 @@ func _ready():
 
 
 func set_score(input_score):
-	var temp_score = input_score - 5
+	var temp_score = input_score - 10
 	if temp_score <= 0:
 		score.text = ""
 	else:
