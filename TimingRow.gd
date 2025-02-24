@@ -28,6 +28,9 @@ var color_out = "#"
 
 var user_id = 0
 
+var reg_font = load("res://ChakraPetch-Regular.ttf")
+
+var bold_font = load("res://ChakraPetch-Bold.ttf")
 
 func _ready():
 	pass
@@ -50,6 +53,12 @@ func set_gate(gate_num):
 
 
 func set_delta(delta_time):
+	if delta_time > 0:
+		delta.remove_theme_font_override("font")
+	elif delta_time >= -.15:
+		delta.add_theme_font_override("font", bold_font)
+	else:
+		delta.remove_theme_font_override("font")
 	delta.text = str(delta_time)
 	
 	

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4nypyriguef6"]
+[gd_scene load_steps=4 format=3 uid="uid://b4nypyriguef6"]
 
 [ext_resource type="Theme" uid="uid://1ioj4h2iu8ah" path="res://score.tres" id="1_bbanj"]
 [ext_resource type="Script" path="res://ScoreBox.gd" id="1_o6mr5"]
+[ext_resource type="Texture2D" uid="uid://45br8ilsaq2" path="res://FlyYouFools.bold512.png" id="2_ftup4"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(104.36, 96.905)
@@ -22,9 +23,10 @@ anchor_top = 0.752
 anchor_right = 0.738
 anchor_bottom = 1.238
 offset_left = 0.0143585
-offset_top = 0.0399933
-offset_right = -0.0176849
-offset_bottom = 0.00999451
+offset_top = 2.03999
+offset_right = -0.0176697
+offset_bottom = 2.00999
+texture = ExtResource("2_ftup4")
 expand_mode = 3
 stretch_mode = 4
 
@@ -50,7 +52,7 @@ offset_right = -0.741722
 offset_bottom = 0.00998688
 grow_vertical = 2
 theme = ExtResource("1_bbanj")
-text = "-"
+text = "+1"
 horizontal_alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="."]

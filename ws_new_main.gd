@@ -269,7 +269,7 @@ func make_leaderboard():
 					var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
 					var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
 					if pilot["data"]["finished"] == "True":
-						current_pos.set_delta(pilot["data"]["time"])
+						current_pos.set_delta(float(pilot["data"]["time"]))
 						current_pos.set_user_id(pilot["data"]["uid"])
 						current_pos.trigger_burst()
 					else:
@@ -284,7 +284,7 @@ func make_leaderboard():
 						con_highlighter.visible = false
 				
 				if pilot["data"]["finished"] == "True":  # Sets the delta for first player
-					current_pos.set_delta(pilot["data"]["time"])
+					current_pos.set_delta(float(pilot["data"]["time"]))
 					current_pos.set_user_id(pilot["data"]["uid"])
 					if pilot["data"]["position"] == "1":
 						current_pos.trigger_burst()

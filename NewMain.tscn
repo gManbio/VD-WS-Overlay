@@ -8,7 +8,8 @@
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
 [ext_resource type="PackedScene" uid="uid://dhleujmx3nvox" path="res://TimingRow.tscn" id="4_50ag0"]
 [ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
-[ext_resource type="Theme" uid="uid://dwvsgrp45xty2" path="res://NewMainButton.tres" id="4_rdpxc"]
+[ext_resource type="PackedScene" uid="uid://b4nypyriguef6" path="res://ScoreBox.tscn" id="5_4bvrm"]
+[ext_resource type="Theme" path="res://default.tres" id="6_oakrc"]
 [ext_resource type="PackedScene" uid="uid://di22e60dd02jq" path="res://NameCards.tscn" id="7_ywn4m"]
 
 [sub_resource type="Theme" id="Theme_svhul"]
@@ -16,9 +17,6 @@ Button/styles/normal = ExtResource("4_q4i2i")
 
 [sub_resource type="Theme" id="Theme_h14tp"]
 LineEdit/styles/normal = ExtResource("3_pt8py")
-
-[sub_resource type="Theme" id="Theme_rt1a0"]
-Button/styles/normal = ExtResource("4_q4i2i")
 
 [node name="Node" type="Node"]
 script = ExtResource("1_hy1wg")
@@ -169,38 +167,44 @@ layout_mode = 2
 [node name="ScoreContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 0
 offset_left = -6.0
-offset_top = 515.0
+offset_top = 451.0
 offset_right = 409.0
-offset_bottom = 627.0
+offset_bottom = 563.0
 alignment = 1
+
+[node name="Control" parent="Control/ScoreContainer" instance=ExtResource("5_4bvrm")]
+layout_mode = 2
+
+[node name="Control2" parent="Control/ScoreContainer" instance=ExtResource("5_4bvrm")]
+layout_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 637.0
+offset_top = 607.0
 offset_right = 423.0
-offset_bottom = 653.0
+offset_bottom = 623.0
 
 [node name="HSeparator" type="HSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 504.0
+offset_top = 443.0
 offset_right = 422.0
-offset_bottom = 520.0
+offset_bottom = 459.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control"]
 layout_mode = 0
-offset_left = 313.0
+offset_left = 314.0
 offset_top = 68.0
 offset_right = 321.0
-offset_bottom = 510.0
+offset_bottom = 446.0
 
 [node name="VSeparator" type="VSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 30.0
 offset_top = 68.0
 offset_right = 42.0
-offset_bottom = 510.0
+offset_bottom = 446.0
 
 [node name="Options" type="Control" parent="Control"]
 layout_mode = 1
@@ -227,7 +231,7 @@ offset_left = 99.0
 offset_top = 19.0
 offset_right = 221.0
 offset_bottom = 50.0
-theme = ExtResource("3_kkw68")
+theme = ExtResource("6_oakrc")
 placeholder_text = "Local IP"
 
 [node name="Connect Button" type="Button" parent="Control/Options"]
@@ -240,7 +244,7 @@ offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Connect"
 
 [node name="DC Button" type="Button" parent="Control/Options"]
@@ -267,52 +271,52 @@ placeholder_text = "Gate Count"
 
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 227.0
-offset_top = 755.0
-offset_right = 345.0
-offset_bottom = 784.0
+offset_left = 234.0
+offset_top = 830.0
+offset_right = 365.0
+offset_bottom = 859.0
 focus_mode = 0
-theme = SubResource("Theme_svhul")
-text = "Reset Timing"
+theme = ExtResource("6_oakrc")
+text = "Reset"
 
 [node name="menu" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 259.0
-offset_top = 802.0
-offset_right = 343.0
-offset_bottom = 857.0
+offset_left = 5.0
+offset_top = 65.0
+offset_right = 89.0
+offset_bottom = 105.0
 focus_mode = 0
-theme = SubResource("Theme_rt1a0")
+theme = ExtResource("6_oakrc")
 text = "Menu"
 
 [node name="CopyToClipboardButton" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 422.0
-offset_right = 125.0
-offset_bottom = 482.0
+offset_left = 14.0
+offset_top = 398.0
+offset_right = 206.0
+offset_bottom = 519.0
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Copy Result"
 
 [node name="Chase Cam" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 82.0
+offset_left = 116.0
 offset_top = 548.0
-offset_right = 180.0
-offset_bottom = 575.0
+offset_right = 214.0
+offset_bottom = 596.0
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Chase Cam"
 
 [node name="Lead Cam" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 82.0
-offset_top = 516.0
-offset_right = 180.0
-offset_bottom = 542.0
+offset_left = 3.0
+offset_top = 548.0
+offset_right = 101.0
+offset_bottom = 596.0
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Lead Cam"
 
 [node name="Pointmode" type="CheckButton" parent="Control/Options"]
@@ -330,6 +334,7 @@ offset_left = 230.0
 offset_top = 19.0
 offset_right = 352.0
 offset_bottom = 39.0
+theme = ExtResource("6_oakrc")
 
 [node name="FPS_Mode" type="CheckButton" parent="Control/Options"]
 visible = false
@@ -359,68 +364,70 @@ offset_bottom = 692.0
 
 [node name="Start Race" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_top = 287.0
-offset_right = 161.0
+offset_top = 310.0
+offset_right = 119.0
 offset_bottom = 361.0
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Start Race"
 
 [node name="Auto_lock" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
-offset_top = 361.0
-offset_right = 159.0
-offset_bottom = 392.0
+offset_left = -1.0
+offset_top = 277.0
+offset_right = 158.0
+offset_bottom = 308.0
+theme = ExtResource("6_oakrc")
 text = "Auto Lock"
 
 [node name="Save Button" type="Button" parent="Control/Options"]
 layout_mode = 2
-offset_left = 61.0
-offset_top = 688.0
-offset_right = 180.0
-offset_bottom = 713.0
+offset_left = 88.0
+offset_top = 696.0
+offset_right = 207.0
+offset_bottom = 727.0
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Save"
 
 [node name="Load Button" type="Button" parent="Control/Options"]
 layout_mode = 2
-offset_left = 61.0
-offset_top = 656.0
-offset_right = 180.0
-offset_bottom = 681.0
+offset_left = 88.0
+offset_top = 662.0
+offset_right = 207.0
+offset_bottom = 687.0
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Load"
 
 [node name="Room Controls" type="VBoxContainer" parent="Control/Options"]
 layout_mode = 0
-offset_top = 157.0
+offset_top = 135.0
 offset_right = 119.0
-offset_bottom = 269.0
+offset_bottom = 271.0
 
 [node name="All Spectator" type="Button" parent="Control/Options/Room Controls"]
 layout_mode = 2
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "All Spectator"
 
 [node name="PastePilots" type="Button" parent="Control/Options/Room Controls"]
 layout_mode = 2
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Import Pilots"
 
 [node name="Lock Room" type="Button" parent="Control/Options/Room Controls"]
 layout_mode = 2
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Lock Room"
 
 [node name="Unlock Room" type="Button" parent="Control/Options/Room Controls"]
 layout_mode = 2
 focus_mode = 0
-theme = ExtResource("4_rdpxc")
+theme = ExtResource("6_oakrc")
 text = "Unlock Room"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control/Options"]
@@ -433,31 +440,36 @@ alignment = 2
 
 [node name="CheckButton" type="CheckButton" parent="Control/Options/VBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("6_oakrc")
 text = "Transparent"
 
 [node name="CheckButton2" type="CheckButton" parent="Control/Options/VBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("6_oakrc")
 text = "Single Lap"
 
 [node name="CheckButton3" type="CheckButton" parent="Control/Options/VBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("6_oakrc")
 button_pressed = true
 text = "Team vs Team"
 
 [node name="Cam_director_toggle" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
-offset_left = 29.0
-offset_top = 615.0
-offset_right = 197.0
-offset_bottom = 646.0
+offset_left = 56.0
+offset_top = 621.0
+offset_right = 224.0
+offset_bottom = 652.0
+theme = ExtResource("6_oakrc")
 text = "Auto Director"
 
 [node name="Gate Label" type="Label" parent="Control/Options"]
 layout_mode = 2
-offset_left = 212.0
-offset_top = 91.0
-offset_right = 261.0
-offset_bottom = 114.0
+offset_left = 248.0
+offset_top = 69.0
+offset_right = 297.0
+offset_bottom = 92.0
+theme = ExtResource("6_oakrc")
 text = "Gate#"
 
 [node name="FPV Gate" type="Label" parent="Control/Options"]
@@ -480,18 +492,19 @@ text = "FollowGate"
 
 [node name="Cam_Label1" type="Label" parent="Control/Options"]
 layout_mode = 2
-offset_left = 278.0
-offset_top = 91.0
-offset_right = 327.0
-offset_bottom = 114.0
+offset_left = 316.0
+offset_top = 69.0
+offset_right = 365.0
+offset_bottom = 92.0
+theme = ExtResource("6_oakrc")
 text = "Cam"
 
 [node name="Camera Director" type="GridContainer" parent="Control/Options"]
 layout_mode = 0
-offset_left = 206.0
-offset_top = 120.0
-offset_right = 329.0
-offset_bottom = 715.0
+offset_left = 242.0
+offset_top = 98.0
+offset_right = 365.0
+offset_bottom = 796.0
 
 [node name="Gate" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
@@ -499,6 +512,58 @@ theme = ExtResource("3_kkw68")
 alignment = 1
 
 [node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate23" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate23"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate24" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate24"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate25" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate25"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate26" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate26"]
 layout_mode = 0
 offset_left = 64.0
 offset_right = 123.063
@@ -781,10 +846,10 @@ alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/Options"]
 layout_mode = 2
-offset_left = 192.0
-offset_top = 101.0
-offset_right = 202.0
-offset_bottom = 715.0
+offset_left = 230.0
+offset_top = 100.0
+offset_right = 234.0
+offset_bottom = 796.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control/Options"]
 visible = false
@@ -801,9 +866,9 @@ scale = Vector2(0.185, 0.185)
 [node name="cutoff line" type="HBoxContainer" parent="Control"]
 layout_mode = 0
 offset_left = 42.0
-offset_top = 322.0
+offset_top = 289.0
 offset_right = 314.0
-offset_bottom = 332.0
+offset_bottom = 299.0
 
 [node name="HSeparator" type="HSeparator" parent="Control/cutoff line"]
 custom_minimum_size = Vector2(8.14, 0)
@@ -948,10 +1013,10 @@ size = Vector2i(150, 100)
 anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
-offset_left = 529.0
-offset_top = 325.0
-offset_right = -140.3
-offset_bottom = -426.0
+offset_left = 535.0
+offset_top = 293.0
+offset_right = -143.3
+offset_bottom = -486.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.478431)
@@ -981,6 +1046,14 @@ color = Color(0, 0, 0, 0.478431)
 [connection signal="toggled" from="Control/Options/Cam_director_toggle" to="." method="_on_cam_director_toggle_toggled"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate23" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate23/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate24" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate24/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate25" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate25/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate26" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate26/Cam" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate11" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate11/Cam" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate12" to="." method="_on_cam_text_changed"]
