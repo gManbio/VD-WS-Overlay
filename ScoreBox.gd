@@ -25,11 +25,7 @@ func set_score(input_score):
 	if temp_score <= 0:
 		score.text = ""
 	else:
-		score.text = "+" + str(temp_score)
-
-
-func ceil_div_floats(numerator: int, denominator: int) -> int:
-	return int(ceil(float(numerator) / float(denominator)))
+		score.text = str(temp_score)
 
 
 func set_color(color):

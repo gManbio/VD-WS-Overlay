@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://clvmoj4dim54m" path="res://Team Logos/dmo_black.jpg" id="5_d1i7t"]
 [ext_resource type="Texture2D" uid="uid://krjmr4liytki" path="res://Team Logos/tbs_black.jpg" id="6_r13ol"]
 [ext_resource type="Texture2D" uid="uid://dwhab7skkp5lx" path="res://Team Logos/vd_black.jpg" id="7_wy4hb"]
-[ext_resource type="Theme" path="res://default.tres" id="8_lbr67"]
+[ext_resource type="Theme" uid="uid://wj01f2e7u6jy" path="res://default.tres" id="8_lbr67"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3

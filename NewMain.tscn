@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=20 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
@@ -7,21 +7,34 @@
 [ext_resource type="Theme" uid="uid://dl110327s8iqh" path="res://lineedit.tres" id="3_kkw68"]
 [ext_resource type="StyleBox" uid="uid://bbuh8oxmxqsqr" path="res://new_style_box_flat.tres" id="3_pt8py"]
 [ext_resource type="PackedScene" uid="uid://dhleujmx3nvox" path="res://TimingRow.tscn" id="4_50ag0"]
-[ext_resource type="StyleBox" uid="uid://d36m1th6a44ss" path="res://button.tres" id="4_q4i2i"]
 [ext_resource type="PackedScene" uid="uid://b4nypyriguef6" path="res://ScoreBox.tscn" id="5_4bvrm"]
-[ext_resource type="Theme" path="res://default.tres" id="6_oakrc"]
+[ext_resource type="Theme" uid="uid://wj01f2e7u6jy" path="res://default.tres" id="6_oakrc"]
 [ext_resource type="PackedScene" uid="uid://di22e60dd02jq" path="res://NameCards.tscn" id="7_ywn4m"]
-
-[sub_resource type="Theme" id="Theme_svhul"]
-Button/styles/normal = ExtResource("4_q4i2i")
+[ext_resource type="FontFile" uid="uid://5m72dp7cw54s" path="res://ChakraPetch-Bold.ttf" id="8_85ijm"]
+[ext_resource type="Script" path="res://Custom Cam.gd" id="10_dtx3b"]
+[ext_resource type="Texture2D" uid="uid://djjnuylv2d7oh" path="res://LOGOS 64x64/533.jpg" id="11_o4luf"]
+[ext_resource type="Texture2D" uid="uid://gbg0cqji61a2" path="res://LOGOS 64x64/din.jpg" id="12_ofuhj"]
+[ext_resource type="Texture2D" uid="uid://bcadmu8x1j874" path="res://LOGOS 64x64/mav.jpg" id="13_k3clb"]
+[ext_resource type="Texture2D" uid="uid://bawn0wmkdk2rh" path="res://LOGOS 64x64/tbs.jpg" id="14_lsthh"]
+[ext_resource type="Texture2D" uid="uid://dc34uie0cvmfw" path="res://LOGOS 64x64/vd.jpg" id="15_1k2cu"]
+[ext_resource type="Texture2D" uid="uid://ci8wtvhb0qoan" path="res://LOGOS 64x64/dmo.jpg" id="16_nv216"]
 
 [sub_resource type="Theme" id="Theme_h14tp"]
 LineEdit/styles/normal = ExtResource("3_pt8py")
 
 [node name="Node" type="Node"]
 script = ExtResource("1_hy1wg")
-metadata/_edit_horizontal_guides_ = [530.0, 561.0, 604.0]
-metadata/_edit_vertical_guides_ = [357.0]
+metadata/_edit_horizontal_guides_ = [1012.0, 1198.0]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_right = 0.199987
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Permanent" type="ColorRect" parent="."]
 anchors_preset = -1
@@ -33,15 +46,52 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="racecontrol" type="ColorRect" parent="."]
 anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
-offset_right = 0.199987
-offset_bottom = -65.0
+offset_top = 71.0
+offset_right = -820.3
+offset_bottom = -612.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.545098, 0.545098, 0.545098, 1)
+
+[node name="Spectator" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_left = 6.0
+offset_top = 413.0
+offset_right = -703.3
+offset_bottom = -377.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.545098, 0.545098, 0.545098, 1)
+
+[node name="Custom Camera1" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_left = 6.0
+offset_top = 663.0
+offset_right = -831.3
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.545098, 0.545098, 0.545098, 1)
+
+[node name="Custom Camera2" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_left = 135.0
+offset_top = 663.0
+offset_right = -702.3
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.545098, 0.545098, 0.545098, 1)
 
 [node name="Control" type="Control" parent="."]
 layout_direction = 1
@@ -227,10 +277,10 @@ theme = ExtResource("2_640ds")
 [node name="IP_Input" type="LineEdit" parent="Control/Options"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 99.0
-offset_top = 19.0
-offset_right = 221.0
-offset_bottom = 50.0
+offset_left = 97.0
+offset_top = 12.0
+offset_right = 219.0
+offset_bottom = 43.0
 theme = ExtResource("6_oakrc")
 placeholder_text = "Local IP"
 
@@ -261,7 +311,7 @@ anchors_preset = -1
 offset_left = 6.0
 offset_top = 12.0
 offset_right = 82.0
-offset_bottom = 55.0
+offset_bottom = 51.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
@@ -272,11 +322,11 @@ text = "Connect"
 visible = false
 layout_mode = 1
 offset_left = -5.0
-offset_top = 13.0
+offset_top = 11.0
 offset_right = 94.0
-offset_bottom = 53.0
+offset_bottom = 51.0
 focus_mode = 0
-theme = SubResource("Theme_svhul")
+theme = ExtResource("6_oakrc")
 text = "Disconnect"
 
 [node name="Gate Count" type="LineEdit" parent="Control/Options"]
@@ -292,53 +342,64 @@ placeholder_text = "Gate Count"
 
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 234.0
-offset_top = 830.0
-offset_right = 365.0
-offset_bottom = 859.0
+offset_left = 280.0
+offset_top = 687.0
+offset_right = 364.0
+offset_bottom = 718.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Reset"
 
 [node name="menu" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 65.0
-offset_right = 89.0
-offset_bottom = 105.0
+offset_left = 280.0
+offset_top = 743.0
+offset_right = 364.0
+offset_bottom = 789.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Menu"
 
 [node name="CopyToClipboardButton" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 398.0
-offset_right = 206.0
-offset_bottom = 519.0
+offset_left = 20.0
+offset_top = 341.0
+offset_right = 222.0
+offset_bottom = 404.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
+theme_override_font_sizes/font_size = 27
 text = "Copy Result"
 
 [node name="Chase Cam" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 116.0
-offset_top = 548.0
-offset_right = 214.0
-offset_bottom = 596.0
+offset_left = 126.0
+offset_top = 448.0
+offset_right = 224.0
+offset_bottom = 496.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
-text = "Chase Cam"
+text = "Closest"
+
+[node name="Score Potential" type="Button" parent="Control/Options"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 504.0
+offset_right = 224.0
+offset_bottom = 552.0
+focus_mode = 0
+theme = ExtResource("6_oakrc")
+text = "Scoring Potential"
 
 [node name="Lead Cam" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 548.0
-offset_right = 101.0
-offset_bottom = 596.0
+offset_left = 19.0
+offset_top = 448.0
+offset_right = 117.0
+offset_bottom = 496.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
-text = "Lead Cam"
+text = "Leader"
 
 [node name="Pointmode" type="CheckButton" parent="Control/Options"]
 visible = false
@@ -385,9 +446,10 @@ offset_bottom = 692.0
 
 [node name="Start Race" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_top = 310.0
-offset_right = 119.0
-offset_bottom = 361.0
+offset_left = 1.0
+offset_top = 83.0
+offset_right = 120.0
+offset_bottom = 134.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Start Race"
@@ -395,49 +457,37 @@ text = "Start Race"
 [node name="Auto_lock" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
 offset_left = -1.0
-offset_top = 277.0
-offset_right = 158.0
-offset_bottom = 308.0
+offset_top = 136.0
+offset_right = 124.0
+offset_bottom = 167.0
 theme = ExtResource("6_oakrc")
 text = "Auto Lock"
 
 [node name="Save Button" type="Button" parent="Control/Options"]
 layout_mode = 2
-offset_left = 88.0
-offset_top = 696.0
-offset_right = 207.0
-offset_bottom = 727.0
+offset_left = 126.0
+offset_top = 600.0
+offset_right = 224.0
+offset_bottom = 647.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Save"
 
 [node name="Load Button" type="Button" parent="Control/Options"]
 layout_mode = 2
-offset_left = 88.0
-offset_top = 662.0
-offset_right = 207.0
-offset_bottom = 687.0
+offset_left = 19.0
+offset_top = 600.0
+offset_right = 117.0
+offset_bottom = 647.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Load"
 
 [node name="Room Controls" type="VBoxContainer" parent="Control/Options"]
 layout_mode = 0
-offset_top = 135.0
+offset_top = 179.0
 offset_right = 119.0
-offset_bottom = 271.0
-
-[node name="All Spectator" type="Button" parent="Control/Options/Room Controls"]
-layout_mode = 2
-focus_mode = 0
-theme = ExtResource("6_oakrc")
-text = "All Spectator"
-
-[node name="PastePilots" type="Button" parent="Control/Options/Room Controls"]
-layout_mode = 2
-focus_mode = 0
-theme = ExtResource("6_oakrc")
-text = "Import Pilots"
+offset_bottom = 315.0
 
 [node name="Lock Room" type="Button" parent="Control/Options/Room Controls"]
 layout_mode = 2
@@ -451,10 +501,31 @@ focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Unlock Room"
 
+[node name="All Spectator" type="Button" parent="Control/Options/Room Controls"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("6_oakrc")
+text = "All Spectator"
+
+[node name="PastePilots" type="Button" parent="Control/Options/Room Controls"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("6_oakrc")
+text = "Import Pilots"
+
+[node name="CheckButton2" type="CheckButton" parent="Control/Options"]
+layout_mode = 2
+offset_left = 158.0
+offset_top = 837.0
+offset_right = 317.0
+offset_bottom = 868.0
+theme = ExtResource("6_oakrc")
+text = "Single Lap"
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control/Options"]
 layout_mode = 0
 offset_left = -4.0
-offset_top = 712.0
+offset_top = 767.0
 offset_right = 155.0
 offset_bottom = 868.0
 alignment = 2
@@ -464,11 +535,6 @@ layout_mode = 2
 theme = ExtResource("6_oakrc")
 text = "Transparent"
 
-[node name="CheckButton2" type="CheckButton" parent="Control/Options/VBoxContainer2"]
-layout_mode = 2
-theme = ExtResource("6_oakrc")
-text = "Single Lap"
-
 [node name="CheckButton3" type="CheckButton" parent="Control/Options/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("6_oakrc")
@@ -477,55 +543,54 @@ text = "Team vs Team"
 
 [node name="Cam_director_toggle" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
-offset_left = 56.0
-offset_top = 621.0
-offset_right = 224.0
-offset_bottom = 652.0
+offset_left = 35.0
+offset_top = 564.0
+offset_right = 203.0
+offset_bottom = 595.0
 theme = ExtResource("6_oakrc")
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 text = "Auto Director"
 
 [node name="Gate Label" type="Label" parent="Control/Options"]
 layout_mode = 2
-offset_left = 248.0
+offset_left = 266.0
 offset_top = 69.0
-offset_right = 297.0
+offset_right = 315.0
 offset_bottom = 92.0
 theme = ExtResource("6_oakrc")
+theme_override_fonts/font = ExtResource("8_85ijm")
 text = "Gate#"
 
-[node name="FPV Gate" type="Label" parent="Control/Options"]
-visible = false
+[node name="Team 1" type="Label" parent="Control/Options"]
 layout_mode = 2
-offset_left = 151.0
-offset_top = 409.0
-offset_right = 227.0
-offset_bottom = 432.0
-text = "FPVGate#"
-
-[node name="FPV Gate2" type="Label" parent="Control/Options"]
-visible = false
-layout_mode = 2
-offset_left = 252.0
-offset_top = 409.0
-offset_right = 339.0
-offset_bottom = 432.0
-text = "FollowGate"
+offset_left = 418.0
+offset_top = 452.0
+offset_right = 484.0
+offset_bottom = 480.0
+theme = ExtResource("6_oakrc")
+theme_override_fonts/font = ExtResource("8_85ijm")
+theme_override_font_sizes/font_size = 21
+text = "Team 1"
 
 [node name="Cam_Label1" type="Label" parent="Control/Options"]
 layout_mode = 2
-offset_left = 316.0
+offset_left = 334.0
 offset_top = 69.0
-offset_right = 365.0
+offset_right = 383.0
 offset_bottom = 92.0
 theme = ExtResource("6_oakrc")
+theme_override_fonts/font = ExtResource("8_85ijm")
 text = "Cam"
 
 [node name="Camera Director" type="GridContainer" parent="Control/Options"]
 layout_mode = 0
-offset_left = 242.0
+offset_left = 260.0
 offset_top = 98.0
-offset_right = 365.0
-offset_bottom = 796.0
+offset_right = 383.0
+offset_bottom = 661.0
 
 [node name="Gate" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
@@ -800,77 +865,12 @@ offset_bottom = 23.0
 theme = ExtResource("3_kkw68")
 alignment = 1
 
-[node name="Gate6" type="LineEdit" parent="Control/Options/Camera Director"]
+[node name="VSeparator3" type="VSeparator" parent="Control/Options"]
 layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate6"]
-layout_mode = 0
-offset_left = 64.0
-offset_right = 123.063
-offset_bottom = 23.0
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Gate7" type="LineEdit" parent="Control/Options/Camera Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate7"]
-layout_mode = 0
-offset_left = 64.0
-offset_right = 123.063
-offset_bottom = 23.0
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Gate8" type="LineEdit" parent="Control/Options/Camera Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate8"]
-layout_mode = 0
-offset_left = 64.0
-offset_right = 123.063
-offset_bottom = 23.0
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Gate9" type="LineEdit" parent="Control/Options/Camera Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate9"]
-layout_mode = 0
-offset_left = 64.0
-offset_right = 123.063
-offset_bottom = 23.0
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Gate10" type="LineEdit" parent="Control/Options/Camera Director"]
-layout_mode = 2
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate10"]
-layout_mode = 0
-offset_left = 64.0
-offset_right = 123.063
-offset_bottom = 23.0
-theme = ExtResource("3_kkw68")
-alignment = 1
-
-[node name="VSeparator" type="VSeparator" parent="Control/Options"]
-layout_mode = 2
-offset_left = 230.0
-offset_top = 100.0
-offset_right = 234.0
-offset_bottom = 796.0
+offset_left = 389.0
+offset_top = -11.0
+offset_right = 394.0
+offset_bottom = 868.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control/Options"]
 visible = false
@@ -879,6 +879,124 @@ offset_left = 211.0
 offset_top = 415.0
 offset_right = 270.0
 offset_bottom = 711.0
+
+[node name="Label" type="Label" parent="Control/Options"]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 413.0
+offset_right = 152.0
+offset_bottom = 443.0
+theme = ExtResource("6_oakrc")
+theme_override_font_sizes/font_size = 21
+text = "Target"
+
+[node name="Custom Cam1" type="VBoxContainer" parent="Control/Options"]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 674.0
+offset_right = 243.0
+offset_bottom = 786.0
+script = ExtResource("10_dtx3b")
+
+[node name="Custom Name" type="LineEdit" parent="Control/Options/Custom Cam1"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+placeholder_text = "Cam Name"
+alignment = 1
+
+[node name="Custom Button" type="Button" parent="Control/Options/Custom Cam1/Custom Name"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+offset_top = 27.0
+offset_right = 113.0
+offset_bottom = 77.0
+focus_mode = 0
+theme = ExtResource("6_oakrc")
+text = "Custom"
+
+[node name="Custom Cam Num" type="HBoxContainer" parent="Control/Options/Custom Cam1/Custom Name/Custom Button"]
+layout_mode = 2
+offset_top = 53.0
+offset_right = 113.0
+offset_bottom = 76.0
+
+[node name="Cam_Label2" type="Label" parent="Control/Options/Custom Cam1/Custom Name/Custom Button/Custom Cam Num"]
+layout_mode = 2
+theme = ExtResource("6_oakrc")
+text = "Cam #"
+
+[node name="Special_1_Edit" type="LineEdit" parent="Control/Options/Custom Cam1/Custom Name/Custom Button/Custom Cam Num"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+text = "0"
+alignment = 1
+
+[node name="Custom Cam2" type="VBoxContainer" parent="Control/Options"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 674.0
+offset_right = 114.0
+offset_bottom = 786.0
+script = ExtResource("10_dtx3b")
+
+[node name="Custom Name" type="LineEdit" parent="Control/Options/Custom Cam2"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+placeholder_text = "Cam Name"
+alignment = 1
+
+[node name="Custom Button" type="Button" parent="Control/Options/Custom Cam2/Custom Name"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+offset_top = 27.0
+offset_right = 113.0
+offset_bottom = 77.0
+focus_mode = 0
+theme = ExtResource("6_oakrc")
+text = "Custom"
+
+[node name="Custom Cam Num" type="HBoxContainer" parent="Control/Options/Custom Cam2/Custom Name/Custom Button"]
+layout_mode = 2
+offset_top = 53.0
+offset_right = 113.0
+offset_bottom = 76.0
+
+[node name="Cam_Label2" type="Label" parent="Control/Options/Custom Cam2/Custom Name/Custom Button/Custom Cam Num"]
+layout_mode = 2
+theme = ExtResource("6_oakrc")
+text = "Cam #"
+
+[node name="Special_1_Edit" type="LineEdit" parent="Control/Options/Custom Cam2/Custom Name/Custom Button/Custom Cam Num"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+text = "0"
+alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Control/Options"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 484.0
+offset_right = 509.0
+offset_bottom = 556.0
+item_count = 6
+popup/item_0/text = ""
+popup/item_0/icon = ExtResource("11_o4luf")
+popup/item_0/id = 0
+popup/item_1/text = ""
+popup/item_1/icon = ExtResource("12_ofuhj")
+popup/item_1/id = 1
+popup/item_2/text = ""
+popup/item_2/icon = ExtResource("13_k3clb")
+popup/item_2/id = 2
+popup/item_3/text = ""
+popup/item_3/icon = ExtResource("14_lsthh")
+popup/item_3/id = 3
+popup/item_4/text = ""
+popup/item_4/icon = ExtResource("15_1k2cu")
+popup/item_4/id = 4
+popup/item_5/text = ""
+popup/item_5/icon = ExtResource("16_nv216")
+popup/item_5/id = 5
 
 [node name="PilotPortrait" parent="Control" instance=ExtResource("7_ywn4m")]
 position = Vector2(117, 686)
@@ -1048,6 +1166,7 @@ color = Color(0, 0, 0, 0.478431)
 [connection signal="pressed" from="Control/Options/menu" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Control/Options/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
 [connection signal="pressed" from="Control/Options/Chase Cam" to="." method="find_closest_chase"]
+[connection signal="pressed" from="Control/Options/Score Potential" to="." method="find_close_opponent"]
 [connection signal="pressed" from="Control/Options/Lead Cam" to="." method="_lead_cam_pressed"]
 [connection signal="toggled" from="Control/Options/Pointmode" to="." method="_on_pointmode_toggled"]
 [connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
@@ -1057,12 +1176,12 @@ color = Color(0, 0, 0, 0.478431)
 [connection signal="toggled" from="Control/Options/Auto_lock" to="." method="_on_auto_lock_toggled"]
 [connection signal="pressed" from="Control/Options/Save Button" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Control/Options/Load Button" to="." method="_on_load_button_pressed"]
-[connection signal="pressed" from="Control/Options/Room Controls/All Spectator" to="." method="_on_all_spectator_pressed"]
-[connection signal="pressed" from="Control/Options/Room Controls/PastePilots" to="." method="_send_pilot_list_button_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/Lock Room" to="." method="_on_lock_room_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/Unlock Room" to="." method="_on_unlock_room_pressed"]
+[connection signal="pressed" from="Control/Options/Room Controls/All Spectator" to="." method="_on_all_spectator_pressed"]
+[connection signal="pressed" from="Control/Options/Room Controls/PastePilots" to="." method="_send_pilot_list_button_pressed"]
+[connection signal="toggled" from="Control/Options/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/Cam_director_toggle" to="." method="_on_cam_director_toggle_toggled"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate" to="." method="_on_cam_text_changed"]
@@ -1107,16 +1226,14 @@ color = Color(0, 0, 0, 0.478431)
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate4/Cam" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate5" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate5/Cam" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate6" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate6/Cam" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate7" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate7/Cam" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate8" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate8/Cam" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate9" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate9/Cam" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate10" to="." method="_on_cam_text_changed"]
-[connection signal="text_changed" from="Control/Options/Camera Director/Gate10/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="send_camera" from="Control/Options/Custom Cam1" to="." method="_on_custom_cam_send_camera"]
+[connection signal="text_changed" from="Control/Options/Custom Cam1/Custom Name" to="Control/Options/Custom Cam1" method="_on_custom_name_text_changed"]
+[connection signal="pressed" from="Control/Options/Custom Cam1/Custom Name/Custom Button" to="Control/Options/Custom Cam1" method="_on_custom_button_pressed"]
+[connection signal="text_changed" from="Control/Options/Custom Cam1/Custom Name/Custom Button/Custom Cam Num/Special_1_Edit" to="Control/Options/Custom Cam1" method="_on_special_1_edit_text_changed"]
+[connection signal="send_camera" from="Control/Options/Custom Cam2" to="." method="_on_custom_cam_send_camera"]
+[connection signal="text_changed" from="Control/Options/Custom Cam2/Custom Name" to="Control/Options/Custom Cam2" method="_on_custom_name_text_changed"]
+[connection signal="pressed" from="Control/Options/Custom Cam2/Custom Name/Custom Button" to="Control/Options/Custom Cam2" method="_on_custom_button_pressed"]
+[connection signal="text_changed" from="Control/Options/Custom Cam2/Custom Name/Custom Button/Custom Cam Num/Special_1_Edit" to="Control/Options/Custom Cam2" method="_on_special_1_edit_text_changed"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]

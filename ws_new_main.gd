@@ -31,6 +31,7 @@ var auto_lock = false
 var director_mode = false
 var cool_down = false
 var missing_pilot_count = 0
+var missing_list = []
 
 var currently_spectating = "None"
 var current_spec_mode = "None"
@@ -244,9 +245,12 @@ func make_leaderboard():
 			current_pos.set_hex_color(hex_color)
 			current_pos.set_portrait(portrait_box.get_image(pilot["data"]["uid"]))
 			
-			if director_mode:
-				if pilot["name"] == currently_spectating:
+			if pilot["name"] == currently_spectating:
+				if director_mode:
 					track_director(pilot["data"]["gate"], pilot["data"]["uid"])
+				current_pos.spectating(true)
+			else:
+				current_pos.spectating(false)
 					
 			var lap_mod = 0
 			if single_lap_display:  # adjusts the lap progress bar
@@ -670,7 +674,6 @@ func _on_load_file_dialog_file_selected(path: String):
 	else:
 		print("Failed to parse JSON from file:", path)
 
-var missing_list = []
 
 func _on_activate_error(error_user):
 	missing_pilot_count += 1
@@ -694,7 +697,33 @@ func find_closest_chase():
 	# ws.send_text('{ "command": "cameraplayer", "uid": "fpv" }')
 	var chase_load_string = '{ "command": "cameraplayer", "uid": '+str(chase_pilot)+" }"
 	ws.send_text(chase_load_string)
-	
+
+
+func find_close_opponent():
+	pass
+	"""var chase_dict = {}
+	var chase_dict = {}
+	var delta_list = []
+	var chase_pilot = ""
+	for time_row in time_container.get_children():
+		var delta = time_row.get_delta()
+		if delta != 0:
+			chase_dict[delta] = [time_row.get_user_id(), time_row.get_hex_color()]
+			delta_list.append(delta)
+	if len(delta_list) == 0:
+		return
+	delta_list.sort()
+	if len(delta_list) >1:
+		var index = 0
+		for each in delta_list:
+			if chase_dict[delta_list[index -1]][1] != chase_dict[delta_list[index -2]][1]:
+				chase_pilot = chase_dict[delta_list[index -1]][0]
+				break
+			index -= 1
+	# ws.send_text('{ "command": "cameraplayer", "uid": "fpv" }')
+	var chase_load_string = '{ "command": "cameraplayer", "uid": '+str(chase_pilot)+" }"
+	ws.send_text(chase_load_string)"""
+
 
 func _lead_cam_pressed():
 	if len(time_container.get_children()) > 0:
@@ -702,3 +731,8 @@ func _lead_cam_pressed():
 		var lead_load_string = '{ "command": "cameraplayer", "uid": '+str(lead_pilot)+" }"
 		ws.send_text(lead_load_string)
 
+
+func _on_custom_cam_send_camera(cam_num):
+	director_mode = false
+	$Control/Options/Cam_director_toggle.button_pressed = false
+	ws.send_text('{ "command": "cameraselect", "number": '+cam_num+" }")

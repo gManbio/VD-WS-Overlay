@@ -106,6 +106,13 @@ offset_right = 275.445
 offset_bottom = 35.0
 script = ExtResource("1_58ja3")
 
+[node name="Highlighter" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_right = 38.0
+offset_bottom = 34.0
+
 [node name="PilotImage" type="TextureRect" parent="."]
 layout_mode = 2
 offset_left = 1.0

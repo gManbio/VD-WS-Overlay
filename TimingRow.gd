@@ -20,6 +20,8 @@ extends Control
 
 @onready var portrait = $PilotImage
 
+@onready var highlighter = $Highlighter
+
 var bursted = false
 
 var first_bursted = false
@@ -127,6 +129,10 @@ func get_user_id():
 
 func set_portrait(image):
 	portrait.texture = image
+
+
+func spectating(is_spectating):
+	highlighter.visible = is_spectating
 
 
 func reset():
