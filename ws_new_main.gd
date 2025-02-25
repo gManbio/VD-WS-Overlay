@@ -316,14 +316,6 @@ func make_leaderboard():
 # this function is used to keep the team scores from changing order
 func initialize_scoreboard(scores):
 	team_order = scores.keys()
-	"""for each in view_order:
-		if each == team_1:
-			team_order.append(each)
-			print(each)
-	for each in view_order:
-		if each != team_1:
-			team_order.append(each)
-			print(each)"""
 	if team_1 in team_order:
 		team_order.erase(team_1)
 		team_order.insert(0, team_1)
@@ -374,7 +366,6 @@ func make_scoreboard():
 			score_board[key] = team_total
 	
 	var index = 0
-	print(team_order)
 	for each in team_order:
 		if score_container.get_child_count() == index:
 			break
@@ -757,7 +748,6 @@ func find_close_opponent():
 func _lead_cam_pressed():
 	if len(time_container.get_children()) > 0:
 		var lead_pilot = time_container.get_children()[0].get_user_id()
-		print(lead_pilot)
 		var lead_load_string = '{ "command": "cameraplayer", "uid": '+str(lead_pilot)+" }"
 		ws.send_text(lead_load_string)
 
@@ -769,7 +759,6 @@ func _on_custom_cam_send_camera(cam_num):
 
 
 func _on_team_selection_item_selected(index):
-	print(team_color_dict[$Control/Options/Team_Selection.get_item_text(index)])
 	team_1 = team_color_dict[$Control/Options/Team_Selection.get_item_text(index)]
 	if team_1 in team_order:
 		team_order.erase(team_1)
