@@ -15,6 +15,16 @@ var pilots = []
 @onready var portrait_box = $Control/PilotPortrait
 @onready var missing_label = $Control/Options/MissingPilot
 
+var team_color_dict = {
+	"533": "00FF00",
+	"Din": "406BFF",
+	"Mav": "00FFFF",
+	"Dem": "FF0000",
+	"TBS": "9F42FF",
+	"VD": "FFA300"
+}
+
+
 var ip_complete = false
 var connected = false
 var single_lap_display = false
@@ -32,6 +42,7 @@ var director_mode = false
 var cool_down = false
 var missing_pilot_count = 0
 var missing_list = []
+var team_1 = "00FF00"
 
 var currently_spectating = "None"
 var current_spec_mode = "None"
@@ -244,6 +255,7 @@ func make_leaderboard():
 			current_pos.set_gate(pilot["data"]["gate"])
 			current_pos.set_hex_color(hex_color)
 			current_pos.set_portrait(portrait_box.get_image(pilot["data"]["uid"]))
+			current_pos.set_place(pilot["data"]["position"])
 			
 			if pilot["name"] == currently_spectating:
 				if director_mode:
@@ -271,6 +283,7 @@ func make_leaderboard():
 			if index != 0:   # Calculate deltas if pilots are not in first place.
 				if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
 					var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
+					var leader_color = pilots[index - 1]["data"]["colour"]
 					var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
 					if pilot["data"]["finished"] == "True":
 						current_pos.set_delta(float(pilot["data"]["time"]))
@@ -279,6 +292,7 @@ func make_leaderboard():
 					else:
 						current_pos.set_delta(leader_time - pilot_time)
 						current_pos.set_user_id(pilot["data"]["uid"])
+						current_pos.chase_check(leader_color)
 						# $Control/Options/FieldGap.text = str(gap_delta)
 			else:    
 				if contender_mode:
@@ -302,6 +316,17 @@ func make_leaderboard():
 # this function is used to keep the team scores from changing order
 func initialize_scoreboard(scores):
 	team_order = scores.keys()
+	"""for each in view_order:
+		if each == team_1:
+			team_order.append(each)
+			print(each)
+	for each in view_order:
+		if each != team_1:
+			team_order.append(each)
+			print(each)"""
+	if team_1 in team_order:
+		team_order.erase(team_1)
+		team_order.insert(0, team_1)
 	for team in team_order:
 		score_board[team] = 0
 	new_score = false
@@ -349,6 +374,7 @@ func make_scoreboard():
 			score_board[key] = team_total
 	
 	var index = 0
+	print(team_order)
 	for each in team_order:
 		if score_container.get_child_count() == index:
 			break
@@ -700,34 +726,38 @@ func find_closest_chase():
 
 
 func find_close_opponent():
-	pass
-	"""var chase_dict = {}
 	var chase_dict = {}
 	var delta_list = []
 	var chase_pilot = ""
 	for time_row in time_container.get_children():
 		var delta = time_row.get_delta()
 		if delta != 0:
-			chase_dict[delta] = [time_row.get_user_id(), time_row.get_hex_color()]
+			chase_dict[delta] = time_row
 			delta_list.append(delta)
 	if len(delta_list) == 0:
 		return
 	delta_list.sort()
-	if len(delta_list) >1:
-		var index = 0
-		for each in delta_list:
-			if chase_dict[delta_list[index -1]][1] != chase_dict[delta_list[index -2]][1]:
-				chase_pilot = chase_dict[delta_list[index -1]][0]
+	var index = 0
+	for each in delta_list:
+		print(score_board[chase_dict[delta_list[index -1]].get_hex_color()])
+		print(chase_dict[delta_list[index -1]].get_hex_color())
+		var teamscore = score_board[chase_dict[delta_list[index -1]].get_hex_color()]
+		if teamscore < 11:
+			if chase_dict[delta_list[index -1]].get_chase():
+				chase_pilot = chase_dict[delta_list[index -1]].get_user_id()
+				print(chase_pilot)
 				break
-			index -= 1
+		index -= 1
+
 	# ws.send_text('{ "command": "cameraplayer", "uid": "fpv" }')
 	var chase_load_string = '{ "command": "cameraplayer", "uid": '+str(chase_pilot)+" }"
-	ws.send_text(chase_load_string)"""
+	ws.send_text(chase_load_string)
 
 
 func _lead_cam_pressed():
 	if len(time_container.get_children()) > 0:
-		var lead_pilot = time_container.get_children()[0]
+		var lead_pilot = time_container.get_children()[0].get_user_id()
+		print(lead_pilot)
 		var lead_load_string = '{ "command": "cameraplayer", "uid": '+str(lead_pilot)+" }"
 		ws.send_text(lead_load_string)
 
@@ -736,3 +766,11 @@ func _on_custom_cam_send_camera(cam_num):
 	director_mode = false
 	$Control/Options/Cam_director_toggle.button_pressed = false
 	ws.send_text('{ "command": "cameraselect", "number": '+cam_num+" }")
+
+
+func _on_team_selection_item_selected(index):
+	print(team_color_dict[$Control/Options/Team_Selection.get_item_text(index)])
+	team_1 = team_color_dict[$Control/Options/Team_Selection.get_item_text(index)]
+	if team_1 in team_order:
+		team_order.erase(team_1)
+		team_order.insert(0, team_1)

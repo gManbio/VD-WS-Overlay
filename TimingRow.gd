@@ -22,6 +22,10 @@ extends Control
 
 @onready var highlighter = $Highlighter
 
+@onready var crashtimer = $CrashTimer
+
+@onready var crashblinker = $CrashBlinker
+
 var bursted = false
 
 var first_bursted = false
@@ -33,6 +37,15 @@ var user_id = 0
 var reg_font = load("res://ChakraPetch-Regular.ttf")
 
 var bold_font = load("res://ChakraPetch-Bold.ttf")
+
+var chasing = false
+
+var crashed = false
+
+var is_blinked = false
+
+var place = "0"
+
 
 func _ready():
 	pass
@@ -52,6 +65,15 @@ func set_gate(gate_num):
 		bursted = false
 		first_bursted = false
 	gate.text = str(gate_num)
+	
+	#this checks for crashes and times them
+	crashed = false
+	crashblinker.stop()
+	if bursted:
+		crashtimer.stop()
+	else:
+		crashtimer.start()
+	delta.modulate = Color(Color.WHITE)
 
 
 func set_delta(delta_time):
@@ -135,6 +157,18 @@ func spectating(is_spectating):
 	highlighter.visible = is_spectating
 
 
+func chase_check(color):
+	if place <= 7:
+		if color_out == "#"+color:
+			chasing = false
+		else:
+			chasing = true
+
+
+func get_chase():
+	return chasing
+
+
 func reset():
 	pilot_name.text = "--"
 	pilot_name.modulate = Color(Color.WHITE)
@@ -145,3 +179,38 @@ func reset():
 	progress_bar.modulate = Color(Color.WHITE)
 	bursted = false
 	user_id = 0
+	chasing = false
+	crashed = false
+	is_blinked = false
+	crashtimer.stop()
+	crashblinker.stop()
+	delta.modulate= Color(Color.WHITE)
+
+
+func _on_crash_timer_timeout():
+	if bursted:
+		crashblinker.stop()
+	else:
+		crashed = true
+		crashblinker.start()	
+	
+
+func _on_crash_blinker_timeout():
+	if bursted:
+		delta.modulate= Color(Color.WHITE)
+		is_blinked = false
+		crashblinker.stop()
+	if is_blinked:
+		delta.modulate= Color(Color.WHITE)
+		is_blinked = false
+	else:
+		delta.modulate= Color(Color.RED)
+		is_blinked = true
+
+
+func set_place(position):
+	place = int(position)
+	
+	
+func get_place():
+	return position

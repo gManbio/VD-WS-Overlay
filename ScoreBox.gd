@@ -28,6 +28,10 @@ func set_score(input_score):
 		score.text = str(temp_score)
 
 
+func get_score():
+	return int(score.text)
+
+
 func set_color(color):
 	score.modulate = color
 	
