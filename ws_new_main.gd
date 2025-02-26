@@ -766,3 +766,9 @@ func _on_clicked_pilot(user_id):
 	var clicked_load_string = '{ "command": "cameraplayer", "uid": '+str(user_id)+" }"
 	ws.send_text(clicked_load_string)
 
+
+func _on_lap_total_text_changed(new_text):
+	race_laps = int(new_text)
+	if race_laps == 0:
+		race_laps = 3
+

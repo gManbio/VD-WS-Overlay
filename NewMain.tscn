@@ -28,8 +28,8 @@ metadata/_edit_horizontal_guides_ = [1012.0, 1198.0]
 anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
-offset_right = 0.199987
-offset_bottom = -65.0
+offset_right = 0.699951
+offset_bottom = -35.9999
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
@@ -39,7 +39,7 @@ anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
 offset_right = -561.3
-offset_bottom = -64.9999
+offset_bottom = -35.9999
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
@@ -87,6 +87,17 @@ offset_left = 135.0
 offset_top = 663.0
 offset_right = -702.3
 offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.545098, 0.545098, 0.545098, 1)
+
+[node name="Lap Count" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.067
+anchor_bottom = 1.04
+offset_top = 859.0
+offset_right = -639.3
+offset_bottom = -35.9999
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.545098, 0.545098, 0.545098, 1)
@@ -305,9 +316,9 @@ placeholder_text = "Gate Count"
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
 layout_mode = 0
 offset_left = 280.0
-offset_top = 687.0
+offset_top = 754.0
 offset_right = 364.0
-offset_bottom = 718.0
+offset_bottom = 785.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Reset"
@@ -315,9 +326,9 @@ text = "Reset"
 [node name="menu" type="Button" parent="Control/Options"]
 layout_mode = 0
 offset_left = 280.0
-offset_top = 743.0
+offset_top = 796.0
 offset_right = 364.0
-offset_bottom = 789.0
+offset_bottom = 842.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Menu"
@@ -475,21 +486,12 @@ focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Import Pilots"
 
-[node name="CheckButton2" type="CheckButton" parent="Control/Options"]
-layout_mode = 2
-offset_left = 158.0
-offset_top = 837.0
-offset_right = 317.0
-offset_bottom = 868.0
-theme = ExtResource("6_oakrc")
-text = "Single Lap"
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control/Options"]
 layout_mode = 0
-offset_left = -4.0
-offset_top = 767.0
-offset_right = 155.0
-offset_bottom = 868.0
+offset_left = -10.0
+offset_top = 794.0
+offset_right = 149.0
+offset_bottom = 895.0
 alignment = 2
 
 [node name="CheckButton" type="CheckButton" parent="Control/Options/VBoxContainer2"]
@@ -502,6 +504,11 @@ layout_mode = 2
 theme = ExtResource("6_oakrc")
 button_pressed = true
 text = "Team vs Team"
+
+[node name="CheckButton2" type="CheckButton" parent="Control/Options/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("6_oakrc")
+text = "Single Lap"
 
 [node name="Cam_director_toggle" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
@@ -560,6 +567,45 @@ theme = ExtResource("3_kkw68")
 alignment = 1
 
 [node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate6" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate6"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate7" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate7"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 123.063
+offset_bottom = 23.0
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Gate8" type="LineEdit" parent="Control/Options/Camera Director"]
+layout_mode = 2
+theme = ExtResource("3_kkw68")
+alignment = 1
+
+[node name="Cam" type="LineEdit" parent="Control/Options/Camera Director/Gate8"]
 layout_mode = 0
 offset_left = 64.0
 offset_right = 123.063
@@ -832,7 +878,7 @@ layout_mode = 2
 offset_left = 389.0
 offset_top = -11.0
 offset_right = 394.0
-offset_bottom = 868.0
+offset_bottom = 901.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control/Options"]
 visible = false
@@ -960,6 +1006,24 @@ popup/item_4/id = 4
 popup/item_5/text = "Dem"
 popup/item_5/icon = ExtResource("16_nv216")
 popup/item_5/id = 5
+
+[node name="Lap Total" type="LineEdit" parent="Control/Options"]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 865.0
+offset_right = 308.063
+offset_bottom = 896.0
+theme = ExtResource("6_oakrc")
+placeholder_text = "3"
+
+[node name="Lap Count" type="Label" parent="Control/Options/Lap Total"]
+layout_mode = 0
+offset_left = -88.0
+offset_top = 3.0
+offset_right = -9.0
+offset_bottom = 26.0
+theme = ExtResource("6_oakrc")
+text = "Lap Count"
 
 [node name="PilotPortrait" parent="Control" instance=ExtResource("7_ywn4m")]
 position = Vector2(117, 686)
@@ -1143,12 +1207,18 @@ color = Color(0, 0, 0, 0.478431)
 [connection signal="pressed" from="Control/Options/Room Controls/Unlock Room" to="." method="_on_unlock_room_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/All Spectator" to="." method="_on_all_spectator_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/PastePilots" to="." method="_send_pilot_list_button_pressed"]
-[connection signal="toggled" from="Control/Options/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
+[connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/Cam_director_toggle" to="." method="_on_cam_director_toggle_toggled"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate6" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate6/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate7" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate7/Cam" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate8" to="." method="_on_cam_text_changed"]
+[connection signal="text_changed" from="Control/Options/Camera Director/Gate8/Cam" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate23" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate23/Cam" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate24" to="." method="_on_cam_text_changed"]
@@ -1198,6 +1268,7 @@ color = Color(0, 0, 0, 0.478431)
 [connection signal="pressed" from="Control/Options/Custom Cam2/Custom Name/Custom Button" to="Control/Options/Custom Cam2" method="_on_custom_button_pressed"]
 [connection signal="text_changed" from="Control/Options/Custom Cam2/Custom Name/Custom Button/Custom Cam Num/Special_1_Edit" to="Control/Options/Custom Cam2" method="_on_special_1_edit_text_changed"]
 [connection signal="item_selected" from="Control/Options/Team_Selection" to="." method="_on_team_selection_item_selected"]
+[connection signal="text_changed" from="Control/Options/Lap Total" to="." method="_on_lap_total_text_changed"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]
