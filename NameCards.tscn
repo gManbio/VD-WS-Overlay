@@ -26,11 +26,22 @@ text = "Pilot Name"
 horizontal_alignment = 1
 
 [node name="Pos" type="Label" parent="."]
-offset_left = 547.0
+offset_left = 519.0
 offset_top = 401.0
-offset_right = 970.0
+offset_right = 942.0
 offset_bottom = 1028.0
 theme = ExtResource("4_fp024")
 text = "-"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Ordinal" type="Label" parent="."]
+visible = false
+offset_left = 699.0
+offset_top = 736.0
+offset_right = 1122.0
+offset_bottom = 946.0
+theme = ExtResource("4_fp024")
+theme_override_font_sizes/font_size = 121
 horizontal_alignment = 1
 vertical_alignment = 2

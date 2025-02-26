@@ -46,9 +46,15 @@ var is_blinked = false
 
 var place = "0"
 
+signal clicked_pilot
+
+
+
 
 func _ready():
-	pass
+	var target_node = $"../../../.."
+	connect("clicked_pilot", Callable(target_node, "_on_clicked_pilot"))
+
 
 
 func set_pilot_name(p_name, color):
@@ -214,3 +220,9 @@ func set_place(position):
 	
 func get_place():
 	return position
+
+
+func _on_gui_input(event):
+	if event is InputEventMouseButton:
+		emit_signal("clicked_pilot", user_id)
+		accept_event()

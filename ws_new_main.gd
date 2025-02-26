@@ -730,13 +730,10 @@ func find_close_opponent():
 	delta_list.sort()
 	var index = 0
 	for each in delta_list:
-		print(score_board[chase_dict[delta_list[index -1]].get_hex_color()])
-		print(chase_dict[delta_list[index -1]].get_hex_color())
 		var teamscore = score_board[chase_dict[delta_list[index -1]].get_hex_color()]
 		if teamscore < 11:
 			if chase_dict[delta_list[index -1]].get_chase():
 				chase_pilot = chase_dict[delta_list[index -1]].get_user_id()
-				print(chase_pilot)
 				break
 		index -= 1
 
@@ -763,3 +760,9 @@ func _on_team_selection_item_selected(index):
 	if team_1 in team_order:
 		team_order.erase(team_1)
 		team_order.insert(0, team_1)
+
+
+func _on_clicked_pilot(user_id):
+	var clicked_load_string = '{ "command": "cameraplayer", "uid": '+str(user_id)+" }"
+	ws.send_text(clicked_load_string)
+

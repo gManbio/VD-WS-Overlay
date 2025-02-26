@@ -3,6 +3,7 @@ extends Node2D
 @onready var portrait = $PilotImage
 @onready var name_tag = $Name
 @onready var pos_tag = $Pos
+@onready var ordinal_tag = $Ordinal
 
 var placeholder = preload("res://pilot_images/placeholder.jpg")
 
@@ -71,6 +72,12 @@ var current_id = 0000
 
 var current_name = "None"
 
+var ordinals = {
+	"1": "st",
+	"2": "nd",
+	"3": "rd",
+}
+
 
 func update_portrait(user_id):
 	if user_id != current_id:
@@ -105,7 +112,11 @@ func get_pilot_name(uid, name):
 	
 	
 func update_position(position, color):
-	pos_tag.text = position 
+	pos_tag.text = position
+	if position in ordinals:
+		ordinal_tag.text = ordinals[position]
+	else:
+		ordinal_tag.text = "th"
 	# pos_tag.modulate = color
 
 

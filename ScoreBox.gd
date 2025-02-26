@@ -13,6 +13,7 @@ var team_logos = {
 	"#FFA300": preload("res://Team Logos/vd.jpg"),
 }
 
+
 var score_threshold = 10
 
 # Called when the node enters the scene tree for the first time.
