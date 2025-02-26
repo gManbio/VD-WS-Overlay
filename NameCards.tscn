@@ -22,7 +22,7 @@ offset_top = -107.0
 offset_right = 1433.0
 offset_bottom = 129.0
 theme = ExtResource("2_oqj58")
-text = "Pilot Name"
+text = "Pilot"
 horizontal_alignment = 1
 
 [node name="Pos" type="Label" parent="."]
