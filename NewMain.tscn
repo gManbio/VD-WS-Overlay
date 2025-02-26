@@ -315,20 +315,20 @@ placeholder_text = "Gate Count"
 
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 280.0
-offset_top = 754.0
-offset_right = 364.0
-offset_bottom = 785.0
+offset_left = 324.0
+offset_top = 767.0
+offset_right = 377.0
+offset_bottom = 819.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Reset"
 
 [node name="menu" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 280.0
-offset_top = 796.0
-offset_right = 364.0
-offset_bottom = 842.0
+offset_left = 324.0
+offset_top = 827.0
+offset_right = 377.0
+offset_bottom = 879.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Menu"
@@ -486,6 +486,15 @@ focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Import Pilots"
 
+[node name="Transparent Toggle" type="CheckButton" parent="Control/Options"]
+layout_mode = 2
+offset_left = 152.0
+offset_top = 829.0
+offset_right = 296.0
+offset_bottom = 860.0
+theme = ExtResource("6_oakrc")
+text = "Transparent"
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control/Options"]
 layout_mode = 0
 offset_left = -10.0
@@ -494,16 +503,15 @@ offset_right = 149.0
 offset_bottom = 895.0
 alignment = 2
 
-[node name="CheckButton" type="CheckButton" parent="Control/Options/VBoxContainer2"]
+[node name="Show Negatives" type="CheckButton" parent="Control/Options/VBoxContainer2"]
 layout_mode = 2
-theme = ExtResource("6_oakrc")
-text = "Transparent"
+text = "Show Negative"
 
 [node name="CheckButton3" type="CheckButton" parent="Control/Options/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("6_oakrc")
 button_pressed = true
-text = "Team vs Team"
+text = "Team Pos. View"
 
 [node name="CheckButton2" type="CheckButton" parent="Control/Options/VBoxContainer2"]
 layout_mode = 2
@@ -1009,18 +1017,18 @@ popup/item_5/id = 5
 
 [node name="Lap Total" type="LineEdit" parent="Control/Options"]
 layout_mode = 0
-offset_left = 241.0
+offset_left = 242.0
 offset_top = 865.0
-offset_right = 308.063
+offset_right = 309.063
 offset_bottom = 896.0
 theme = ExtResource("6_oakrc")
 placeholder_text = "3"
 
 [node name="Lap Count" type="Label" parent="Control/Options/Lap Total"]
 layout_mode = 0
-offset_left = -88.0
+offset_left = -83.0
 offset_top = 3.0
-offset_right = -9.0
+offset_right = -4.0
 offset_bottom = 26.0
 theme = ExtResource("6_oakrc")
 text = "Lap Count"
@@ -1207,8 +1215,9 @@ color = Color(0, 0, 0, 0.478431)
 [connection signal="pressed" from="Control/Options/Room Controls/Unlock Room" to="." method="_on_unlock_room_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/All Spectator" to="." method="_on_all_spectator_pressed"]
 [connection signal="pressed" from="Control/Options/Room Controls/PastePilots" to="." method="_send_pilot_list_button_pressed"]
-[connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton3" to="." method="_on_TeamvsTeam_toggle_pressed"]
+[connection signal="toggled" from="Control/Options/Transparent Toggle" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="Control/Options/VBoxContainer2/Show Negatives" to="." method="_on_show_negatives_toggled"]
+[connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton3" to="." method="_on_Total_Point_View_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/Cam_director_toggle" to="." method="_on_cam_director_toggle_toggled"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate" to="." method="_on_cam_text_changed"]
@@ -1261,10 +1270,12 @@ color = Color(0, 0, 0, 0.478431)
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate5/Cam" to="." method="_on_cam_text_changed"]
 [connection signal="send_camera" from="Control/Options/Custom Cam1" to="." method="_on_custom_cam_send_camera"]
 [connection signal="text_changed" from="Control/Options/Custom Cam1/Custom Name" to="Control/Options/Custom Cam1" method="_on_custom_name_text_changed"]
+[connection signal="gui_input" from="Control/Options/Custom Cam1/Custom Name/Custom Button" to="Control/Options/Custom Cam1" method="_on_custom_button_gui_input"]
 [connection signal="pressed" from="Control/Options/Custom Cam1/Custom Name/Custom Button" to="Control/Options/Custom Cam1" method="_on_custom_button_pressed"]
 [connection signal="text_changed" from="Control/Options/Custom Cam1/Custom Name/Custom Button/Custom Cam Num/Special_1_Edit" to="Control/Options/Custom Cam1" method="_on_special_1_edit_text_changed"]
 [connection signal="send_camera" from="Control/Options/Custom Cam2" to="." method="_on_custom_cam_send_camera"]
 [connection signal="text_changed" from="Control/Options/Custom Cam2/Custom Name" to="Control/Options/Custom Cam2" method="_on_custom_name_text_changed"]
+[connection signal="gui_input" from="Control/Options/Custom Cam2/Custom Name/Custom Button" to="Control/Options/Custom Cam2" method="_on_custom_button_gui_input"]
 [connection signal="pressed" from="Control/Options/Custom Cam2/Custom Name/Custom Button" to="Control/Options/Custom Cam2" method="_on_custom_button_pressed"]
 [connection signal="text_changed" from="Control/Options/Custom Cam2/Custom Name/Custom Button/Custom Cam Num/Special_1_Edit" to="Control/Options/Custom Cam2" method="_on_special_1_edit_text_changed"]
 [connection signal="item_selected" from="Control/Options/Team_Selection" to="." method="_on_team_selection_item_selected"]

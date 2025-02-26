@@ -43,6 +43,8 @@ var cool_down = false
 var missing_pilot_count = 0
 var missing_list = []
 var team_1 = "00FF00"
+var position_view = true
+var show_negative = false
 
 var currently_spectating = "None"
 var current_spec_mode = "None"
@@ -145,8 +147,8 @@ func _process_message(pilotdata):
 		currently_spectating = pilotdata["spectatorChange"]
 	elif "ActivateError" in pilotdata:
 		_on_activate_error(pilotdata["ActivateError"]["UIDNotFound"])
-		
-		
+
+
 func check_max_gates(gate):
 	if gate > gate_count:
 		gate_count = gate
@@ -198,7 +200,6 @@ func update_pilot_data(new_data, pilotname):
 					if new_data["gate"] == "1":
 						reset_leaderboard()
 						#print("reset")
-
 
 
 func sort_pilots():
@@ -371,7 +372,7 @@ func make_scoreboard():
 			break
 		var hex_color = each
 		var color = Color("#" + hex_color)
-		score_container.get_children()[index].set_score(score_board[each])
+		score_container.get_children()[index].set_score(score_board[each], position_view, show_negative)
 		score_container.get_children()[index].set_color(color)
 		score_container.get_children()[index].update_logo("#" + hex_color)
 		index += 1
@@ -452,15 +453,11 @@ func _on_Barmode_toggle_pressed(toggled_on):
 				child.toggle_wittness(true)
 
 
-func _on_TeamvsTeam_toggle_pressed(toggled_on):
+func _on_Total_Point_View_toggle_pressed(toggled_on):
 	if toggled_on:
-		team_mode = true
-		score_container.visible = true
-		#$Control/Options/Pointmode.visible = true
+		position_view = toggled_on
 	else:
-		team_mode = false
-		score_container.visible = false
-		#$Control/Options/Pointmode.visible = false
+		position_view = toggled_on
 
 
 func _on_check_button_toggled(toggled_on):
@@ -509,7 +506,7 @@ func _send_pilot_list_button_pressed():
 	var pilot_load_string = '{ "command": "activate", "pilots": '+str(DisplayServer.clipboard_get())+" }"
 	ws.send_text(pilot_load_string)
 	$Cooldown.start()
-	
+
 
 func _on_text_renamer_timeout():
 	$Control/Options/CopyToClipboardButton.text = "Copy Result"
@@ -599,7 +596,6 @@ func _on_load_button_pressed():
 func missing_pilot_alert():
 	$MissingPilotAlert.dialog_text = "\n".join(missing_list)
 	$MissingPilotAlert.popup_centered()
-	
 	
 
 func _apply_director_dict_to_ui():
@@ -749,10 +745,15 @@ func _lead_cam_pressed():
 		ws.send_text(lead_load_string)
 
 
-func _on_custom_cam_send_camera(cam_num):
+func _on_custom_cam_send_camera(cam_num, is_right_clicked):
 	director_mode = false
 	$Control/Options/Cam_director_toggle.button_pressed = false
 	ws.send_text('{ "command": "cameraselect", "number": '+cam_num+" }")
+	if is_right_clicked:
+		current_spec_mode_swap()
+	else:
+		if current_spec_mode == "fpv":
+			current_spec_mode_swap()
 
 
 func _on_team_selection_item_selected(index):
@@ -762,13 +763,32 @@ func _on_team_selection_item_selected(index):
 		team_order.insert(0, team_1)
 
 
-func _on_clicked_pilot(user_id):
+func _on_clicked_pilot(user_id, is_right_clicked):
 	var clicked_load_string = '{ "command": "cameraplayer", "uid": '+str(user_id)+" }"
 	ws.send_text(clicked_load_string)
+	if is_right_clicked:
+		current_spec_mode_swap()
 
 
 func _on_lap_total_text_changed(new_text):
 	race_laps = int(new_text)
 	if race_laps == 0:
 		race_laps = 3
+
+
+func _on_show_negatives_toggled(toggled_on):
+	show_negative = toggled_on
+
+
+func current_spec_mode_swap():
+	if current_spec_mode == "fpv":
+		ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
+		current_spec_mode = "spectate"
+	elif current_spec_mode == "spectate":
+		ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+		current_spec_mode = "fpv"
+	else:
+		ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
+		current_spec_mode = "spectate"
+		
 

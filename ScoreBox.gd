@@ -13,20 +13,26 @@ var team_logos = {
 	"#FFA300": preload("res://Team Logos/vd.jpg"),
 }
 
-
 var score_threshold = 10
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
-func set_score(input_score):
-	var temp_score = input_score - score_threshold
-	if temp_score <= 0:
-		score.text = ""
+func set_score(input_score, position_view, show_negative):
+	if position_view:
+		var temp_score = input_score - score_threshold
+		if temp_score <= 0:
+			if show_negative:
+				score.text = str(temp_score)
+			else:
+				score.text = ""
+		else:
+			score.text = str(temp_score)
 	else:
-		score.text = str(temp_score)
+		score.text = str(input_score)
 
 
 func get_score():
@@ -38,7 +44,7 @@ func set_color(color):
 	
 	
 func reset_scores():
-	set_score("-")
+	set_score("-", true, false)
 	set_color(Color.WHITE)
 
 

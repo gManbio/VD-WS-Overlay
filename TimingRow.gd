@@ -224,5 +224,10 @@ func get_place():
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
-		emit_signal("clicked_pilot", user_id)
-		accept_event()
+		if event.button_index == 1 and event.pressed:
+			emit_signal("clicked_pilot", user_id, false)
+			accept_event()
+		if event.button_index == 2 and event.pressed:
+			emit_signal("clicked_pilot", user_id, true)
+			accept_event()
+
