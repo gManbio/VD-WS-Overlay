@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://di22e60dd02jq"]
+[gd_scene load_steps=6 format=3 uid="uid://di22e60dd02jq"]
 
 [ext_resource type="Script" path="res://NameCards.gd" id="1_qwnbd"]
 [ext_resource type="Texture2D" uid="uid://ch6hki84cjshd" path="res://pilot_images/placeholder.jpg" id="2_o5ykb"]
 [ext_resource type="Theme" uid="uid://x2175fp860iw" path="res://nameLabel.tres" id="2_oqj58"]
 [ext_resource type="Theme" uid="uid://cj387i5y7g3nv" path="res://position_label.tres" id="4_fp024"]
+[ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="5_kuaue"]
 
 [node name="PilotPortrait" type="Node2D"]
 position = Vector2(0, 125)
@@ -45,3 +46,17 @@ theme = ExtResource("4_fp024")
 theme_override_font_sizes/font_size = 121
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="Delta" type="Label" parent="."]
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(60.015, 25)
+offset_left = 33.0
+offset_top = 842.0
+offset_right = 350.0
+offset_bottom = 972.0
+theme = ExtResource("5_kuaue")
+theme_override_font_sizes/font_size = 95
+text = "-8.888"
+clip_text = true
+text_overrun_behavior = 1

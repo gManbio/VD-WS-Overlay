@@ -4,6 +4,7 @@ extends Node2D
 @onready var name_tag = $Name
 @onready var pos_tag = $Pos
 @onready var ordinal_tag = $Ordinal
+@onready var delta = $Delta
 
 var placeholder = preload("res://pilot_images/placeholder.jpg")
 
@@ -14,19 +15,23 @@ var image_dict = {
 93660: preload("res://pilot_images/ap3x.jpg"),
 223886: preload("res://pilot_images/arvin.jpg"),
 15641: preload("res://pilot_images/batu.jpg"),
+131308: preload("res://pilot_images/batman.jpg"),
 283618: preload("res://pilot_images/blastaa.jpg"),
+182695: preload("res://pilot_images/bentondrones.jpg"),
 156744: preload("res://pilot_images/chirp.jpg"),
 228140: preload("res://pilot_images/claybrain.jpg"),
 54623: preload("res://pilot_images/coolwhip.jpg"),
 116790: preload("res://pilot_images/cubed.jpg"),
 60177: preload("res://pilot_images/din.jpg"),
+302313: preload("res://pilot_images/dima.jpg"),
+6711: preload("res://pilot_images/faerry.jpg"),
 209284: preload("res://pilot_images/febykris.jpg"),
 135966: preload("res://pilot_images/finz.jpg"),
 281903: preload("res://pilot_images/flying pizza.jpg"),
 333909: preload("res://pilot_images/flyrat.jpg"),
+75312: preload("res://pilot_images/free.jpg"),
 160627: preload("res://pilot_images/freedom duck.jpg"),
 99033: preload("res://pilot_images/gman.jpg"),
-165597: preload("res://pilot_images/gman.jpg"),
 211123: preload("res://pilot_images/gomufas.jpg"),
 25369: preload("res://pilot_images/xgoodvibesx.jpg"),
 221662: preload("res://pilot_images/iwandi.jpg"),
@@ -44,12 +49,14 @@ var image_dict = {
 81646: preload("res://pilot_images/nateyt.jpg"),
 279816: preload("res://pilot_images/nemuo.jpg"),
 133667: preload("res://pilot_images/nzm.jpg"),
+1225: preload("res://pilot_images/papiaj.jpg"),
 261882: preload("res://pilot_images/platonair.jpg"),
 278662: preload("res://pilot_images/poison.jpg"),
 196003: preload("res://pilot_images/proximo.jpg"),
 40865: preload("res://pilot_images/big ramon.jpg"),
 197083: preload("res://pilot_images/razbri.jpg"),
 59672: preload("res://pilot_images/red5.jpg"),
+293153: preload("res://pilot_images/redsheep.jpg"),
 257585: preload("res://pilot_images/redsky.jpg"),
 118763: preload("res://pilot_images/roflcopter.jpg"),
 172696: preload("res://pilot_images/sabj.jpg"),
@@ -58,7 +65,7 @@ var image_dict = {
 285657: preload("res://pilot_images/shturman.jpg"),
 185222: preload("res://pilot_images/sloth.jpg"),
 352046: preload("res://pilot_images/spookyv9.jpg"),
-221974: preload("res://pilot_images/statik.jpg"),
+221974: preload("res://pilot_images/statikk.jpg"),
 317985: preload("res://pilot_images/suzrik.jpg"),
 188094: preload("res://pilot_images/taxoo.jpg"),
 74205: preload("res://pilot_images/valprim.jpg"),
@@ -99,7 +106,7 @@ func update_nametag(name, color, uid):
 			name_tag.text = name
 			name_tag.modulate = color
 			current_name = name
-	
+
 
 func get_pilot_name(uid, name):
 	if int(uid) in image_dict:
@@ -126,6 +133,13 @@ func get_image(user_id):
 		return image_dict[int(user_id)]
 	else:
 		return placeholder
+
+
+func set_delta(new_delta):
+	if new_delta == 0.000:
+		delta.text = ""
+	else:
+		delta.text = str(new_delta)
 
 
 func reset():
