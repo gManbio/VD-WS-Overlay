@@ -145,6 +145,7 @@ func _process_message(pilotdata):
 			_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
 	elif "spectatorChange" in pilotdata:
 		currently_spectating = pilotdata["spectatorChange"]
+		make_leaderboard() #this might break this
 	elif "ActivateError" in pilotdata:
 		_on_activate_error(pilotdata["ActivateError"]["UIDNotFound"])
 
@@ -178,13 +179,15 @@ func update_pilot_data(new_data, pilotname):
 					var lap_gate_key = lap+gate
 					pilot["gate_dict"][lap_gate_key] = float(new_data["time"])
 					pilot["gate_key"] = lap_gate_key
+					pilot["last_updated"] = Time.get_unix_time_from_system()
+					#print(pilot["last_updated"] - Time.get_unix_time_from_system()) 
 				pilot["data"] = new_data
 				found = true
-				if pilotname == currently_spectating:
-					portrait_box.update_portrait(pilot["data"]["uid"])
-					var color = Color("#" + pilot["data"]["colour"])
-					portrait_box.update_nametag(pilotname, color, pilot["data"]["uid"])
-					portrait_box.update_position(pilot["data"]["position"], color)
+				#if pilotname == currently_spectating:
+					#portrait_box.update_portrait(pilot["data"]["uid"])
+					#var color = Color("#" + pilot["data"]["colour"])
+					#portrait_box.update_nametag(pilotname, color, pilot["data"]["uid"])
+					#portrait_box.update_position(pilot["data"]["position"], color)
 				break
 		if not found:
 			# Add new pilot
@@ -192,7 +195,7 @@ func update_pilot_data(new_data, pilotname):
 			var gate = str(new_data["gate"])
 			var lap_gate_key = lap+gate
 			var gd = {lap_gate_key: float(new_data["time"])}
-			pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key})
+			pilots.append({"name": pilotname, "data": new_data, "gate_dict": gd, "gate_key": lap_gate_key, "last_updated": Time.get_unix_time_from_system()})
 			
 			# this section is to auto reset
 			if new_data["position"] == "1":
@@ -249,8 +252,7 @@ func make_leaderboard():
 			var current_pos = time_container.get_children()[index]
 			
 			var clean_name = portrait_box.get_pilot_name(pilot["data"]["uid"], pilot["name"])
-			
-			# this change could break stuff... here we go
+
 			current_pos.set_pilot_name(clean_name, color)
 			current_pos.set_lap(pilot["data"]["lap"])
 			current_pos.set_gate(pilot["data"]["gate"])
@@ -258,7 +260,17 @@ func make_leaderboard():
 			current_pos.set_portrait(portrait_box.get_image(pilot["data"]["uid"]))
 			current_pos.set_place(pilot["data"]["position"])
 			
+			var crash_time = Time.get_unix_time_from_system() - pilot["last_updated"]
+			if crash_time > 3:
+				current_pos.set_crash(true)
+			else:
+				current_pos.set_crash(false)
+				
 			if pilot["name"] == currently_spectating:
+				portrait_box.update_portrait(pilot["data"]["uid"])
+				portrait_box.update_nametag(pilot["name"], color, pilot["data"]["uid"])
+				portrait_box.update_position(pilot["data"]["position"], color)
+				
 				if director_mode:
 					track_director(pilot["data"]["gate"], pilot["data"]["uid"])
 				current_pos.spectating(true)
@@ -436,6 +448,11 @@ func _on_Button_pressed():
 		connect_button.text = "Connect"
 		dc_button.visible = false
 		connect_button.visible = true
+	
+	#var obs_url = "ws://%s:4455" % ip_input.text
+	#var obs_connect = obs_ws.connect_to_url(obs_url)
+	#print(obs_url)
+	#print(obs_connect)
 
 
 func _on_Barmode_toggle_pressed(toggled_on):
@@ -458,7 +475,7 @@ func _on_Total_Point_View_toggle_pressed(toggled_on):
 		position_view = toggled_on
 	else:
 		position_view = toggled_on
-
+	make_scoreboard()
 
 func _on_check_button_toggled(toggled_on):
 	if toggled_on:
@@ -761,6 +778,7 @@ func _on_team_selection_item_selected(index):
 	if team_1 in team_order:
 		team_order.erase(team_1)
 		team_order.insert(0, team_1)
+	make_scoreboard()
 
 
 func _on_clicked_pilot(user_id, is_right_clicked):
@@ -778,6 +796,7 @@ func _on_lap_total_text_changed(new_text):
 
 func _on_show_negatives_toggled(toggled_on):
 	show_negative = toggled_on
+	make_scoreboard()
 
 
 func current_spec_mode_swap():

@@ -49,12 +49,9 @@ var place = "0"
 signal clicked_pilot
 
 
-
-
 func _ready():
 	var target_node = $"../../../.."
 	connect("clicked_pilot", Callable(target_node, "_on_clicked_pilot"))
-
 
 
 func set_pilot_name(p_name, color):
@@ -73,13 +70,13 @@ func set_gate(gate_num):
 	gate.text = str(gate_num)
 	
 	#this checks for crashes and times them
-	crashed = false
-	crashblinker.stop()
-	if bursted:
-		crashtimer.stop()
-	else:
-		crashtimer.start()
-	delta.modulate = Color(Color.WHITE)
+	#crashed = false
+	#crashblinker.stop()
+	#if bursted:
+	#	crashtimer.stop()
+	#else:
+	#	crashtimer.start()
+	#delta.modulate = Color(Color.WHITE)
 
 
 func set_delta(delta_time):
@@ -220,6 +217,17 @@ func set_place(position):
 	
 func get_place():
 	return position
+
+
+func set_crash(is_crashed):
+	crashed = is_crashed
+	if bursted:
+		delta.modulate= Color(Color.WHITE)
+	elif is_crashed:
+		crashblinker.start()
+	else:
+		crashblinker.stop()
+		delta.modulate= Color(Color.WHITE)
 
 
 func _on_gui_input(event):

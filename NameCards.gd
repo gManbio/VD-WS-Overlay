@@ -129,7 +129,6 @@ func update_position(position, color):
 
 func get_image(user_id):
 	if int(user_id) in image_dict:
-		portrait.texture = image_dict[int(user_id)]
 		return image_dict[int(user_id)]
 	else:
 		return placeholder
