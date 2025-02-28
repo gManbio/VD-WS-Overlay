@@ -315,20 +315,31 @@ placeholder_text = "Gate Count"
 
 [node name="Reset Pilots" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 324.0
-offset_top = 767.0
-offset_right = 377.0
-offset_bottom = 819.0
+offset_left = 333.0
+offset_top = 761.0
+offset_right = 386.0
+offset_bottom = 815.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Reset"
 
+[node name="Crop Preview" type="Button" parent="Control/Options"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 761.0
+offset_right = 326.0
+offset_bottom = 815.0
+focus_mode = 0
+theme = ExtResource("6_oakrc")
+text = "Preview
+Crop"
+
 [node name="menu" type="Button" parent="Control/Options"]
 layout_mode = 0
-offset_left = 324.0
-offset_top = 827.0
-offset_right = 377.0
-offset_bottom = 879.0
+offset_left = 334.0
+offset_top = 829.0
+offset_right = 387.0
+offset_bottom = 881.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Menu"
@@ -1198,6 +1209,7 @@ color = Color(0, 0, 0, 0.32549)
 [connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_disconnect_pressed"]
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="reset_leaderboard"]
+[connection signal="pressed" from="Control/Options/Crop Preview" to="." method="_crop_helper_pressed"]
 [connection signal="pressed" from="Control/Options/menu" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Control/Options/CopyToClipboardButton" to="." method="_on_copy_to_clipboard_button_pressed"]
 [connection signal="pressed" from="Control/Options/Chase Cam" to="." method="find_closest_chase"]

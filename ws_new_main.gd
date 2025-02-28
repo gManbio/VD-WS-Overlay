@@ -45,6 +45,7 @@ var missing_list = []
 var team_1 = "00FF00"
 var position_view = true
 var show_negative = false
+var last_trigger = ""
 
 var currently_spectating = "None"
 var current_spec_mode = "None"
@@ -411,8 +412,24 @@ func reset_leaderboard():
 
 
 func track_director(gate, user_id):
-	if gate in director_dict.keys():
-		if director_dict[gate].to_lower() == "fpv":
+	var key_list = []
+	var closest_trigger = "none"
+	
+	for each in director_dict.keys():
+		key_list.append(int(each))
+	key_list.sort()
+	
+	for each in key_list:
+		if int(gate) < each:
+			break
+		else:
+			closest_trigger = str(each)
+
+	if closest_trigger == last_trigger:
+		return
+
+	if closest_trigger in director_dict.keys():
+		if director_dict[closest_trigger].to_lower() == "fpv":
 			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
 			current_spec_mode = "fpv"
 		#elif director_dict[gate] == "FOL":
@@ -422,7 +439,8 @@ func track_director(gate, user_id):
 			if current_spec_mode != "spectate":
 				ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
 				current_spec_mode = "spectate"
-			ws.send_text('{ "command": "cameraselect", "number": '+director_dict[gate]+" }")
+			ws.send_text('{ "command": "cameraselect", "number": '+director_dict[closest_trigger]+" }")
+		last_trigger = closest_trigger
 
 
 func reset_gate_count():
@@ -785,6 +803,8 @@ func _on_clicked_pilot(user_id, is_right_clicked):
 	var clicked_load_string = '{ "command": "cameraplayer", "uid": '+str(user_id)+" }"
 	ws.send_text(clicked_load_string)
 	if is_right_clicked:
+		director_mode = false
+		$Control/Options/Cam_director_toggle.button_pressed = false
 		current_spec_mode_swap()
 
 
@@ -810,4 +830,9 @@ func current_spec_mode_swap():
 		ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
 		current_spec_mode = "spectate"
 		
-
+		
+func _crop_helper_pressed():
+	for i in range(10):
+		add_timing_row()
+	add_score_box()
+	add_score_box()
