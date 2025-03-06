@@ -1212,7 +1212,7 @@ color = Color(0, 0, 0, 0.32549)
 [connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Options/Connect FPV VD" to="." method="_on_fpv_connect_pressed"]
 [connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_fpv_disconnect_pressed"]
-[connection signal="pressed" from="Control/Options/FPV_DC Button" to="." method="_on_disconnect_pressed"]
+[connection signal="pressed" from="Control/Options/FPV_DC Button" to="." method="_on_fpv_disconnect_pressed"]
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="reset_leaderboard"]
 [connection signal="pressed" from="Control/Options/Crop Preview" to="." method="_crop_helper_pressed"]
 [connection signal="pressed" from="Control/Options/menu" to="." method="_on_menu_button_pressed"]
