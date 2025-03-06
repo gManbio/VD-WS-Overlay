@@ -26,7 +26,7 @@ func set_score(input_score, position_view, show_negative):
 		var temp_score = input_score - score_threshold
 		if temp_score <= 0:
 			if show_negative:
-				score.text = str(temp_score)
+				score.text = str(temp_score - 1)
 			else:
 				score.text = ""
 		else:

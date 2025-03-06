@@ -292,6 +292,14 @@ one_shot = true
 [node name="CrashBlinker" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="Lowlighter" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_right = 276.0
+offset_bottom = 35.0
+color = Color(0, 0, 0, 0.313726)
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="timeout" from="CrashTimer" to="." method="_on_crash_timer_timeout"]
 [connection signal="timeout" from="CrashBlinker" to="." method="_on_crash_blinker_timeout"]

@@ -38,7 +38,7 @@ color = Color(0, 0, 0, 1)
 anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
-offset_right = -525.3
+offset_right = -561.3
 offset_bottom = -35.9999
 grow_horizontal = 2
 grow_vertical = 2
@@ -60,9 +60,9 @@ anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
 offset_left = 6.0
-offset_top = 405.0
+offset_top = 413.0
 offset_right = -703.3
-offset_bottom = -385.0
+offset_bottom = -377.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.545098, 0.545098, 0.545098, 1)
@@ -328,10 +328,10 @@ text = "Disconnect"
 [node name="FPV_DC Button" type="Button" parent="Control/Options"]
 visible = false
 layout_mode = 1
-offset_left = 140.0
-offset_top = 112.0
-offset_right = 239.0
-offset_bottom = 152.0
+offset_left = 132.0
+offset_top = 72.0
+offset_right = 231.0
+offset_bottom = 112.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Disconnect"
@@ -383,7 +383,7 @@ layout_mode = 0
 offset_left = 20.0
 offset_top = 338.0
 offset_right = 222.0
-offset_bottom = 398.0
+offset_bottom = 401.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 theme_override_font_sizes/font_size = 27
@@ -392,9 +392,9 @@ text = "Copy Result"
 [node name="Chase Cam" type="Button" parent="Control/Options"]
 layout_mode = 0
 offset_left = 126.0
-offset_top = 439.0
+offset_top = 448.0
 offset_right = 224.0
-offset_bottom = 487.0
+offset_bottom = 496.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Closest"
@@ -402,9 +402,9 @@ text = "Closest"
 [node name="Score Potential" type="Button" parent="Control/Options"]
 layout_mode = 0
 offset_left = 19.0
-offset_top = 492.0
+offset_top = 504.0
 offset_right = 224.0
-offset_bottom = 541.0
+offset_bottom = 553.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Scoring Potential"
@@ -412,9 +412,9 @@ text = "Scoring Potential"
 [node name="Lead Cam" type="Button" parent="Control/Options"]
 layout_mode = 0
 offset_left = 19.0
-offset_top = 439.0
+offset_top = 448.0
 offset_right = 117.0
-offset_bottom = 487.0
+offset_bottom = 496.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Leader"
@@ -445,6 +445,23 @@ offset_right = 400.0
 offset_bottom = 743.0
 text = "High FPS"
 
+[node name="Contendermode" type="CheckButton" parent="Control/Options"]
+visible = false
+layout_mode = 0
+offset_left = 222.0
+offset_top = 684.0
+offset_right = 400.0
+offset_bottom = 715.0
+text = "Contender Mode"
+
+[node name="FieldGap" type="Label" parent="Control/Options"]
+visible = false
+layout_mode = 0
+offset_left = 47.0
+offset_top = 665.0
+offset_right = 108.0
+offset_bottom = 692.0
+
 [node name="Start Race" type="Button" parent="Control/Options"]
 layout_mode = 0
 offset_left = 1.0
@@ -467,7 +484,7 @@ text = "Auto Lock"
 [node name="Save Button" type="Button" parent="Control/Options"]
 layout_mode = 2
 offset_left = 126.0
-offset_top = 618.0
+offset_top = 602.0
 offset_right = 224.0
 offset_bottom = 649.0
 focus_mode = 0
@@ -477,7 +494,7 @@ text = "Save"
 [node name="Load Button" type="Button" parent="Control/Options"]
 layout_mode = 2
 offset_left = 19.0
-offset_top = 618.0
+offset_top = 602.0
 offset_right = 117.0
 offset_bottom = 649.0
 focus_mode = 0
@@ -549,28 +566,15 @@ text = "Single Lap"
 [node name="Cam_director_toggle" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
 offset_left = 35.0
-offset_top = 587.0
+offset_top = 566.0
 offset_right = 203.0
-offset_bottom = 618.0
+offset_bottom = 597.0
 theme = ExtResource("6_oakrc")
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 text = "Auto Director"
-
-[node name="Head2Head_toggle" type="CheckButton" parent="Control/Options"]
-layout_mode = 2
-offset_left = 35.0
-offset_top = 553.0
-offset_right = 203.0
-offset_bottom = 584.0
-theme = ExtResource("6_oakrc")
-theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-text = "Head2Head"
 
 [node name="Gate Label" type="Label" parent="Control/Options"]
 layout_mode = 2
@@ -602,26 +606,6 @@ offset_bottom = 207.0
 theme = ExtResource("6_oakrc")
 theme_override_fonts/font = ExtResource("8_85ijm")
 text = "Cam"
-
-[node name="h2h Portrait label" type="Label" parent="Control/Options"]
-layout_mode = 2
-offset_left = 467.0
-offset_top = 618.0
-offset_right = 617.0
-offset_bottom = 641.0
-theme = ExtResource("6_oakrc")
-theme_override_fonts/font = ExtResource("8_85ijm")
-text = "Head2head Portrait"
-
-[node name="Primary Portrait label" type="Label" parent="Control/Options"]
-layout_mode = 2
-offset_left = 738.0
-offset_top = 618.0
-offset_right = 838.0
-offset_bottom = 641.0
-theme = ExtResource("6_oakrc")
-theme_override_fonts/font = ExtResource("8_85ijm")
-text = "Main Portrait"
 
 [node name="Camera Director" type="GridContainer" parent="Control/Options"]
 layout_mode = 0
@@ -908,9 +892,9 @@ offset_bottom = 711.0
 [node name="Label" type="Label" parent="Control/Options"]
 layout_mode = 0
 offset_left = 87.0
-offset_top = 407.0
+offset_top = 413.0
 offset_right = 152.0
-offset_bottom = 437.0
+offset_bottom = 443.0
 theme = ExtResource("6_oakrc")
 theme_override_font_sizes/font_size = 21
 text = "Target"
@@ -1043,11 +1027,7 @@ theme = ExtResource("6_oakrc")
 text = "Lap Count"
 
 [node name="PilotPortrait" parent="Control" instance=ExtResource("7_ywn4m")]
-position = Vector2(217, 683)
-scale = Vector2(0.185, 0.185)
-
-[node name="h2hPortrait" parent="Control" instance=ExtResource("7_ywn4m")]
-position = Vector2(-28, 683)
+position = Vector2(117, 686)
 scale = Vector2(0.185, 0.185)
 
 [node name="cutoff line" type="HBoxContainer" parent="Control"]
@@ -1223,6 +1203,7 @@ color = Color(0, 0, 0, 0.32549)
 [connection signal="toggled" from="Control/Options/Pointmode" to="." method="_on_pointmode_toggled"]
 [connection signal="item_selected" from="Control/Options/ip_dropdown" to="." method="_on_ip_dropdown_item_selected"]
 [connection signal="toggled" from="Control/Options/FPS_Mode" to="." method="_on_fps_mode_toggled"]
+[connection signal="toggled" from="Control/Options/Contendermode" to="." method="_on_contendermode_toggled"]
 [connection signal="pressed" from="Control/Options/Start Race" to="." method="_on_start_race_pressed"]
 [connection signal="toggled" from="Control/Options/Auto_lock" to="." method="_on_auto_lock_toggled"]
 [connection signal="pressed" from="Control/Options/Save Button" to="." method="_on_save_button_pressed"]
@@ -1236,7 +1217,6 @@ color = Color(0, 0, 0, 0.32549)
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton3" to="." method="_on_Total_Point_View_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/Cam_director_toggle" to="." method="_on_cam_director_toggle_toggled"]
-[connection signal="toggled" from="Control/Options/Head2Head_toggle" to="." method="_on_head2head_toggled"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate/Cam" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate6" to="." method="_on_cam_text_changed"]

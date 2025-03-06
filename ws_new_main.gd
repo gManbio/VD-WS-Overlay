@@ -2,6 +2,8 @@ extends Node
 
 var ws = WebSocketPeer.new()
 
+var ws_fpv = WebSocketPeer.new()
+
 var pilots = []
 
 @onready var bg_rect = $ColorRect
@@ -11,9 +13,13 @@ var pilots = []
 @onready var ip_dropdown = $Control/Options/ip_dropdown
 @onready var ip_input = $Control/Options/IP_Input
 @onready var score_container = $Control/ScoreContainer
-@onready var con_highlighter = $ContenderHighlighter
 @onready var portrait_box = $Control/PilotPortrait
+@onready var h2h_portrait = $Control/h2hPortrait
 @onready var missing_label = $Control/Options/MissingPilot
+@onready var fpv_input = $Control/Options/FPV_IP_Input
+@onready var fpv_connect_button = $"Control/Options/Connect FPV VD"
+@onready var fpv_dc_button = $"Control/Options/FPV_DC Button"
+
 
 var team_color_dict = {
 	"533": "00FF00",
@@ -35,20 +41,22 @@ var new_score = true
 var team_order = []
 var score_dict = {}
 var point_mode = true
-var contender_mode = false
 var gap_delta = 0
 var auto_lock = false
 var director_mode = false
 var cool_down = false
 var missing_pilot_count = 0
 var missing_list = []
-var team_1 = "00FF00"
+var team_1 = "FFFFFF"
 var position_view = true
 var show_negative = false
 var last_trigger = ""
+var head2head = false
 
 var currently_spectating = "None"
 var current_spec_mode = "None"
+var current_fpv_viewer = 0000
+var spectator_changed = false
 
 var timing_row = preload("res://TimingRow.tscn")
 
@@ -80,8 +88,8 @@ func _ready():
 		ip_dropdown.select(ip_dropdown.item_count - 2)
 		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
 	else:
-		ip_input.text = ip_dropdown.get_item_text(ip_dropdown.item_count - 2)
-		ip_dropdown.select(ip_dropdown.item_count - 2)
+		ip_input.text = ip_dropdown.get_item_text(0)
+		ip_dropdown.select(0)
 	
 	$HeartbeatTimer.start()
 	$"Polling Timer".start()
@@ -103,6 +111,27 @@ func _process(delta):
 				if state == WebSocketPeer.STATE_CLOSED:
 					_handle_websocket_closed()
 					
+	if ws_fpv.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		# Drain all incoming packets
+		while ws_fpv.get_available_packet_count() > 0:
+			# read the packet but do nothing with it
+			ws_fpv.get_packet()
+
+
+func _input(event):
+	if Input.is_action_just_pressed("Head2Head Toggle"):
+		head2head = true
+		$Control/Options/Head2Head_toggle.button_pressed = true
+		director_mode = false
+		$Control/Options/Cam_director_toggle.button_pressed = false
+		find_close_opponent()
+
+	if Input.is_action_just_pressed("Auto Director"):
+		director_mode = true
+		$Control/Options/Cam_director_toggle.button_pressed = true
+		head2head = false
+		$Control/Options/Head2Head_toggle.button_pressed = false
+
 
 
 func _handle_websocket_messages():
@@ -146,6 +175,7 @@ func _process_message(pilotdata):
 			_on_new_pilot_data_received(pilotdata["racedata"][pilot_name], pilot_name)
 	elif "spectatorChange" in pilotdata:
 		currently_spectating = pilotdata["spectatorChange"]
+		spectator_changed = true
 		make_leaderboard() #this might break this
 	elif "ActivateError" in pilotdata:
 		_on_activate_error(pilotdata["ActivateError"]["UIDNotFound"])
@@ -160,6 +190,8 @@ func check_max_gates(gate):
 func _on_timer_timeout():
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		ws.send_text("ping")
+	if ws_fpv.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		ws_fpv.send_text("ping")
 
 
 func update_pilot_data(new_data, pilotname):
@@ -181,14 +213,8 @@ func update_pilot_data(new_data, pilotname):
 					pilot["gate_dict"][lap_gate_key] = float(new_data["time"])
 					pilot["gate_key"] = lap_gate_key
 					pilot["last_updated"] = Time.get_unix_time_from_system()
-					#print(pilot["last_updated"] - Time.get_unix_time_from_system()) 
 				pilot["data"] = new_data
 				found = true
-				#if pilotname == currently_spectating:
-					#portrait_box.update_portrait(pilot["data"]["uid"])
-					#var color = Color("#" + pilot["data"]["colour"])
-					#portrait_box.update_nametag(pilotname, color, pilot["data"]["uid"])
-					#portrait_box.update_position(pilot["data"]["position"], color)
 				break
 		if not found:
 			# Add new pilot
@@ -236,17 +262,10 @@ func make_leaderboard():
 			add_timing_row()
 			if len(pilots) == time_container.get_child_count():
 				break
-	if len(pilots) > 1: # this section is for settings the gap of the field
-		var last_place = pilots[-1]["gate_dict"][pilots[-1]["gate_key"]]
-		if pilots[-1]["gate_key"] in pilots[0]["gate_dict"]:
-			var leader = pilots[0]["gate_dict"][pilots[-1]["gate_key"]]
-			gap_delta = leader - last_place
-			$Control/Options/FieldGap.text = str(gap_delta)
 	# set all of the values for the timing display
 	if time_container.get_child_count() > 0:
 		for pilot in pilots:
 			if index > time_container.get_child_count():
-				# $Control/Options/FieldGap.text = str(gap_delta)
 				break
 			var hex_color = pilot["data"]["colour"]
 			var color = Color("#" + hex_color)
@@ -269,12 +288,16 @@ func make_leaderboard():
 				
 			if pilot["name"] == currently_spectating:
 				portrait_box.update_portrait(pilot["data"]["uid"])
-				portrait_box.update_nametag(pilot["name"], color, pilot["data"]["uid"])
-				portrait_box.update_position(pilot["data"]["position"], color)
+				portrait_box.update_nametag(pilot["name"], hex_color, pilot["data"]["uid"])
+				portrait_box.update_position(pilot["data"]["position"])
 				
 				if director_mode:
 					track_director(pilot["data"]["gate"], pilot["data"]["uid"])
 				current_pos.spectating(true)
+				if not head2head:
+					send_fpv_viewer(pilot["data"]["uid"])
+				else:
+					pass # here is where we need to handle target switching of head to head I think this needs to move down
 			else:
 				current_pos.spectating(false)
 					
@@ -298,6 +321,7 @@ func make_leaderboard():
 				if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
 					var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
 					var leader_color = pilots[index - 1]["data"]["colour"]
+					var leader_uid = pilots[index - 1]["data"]["uid"]
 					var pilot_time = pilot["gate_dict"][pilot["gate_key"]]
 					if pilot["data"]["finished"] == "True":
 						current_pos.set_delta(float(pilot["data"]["time"]))
@@ -306,15 +330,13 @@ func make_leaderboard():
 					else:
 						current_pos.set_delta(leader_time - pilot_time)
 						current_pos.set_user_id(pilot["data"]["uid"])
-						current_pos.chase_check(leader_color)
-						# $Control/Options/FieldGap.text = str(gap_delta)
+						current_pos.chase_check(leader_color, leader_uid)
+						if spectator_changed:   # this checks to see if we changed spectators recently
+							if current_pos.get_spectating():
+								if head2head:
+									send_fpv_viewer(leader_uid)
+							spectator_changed = false
 			else:    
-				if contender_mode:
-					if hex_color == "00FF00": # highlights contender
-						con_highlighter.visible = true
-					else:
-						con_highlighter.visible = false
-				
 				if pilot["data"]["finished"] == "True":  # Sets the delta for first player
 					current_pos.set_delta(float(pilot["data"]["time"]))
 					current_pos.set_user_id(pilot["data"]["uid"])
@@ -330,9 +352,14 @@ func make_leaderboard():
 # this function is used to keep the team scores from changing order
 func initialize_scoreboard(scores):
 	team_order = scores.keys()
-	if team_1 in team_order:
-		team_order.erase(team_1)
-		team_order.insert(0, team_1)
+	if not head2head:
+		if team_1 in team_order:
+			team_order.erase(team_1)
+			team_order.insert(0, team_1)
+	else:
+		if h2h_portrait.get_color() in team_order:
+			team_order.erase(h2h_portrait.get_color())
+			team_order.insert(0, h2h_portrait.get_color())
 	for team in team_order:
 		score_board[team] = 0
 	new_score = false
@@ -403,6 +430,7 @@ func reset_leaderboard():
 	score_dict = {}
 	last_message = {} # this is to prevent reset from clearing results... untested
 	portrait_box.reset()
+	h2h_portrait.reset()
 	reset_gate_count()
 	
 	if team_mode:
@@ -467,6 +495,27 @@ func _on_Button_pressed():
 		dc_button.visible = false
 		connect_button.visible = true
 	
+	
+func _on_fpv_connect_pressed():
+	var url = "ws://%s:60003/velocidrone" % fpv_input.text
+	var connect_error = ws_fpv.connect_to_url(url)
+	if not connect_error:
+		print("Attempting to connect to FPV View WebSocket server at " + url)
+		#ip_complete = true
+		#reset_gate_count()
+		fpv_dc_button.visible = true
+		fpv_connect_button.visible = false
+	else:
+		print("connection failed with " + str(connect_error))
+		ws_fpv.close()
+		ws_fpv = WebSocketPeer.new()
+		#ip_complete = false
+		#connected = false
+		fpv_dc_button.visible = false
+		fpv_connect_button.visible = true
+	
+	
+	
 	#var obs_url = "ws://%s:4455" % ip_input.text
 	#var obs_connect = obs_ws.connect_to_url(obs_url)
 	#print(obs_url)
@@ -508,10 +557,16 @@ func _on_disconnect_pressed():
 	
 	ip_complete = false
 	connected = false
-	connect_button.text = "Connect"
 	dc_button.visible = false
 	connect_button.visible = true
 	reset_leaderboard()
+
+
+func _on_fpv_disconnect_pressed():
+	ws_fpv.close()
+	ws_fpv = WebSocketPeer.new()
+	fpv_dc_button.visible = false
+	fpv_connect_button.visible = true
 
 
 func _on_pointmode_toggled(toggled_on):
@@ -554,6 +609,7 @@ func _on_menu_button_pressed():
 
 func _on_polling_timer_timeout():
 	ws.poll()
+	ws_fpv.poll()
 	
 
 func _on_ip_dropdown_item_selected(index):
@@ -567,12 +623,6 @@ func _on_fps_mode_toggled(toggled_on):
 	else:
 		FPS = 10
 		Engine.max_fps = FPS
-
-
-func _on_contendermode_toggled(toggled_on):
-	contender_mode = toggled_on
-	if not toggled_on:
-		con_highlighter.visible = false
 
 
 func _on_lock_room_pressed():
@@ -600,6 +650,11 @@ func _on_auto_lock_toggled(toggled_on):
 func _on_cam_director_toggle_toggled(toggled_on):
 	director_mode = toggled_on
 	_on_cam_text_changed("none")
+	if director_mode:
+		head2head = false
+		$Control/Options/Head2Head_toggle.button_pressed = false
+		new_score = true # this might break
+		make_scoreboard() #this might break
 
 
 func _on_cam_text_changed(new_text):
@@ -751,6 +806,7 @@ func find_close_opponent():
 	var chase_dict = {}
 	var delta_list = []
 	var chase_pilot = ""
+	var target_pilot = ""
 	for time_row in time_container.get_children():
 		var delta = time_row.get_delta()
 		if delta != 0:
@@ -765,12 +821,33 @@ func find_close_opponent():
 		if teamscore < 11:
 			if chase_dict[delta_list[index -1]].get_chase():
 				chase_pilot = chase_dict[delta_list[index -1]].get_user_id()
+				target_pilot = chase_dict[delta_list[index -1]].get_chase_target()
 				break
 		index -= 1
-
-	# ws.send_text('{ "command": "cameraplayer", "uid": "fpv" }')
+	
 	var chase_load_string = '{ "command": "cameraplayer", "uid": '+str(chase_pilot)+" }"
 	ws.send_text(chase_load_string)
+	
+	if head2head:
+		if current_spec_mode != "fpv":
+			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+			current_spec_mode = "fpv"
+		director_mode = false
+		$Control/Options/Cam_director_toggle.button_pressed = false
+		send_fpv_viewer(target_pilot)
+
+
+func update_h2h_portrait(lead_target_uid):
+	for timing_row in time_container.get_children():
+		if str(timing_row.get_user_id()) == str(lead_target_uid):
+			var uid = str(timing_row.get_user_id())
+			h2h_portrait.update_portrait(int(uid))
+			h2h_portrait.update_nametag(timing_row.get_pilot_name(), timing_row.get_hex_color(), uid)
+			h2h_portrait.update_position(str(timing_row.get_place()))
+			if head2head:
+					new_score = true
+					make_scoreboard()
+			break
 
 
 func _lead_cam_pressed():
@@ -778,6 +855,7 @@ func _lead_cam_pressed():
 		var lead_pilot = time_container.get_children()[0].get_user_id()
 		var lead_load_string = '{ "command": "cameraplayer", "uid": '+str(lead_pilot)+" }"
 		ws.send_text(lead_load_string)
+		print(lead_load_string)
 
 
 func _on_custom_cam_send_camera(cam_num, is_right_clicked):
@@ -805,7 +883,8 @@ func _on_clicked_pilot(user_id, is_right_clicked):
 	if is_right_clicked:
 		director_mode = false
 		$Control/Options/Cam_director_toggle.button_pressed = false
-		current_spec_mode_swap()
+		ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+		current_spec_mode = "fpv"
 
 
 func _on_lap_total_text_changed(new_text):
@@ -829,10 +908,29 @@ func current_spec_mode_swap():
 	else:
 		ws.send_text('{ "command": "cameramode", "mode": "spectate" }')
 		current_spec_mode = "spectate"
-		
-		
+
+
 func _crop_helper_pressed():
 	for i in range(10):
 		add_timing_row()
 	add_score_box()
 	add_score_box()
+
+
+func send_fpv_viewer(uid):
+	var fpv_string = '{ "command": "cameraplayer", "uid": '+str(uid)+" }"
+	if current_fpv_viewer == uid:
+		return
+	elif ws_fpv.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		ws_fpv.send_text(fpv_string)
+		ws_fpv.send_text('{ "command": "cameramode", "mode": "fpv" }')
+		current_fpv_viewer = uid
+	update_h2h_portrait(uid)
+
+
+func _on_head2head_toggled(toggled_on):
+	head2head = toggled_on
+	if toggled_on:
+		director_mode = false
+		$Control/Options/Cam_director_toggle.button_pressed = false
+		find_close_opponent()

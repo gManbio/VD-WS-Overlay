@@ -22,9 +22,13 @@ extends Control
 
 @onready var highlighter = $Highlighter
 
+@onready var lowlighter = $Lowlighter
+
 @onready var crashtimer = $CrashTimer
 
 @onready var crashblinker = $CrashBlinker
+
+@export var hide_mini_portrait = false
 
 var bursted = false
 
@@ -48,11 +52,17 @@ var place = "0"
 
 signal clicked_pilot
 
+var chase_target = 0
+
+var is_spec = false
+
 
 func _ready():
 	var target_node = $"../../../.."
 	connect("clicked_pilot", Callable(target_node, "_on_clicked_pilot"))
-
+	if hide_mini_portrait:
+		portrait.visible = false
+		
 
 func set_pilot_name(p_name, color):
 	pilot_name.text = str(p_name)
@@ -158,14 +168,24 @@ func set_portrait(image):
 
 func spectating(is_spectating):
 	highlighter.visible = is_spectating
+	is_spec = is_spectating
 
 
-func chase_check(color):
+func get_spectating():
+	return is_spec
+
+
+func chase_check(color, lead_uid):
+	chase_target = int(lead_uid)
 	if place <= 7:
 		if color_out == "#"+color:
 			chasing = false
 		else:
 			chasing = true
+
+
+func get_chase_target():
+	return chase_target
 
 
 func get_chase():
@@ -213,10 +233,14 @@ func _on_crash_blinker_timeout():
 
 func set_place(position):
 	place = int(position)
-	
-	
+	if place > 6:
+		lowlighter.visible = true
+	else:
+		lowlighter.visible = false
+
+
 func get_place():
-	return position
+	return place
 
 
 func set_crash(is_crashed):

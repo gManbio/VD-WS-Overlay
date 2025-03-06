@@ -79,6 +79,8 @@ var current_id = 0000
 
 var current_name = "None"
 
+var current_color = "FFFFFF"
+
 var ordinals = {
 	"1": "st",
 	"2": "nd",
@@ -95,7 +97,8 @@ func update_portrait(user_id):
 		current_id = user_id
 
 
-func update_nametag(name, color, uid):
+func update_nametag(name, hex_color, uid):
+	var color = Color("#" + hex_color)
 	if name != current_name:
 		if int(uid) in image_dict:
 			var filename = get_pilot_name(uid, name)
@@ -106,6 +109,7 @@ func update_nametag(name, color, uid):
 			name_tag.text = name
 			name_tag.modulate = color
 			current_name = name
+		current_color = hex_color
 
 
 func get_pilot_name(uid, name):
@@ -118,12 +122,12 @@ func get_pilot_name(uid, name):
 		return name  # or some fallback
 	
 	
-func update_position(position, color):
+func update_position(position):
 	pos_tag.text = position
-	if position in ordinals:
-		ordinal_tag.text = ordinals[position]
-	else:
-		ordinal_tag.text = "th"
+	#if position in ordinals:
+	#	ordinal_tag.text = ordinals[position]
+	#else:
+	#	ordinal_tag.text = "th"
 	# pos_tag.modulate = color
 
 
@@ -141,8 +145,12 @@ func set_delta(new_delta):
 		delta.text = str(new_delta)
 
 
+func get_color():
+	return current_color
+
+
 func reset():
-	update_position("-", default_color)
+	update_position("-")
 	portrait.texture = placeholder
 	current_id = 0000
 	current_name = "None"
