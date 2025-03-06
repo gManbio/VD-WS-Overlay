@@ -2,7 +2,7 @@ extends VBoxContainer
 
 @onready var name_input = $"Custom Name"
 @onready var button = $"Custom Name/Custom Button"
-@onready var cam_num = $"Custom Name/Cust@om Button/Custom Cam Num"
+@onready var cam_num = $"Custom Name/Custom Button/Custom Cam Num"
 @onready var ws_new_main = $"../../.."
 
 signal send_camera
