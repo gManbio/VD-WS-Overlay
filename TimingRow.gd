@@ -257,9 +257,9 @@ func set_crash(is_crashed):
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 1 and event.pressed:
-			emit_signal("clicked_pilot", user_id, false)
+			emit_signal("clicked_pilot", user_id, false, chase_target)
 			accept_event()
 		if event.button_index == 2 and event.pressed:
-			emit_signal("clicked_pilot", user_id, true)
+			emit_signal("clicked_pilot", user_id, true, chase_target)
 			accept_event()
 

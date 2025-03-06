@@ -877,7 +877,7 @@ func _on_team_selection_item_selected(index):
 	make_scoreboard()
 
 
-func _on_clicked_pilot(user_id, is_right_clicked):
+func _on_clicked_pilot(user_id, is_right_clicked, target_pilot):
 	var clicked_load_string = '{ "command": "cameraplayer", "uid": '+str(user_id)+" }"
 	ws.send_text(clicked_load_string)
 	if is_right_clicked:
@@ -885,7 +885,8 @@ func _on_clicked_pilot(user_id, is_right_clicked):
 		$Control/Options/Cam_director_toggle.button_pressed = false
 		ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
 		current_spec_mode = "fpv"
-
+	if head2head:
+		send_fpv_viewer(target_pilot)
 
 func _on_lap_total_text_changed(new_text):
 	race_laps = int(new_text)
