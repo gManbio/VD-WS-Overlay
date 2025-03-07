@@ -20,7 +20,7 @@ extends Control
 
 @onready var portrait = $PilotImage
 
-@onready var highlighter = $Highlighter
+@onready var highlighter = $"Timing Box/Highlighter"
 
 @onready var lowlighter = $Lowlighter
 
@@ -233,10 +233,6 @@ func _on_crash_blinker_timeout():
 
 func set_place(position):
 	place = int(position)
-	if place > 6:
-		lowlighter.visible = true
-	else:
-		lowlighter.visible = false
 
 
 func get_place():

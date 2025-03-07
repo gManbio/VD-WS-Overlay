@@ -369,9 +369,9 @@ func team_scores():
 	score_dict = {}
 	for pilot in pilots:
 		if pilot["data"]["colour"] not in score_dict:
-			score_dict[pilot["data"]["colour"]] = [int(pilot["data"]["position"])]
+			score_dict[pilot["data"]["colour"]] = [int(pilot["data"]["lap"])]
 		else:
-			score_dict[pilot["data"]["colour"]].append(int(pilot["data"]["position"]))
+			score_dict[pilot["data"]["colour"]].append(int(pilot["data"]["lap"]))
 
 
 func add_score_box():  #instantiates the timing row scene into the timing display
@@ -395,15 +395,8 @@ func make_scoreboard():
 	for key in scores.keys():
 		var team_total = 0
 		score_board[key] = 0
-		if point_mode:
-			for point in scores[key]:
-				var score_result = 7 - point
-				if score_result > 0:
-					team_total += score_result
-			score_board[key] = team_total
-		else:
-			for point in scores[key]:
-				team_total += point
+		for point in scores[key]:
+			team_total += point
 			score_board[key] = team_total
 	
 	var index = 0
@@ -412,7 +405,7 @@ func make_scoreboard():
 			break
 		var hex_color = each
 		var color = Color("#" + hex_color)
-		score_container.get_children()[index].set_score(score_board[each], position_view, show_negative)
+		score_container.get_children()[index].set_score(score_board[each])
 		score_container.get_children()[index].set_color(color)
 		score_container.get_children()[index].update_logo("#" + hex_color)
 		index += 1
@@ -543,6 +536,7 @@ func _on_Total_Point_View_toggle_pressed(toggled_on):
 	else:
 		position_view = toggled_on
 	make_scoreboard()
+
 
 func _on_check_button_toggled(toggled_on):
 	if toggled_on:
@@ -888,6 +882,7 @@ func _on_clicked_pilot(user_id, is_right_clicked, target_pilot):
 	if head2head:
 		send_fpv_viewer(target_pilot)
 
+
 func _on_lap_total_text_changed(new_text):
 	race_laps = int(new_text)
 	if race_laps == 0:
@@ -916,7 +911,7 @@ func _crop_helper_pressed():
 		add_timing_row()
 	add_score_box()
 	add_score_box()
-
+	add_score_box()
 
 func send_fpv_viewer(uid):
 	var fpv_string = '{ "command": "cameraplayer", "uid": '+str(uid)+" }"

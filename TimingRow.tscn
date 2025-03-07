@@ -106,18 +106,12 @@ offset_right = 275.445
 offset_bottom = 35.0
 script = ExtResource("1_58ja3")
 
-[node name="Highlighter" type="ColorRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 1.0
-offset_right = 38.0
-offset_bottom = 34.0
-
 [node name="PilotImage" type="TextureRect" parent="."]
+visible = false
 layout_mode = 2
 offset_left = 1.0
-offset_right = 35.0
-offset_bottom = 34.0
+offset_right = 10.0
+offset_bottom = 9.0
 texture = ExtResource("2_wgmcl")
 expand_mode = 3
 stretch_mode = 4
@@ -126,9 +120,14 @@ stretch_mode = 4
 custom_minimum_size = Vector2(200, 0)
 layout_direction = 2
 layout_mode = 2
-offset_left = 42.0
-offset_right = 242.0
+offset_left = 3.0
+offset_right = 248.0
 offset_bottom = 25.0
+
+[node name="Highlighter" type="ColorRect" parent="Timing Box"]
+visible = false
+custom_minimum_size = Vector2(1.89, 0)
+layout_mode = 2
 
 [node name="VSeparator2" type="VSeparator" parent="Timing Box"]
 visible = false
@@ -144,13 +143,12 @@ text = "Pilot Name"
 text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="Timing Box"]
-visible = false
+custom_minimum_size = Vector2(13.365, 0)
 layout_mode = 2
 
 [node name="Lap" type="Label" parent="Timing Box"]
-visible = false
 clip_contents = true
-custom_minimum_size = Vector2(25.005, 25)
+custom_minimum_size = Vector2(37.545, 25)
 layout_mode = 2
 theme = ExtResource("1_nvajw")
 text = "---
@@ -170,7 +168,7 @@ clip_text = true
 text_overrun_behavior = 1
 
 [node name="VSeparator3" type="VSeparator" parent="Timing Box"]
-visible = false
+custom_minimum_size = Vector2(15.795, 0)
 layout_mode = 2
 
 [node name="Container" type="Container" parent="Timing Box"]
@@ -179,7 +177,7 @@ layout_mode = 2
 
 [node name="Delta" type="Label" parent="Timing Box"]
 clip_contents = true
-custom_minimum_size = Vector2(60.015, 25)
+custom_minimum_size = Vector2(61.585, 25)
 layout_mode = 2
 theme = ExtResource("1_nvajw")
 theme_override_font_sizes/font_size = 18
@@ -253,9 +251,9 @@ alpha_curve = SubResource("Curve_wd7ay")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 2
-offset_left = 42.0
+offset_left = 3.0
 offset_top = 29.0
-offset_right = 230.0
+offset_right = 265.0
 offset_bottom = 34.0
 theme = SubResource("Theme_sgklj")
 value = 100.0
