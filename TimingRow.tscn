@@ -156,8 +156,15 @@ text = "---
 horizontal_alignment = 1
 text_overrun_behavior = 1
 
+[node name="VSeparator3" type="VSeparator" parent="Timing Box"]
+custom_minimum_size = Vector2(5.995, 0)
+layout_mode = 2
+
+[node name="Container" type="Container" parent="Timing Box"]
+custom_minimum_size = Vector2(4.235, 0)
+layout_mode = 2
+
 [node name="Gate" type="Label" parent="Timing Box"]
-visible = false
 clip_contents = true
 custom_minimum_size = Vector2(30, 25)
 layout_mode = 2
@@ -167,15 +174,8 @@ horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 1
 
-[node name="VSeparator3" type="VSeparator" parent="Timing Box"]
-custom_minimum_size = Vector2(15.795, 0)
-layout_mode = 2
-
-[node name="Container" type="Container" parent="Timing Box"]
-custom_minimum_size = Vector2(4.235, 0)
-layout_mode = 2
-
 [node name="Delta" type="Label" parent="Timing Box"]
+visible = false
 clip_contents = true
 custom_minimum_size = Vector2(61.585, 25)
 layout_mode = 2
@@ -253,7 +253,7 @@ alpha_curve = SubResource("Curve_wd7ay")
 layout_mode = 2
 offset_left = 3.0
 offset_top = 29.0
-offset_right = 265.0
+offset_right = 235.0
 offset_bottom = 34.0
 theme = SubResource("Theme_sgklj")
 value = 100.0

@@ -217,9 +217,9 @@ offset_bottom = 459.0
 
 [node name="VSeparator2" type="VSeparator" parent="Control"]
 layout_mode = 0
-offset_left = 314.0
+offset_left = 290.0
 offset_top = 68.0
-offset_right = 321.0
+offset_right = 297.0
 offset_bottom = 446.0
 
 [node name="VSeparator" type="VSeparator" parent="Control"]
