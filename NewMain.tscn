@@ -524,6 +524,7 @@ theme = ExtResource("6_oakrc")
 text = "Transparent"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control/Options"]
+visible = false
 layout_mode = 0
 offset_left = -10.0
 offset_top = 794.0
@@ -557,6 +558,20 @@ theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 text = "Auto Director"
+
+[node name="Auto Reset" type="CheckButton" parent="Control/Options"]
+layout_mode = 2
+offset_left = -9.0
+offset_top = 794.0
+offset_right = 159.0
+offset_bottom = 825.0
+theme = ExtResource("6_oakrc")
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+button_pressed = true
+text = "Auto Reset"
 
 [node name="Head2Head_toggle" type="CheckButton" parent="Control/Options"]
 layout_mode = 2
@@ -1107,7 +1122,7 @@ color = Color(0, 0, 0, 0.32549)
 
 [connection signal="pressed" from="Control/Options/Connect Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Options/Connect FPV VD" to="." method="_on_fpv_connect_pressed"]
-[connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_fpv_disconnect_pressed"]
+[connection signal="pressed" from="Control/Options/DC Button" to="." method="_on_disconnect_pressed"]
 [connection signal="pressed" from="Control/Options/FPV_DC Button" to="." method="_on_fpv_disconnect_pressed"]
 [connection signal="pressed" from="Control/Options/Reset Pilots" to="." method="reset_leaderboard"]
 [connection signal="pressed" from="Control/Options/Crop Preview" to="." method="_crop_helper_pressed"]
@@ -1132,6 +1147,7 @@ color = Color(0, 0, 0, 0.32549)
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton3" to="." method="_on_Total_Point_View_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/VBoxContainer2/CheckButton2" to="." method="_on_Barmode_toggle_pressed"]
 [connection signal="toggled" from="Control/Options/Cam_director_toggle" to="." method="_on_cam_director_toggle_toggled"]
+[connection signal="toggled" from="Control/Options/Auto Reset" to="." method="_on_auto_reset_toggled"]
 [connection signal="toggled" from="Control/Options/Head2Head_toggle" to="." method="_on_head2head_toggled"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate" to="." method="_on_cam_text_changed"]
 [connection signal="text_changed" from="Control/Options/Camera Director/Gate/Cam" to="." method="_on_cam_text_changed"]

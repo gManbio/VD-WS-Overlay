@@ -40,6 +40,7 @@ var score_board = {}
 var new_score = true
 var team_order = []
 var score_dict = {}
+var gate_totals = {}
 var point_mode = true
 var gap_delta = 0
 var auto_lock = false
@@ -52,6 +53,7 @@ var position_view = true
 var show_negative = false
 var last_trigger = ""
 var head2head = false
+var auto_reset = true
 
 var currently_spectating = "None"
 var current_spec_mode = "None"
@@ -97,7 +99,8 @@ func _ready():
 
 func _process(delta):
 	if ip_complete:
-		# ws.poll()
+		ws.poll()
+		ws_fpv.poll()
 		var state = ws.get_ready_state()
 		match state:
 			WebSocketPeer.STATE_OPEN:
@@ -197,12 +200,14 @@ func _on_timer_timeout():
 func update_pilot_data(new_data, pilotname):
 	for pilot_name in new_data.keys():
 		var found = false
+		
 		for pilot in pilots:
-			if new_data["position"] == "1":
-				if new_data["lap"] == "1":
-					if new_data["gate"] == "1":
-						reset_leaderboard()
-						#print("reset")
+			if auto_reset:
+				if new_data["position"] == "1":
+					if new_data["lap"] == "1":
+						if new_data["gate"] == "1":
+							reset_leaderboard()
+							#print("reset")
 			if pilot["name"] == pilotname:
 			# Update existing pilot data
 				if new_data["gate"] != pilot["data"]["gate"]:
@@ -367,11 +372,17 @@ func initialize_scoreboard(scores):
 
 func team_scores():
 	score_dict = {}
+	gate_totals = {}
 	for pilot in pilots:
 		if pilot["data"]["colour"] not in score_dict:
 			score_dict[pilot["data"]["colour"]] = [int(pilot["data"]["lap"])]
 		else:
 			score_dict[pilot["data"]["colour"]].append(int(pilot["data"]["lap"]))
+	for pilot in pilots:
+		if pilot["data"]["colour"] not in gate_totals:
+			gate_totals[pilot["data"]["colour"]] = len(pilot["gate_dict"].keys())
+		else:
+			gate_totals[pilot["data"]["colour"]] += len(pilot["gate_dict"].keys())
 
 
 func add_score_box():  #instantiates the timing row scene into the timing display
@@ -382,6 +393,7 @@ func add_score_box():  #instantiates the timing row scene into the timing displa
 func make_scoreboard():
 	team_scores()
 	var scores = score_dict
+	var g_totals = gate_totals
 	if len(scores.keys()) > score_container.get_child_count():
 		for i in scores.keys():
 			add_score_box()
@@ -398,7 +410,7 @@ func make_scoreboard():
 		for point in scores[key]:
 			team_total += point
 			score_board[key] = team_total
-	
+			
 	var index = 0
 	for each in team_order:
 		if score_container.get_child_count() == index:
@@ -408,6 +420,7 @@ func make_scoreboard():
 		score_container.get_children()[index].set_score(score_board[each])
 		score_container.get_children()[index].set_color(color)
 		score_container.get_children()[index].update_logo("#" + hex_color)
+		score_container.get_children()[index].set_gates(g_totals[each])
 		index += 1
 
 
@@ -421,6 +434,7 @@ func reset_leaderboard():
 	new_score = true
 	team_order = []
 	score_dict = {}
+	gate_totals = {}
 	last_message = {} # this is to prevent reset from clearing results... untested
 	portrait_box.reset()
 	h2h_portrait.reset()
@@ -602,8 +616,9 @@ func _on_menu_button_pressed():
 
 
 func _on_polling_timer_timeout():
-	ws.poll()
-	ws_fpv.poll()
+	pass
+	#ws.poll()
+	#ws_fpv.poll()
 	
 
 func _on_ip_dropdown_item_selected(index):
@@ -930,3 +945,7 @@ func _on_head2head_toggled(toggled_on):
 		director_mode = false
 		$Control/Options/Cam_director_toggle.button_pressed = false
 		find_close_opponent()
+
+
+func _on_auto_reset_toggled(toggled_on):
+	auto_reset = toggled_on
