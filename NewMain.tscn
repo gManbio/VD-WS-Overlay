@@ -260,10 +260,10 @@ placeholder_text = "Local IP"
 [node name="FPV_IP_Input" type="LineEdit" parent="Control/Options"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 251.0
-offset_top = 112.0
-offset_right = 373.0
-offset_bottom = 143.0
+offset_left = 258.0
+offset_top = 77.0
+offset_right = 380.0
+offset_bottom = 108.0
 theme = ExtResource("6_oakrc")
 placeholder_text = "Local IP"
 
@@ -305,9 +305,9 @@ text = "Connect"
 layout_mode = 1
 anchors_preset = -1
 offset_left = 140.0
-offset_top = 112.0
+offset_top = 77.0
 offset_right = 245.0
-offset_bottom = 151.0
+offset_bottom = 116.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
@@ -575,9 +575,9 @@ text = "Head2Head"
 [node name="Gate Label" type="Label" parent="Control/Options"]
 layout_mode = 2
 offset_left = 266.0
-offset_top = 184.0
+offset_top = 128.0
 offset_right = 315.0
-offset_bottom = 207.0
+offset_bottom = 151.0
 theme = ExtResource("6_oakrc")
 theme_override_fonts/font = ExtResource("8_85ijm")
 text = "Gate#"
@@ -596,9 +596,9 @@ text = "Team 1"
 [node name="Cam_Label1" type="Label" parent="Control/Options"]
 layout_mode = 2
 offset_left = 334.0
-offset_top = 184.0
+offset_top = 128.0
 offset_right = 383.0
-offset_bottom = 207.0
+offset_bottom = 151.0
 theme = ExtResource("6_oakrc")
 theme_override_fonts/font = ExtResource("8_85ijm")
 text = "Cam"
@@ -626,9 +626,9 @@ text = "Main Portrait"
 [node name="Camera Director" type="GridContainer" parent="Control/Options"]
 layout_mode = 0
 offset_left = 260.0
-offset_top = 213.0
+offset_top = 157.0
 offset_right = 383.0
-offset_bottom = 751.0
+offset_bottom = 695.0
 
 [node name="Gate" type="LineEdit" parent="Control/Options/Camera Director"]
 layout_mode = 2
@@ -1042,6 +1042,14 @@ offset_bottom = 26.0
 theme = ExtResource("6_oakrc")
 text = "Lap Count"
 
+[node name="Disable_FPV" type="CheckButton" parent="Control/Options"]
+layout_mode = 0
+offset_left = 253.0
+offset_top = 695.0
+offset_right = 391.0
+offset_bottom = 726.0
+text = "Disable FPV"
+
 [node name="PilotPortrait" parent="Control" instance=ExtResource("7_ywn4m")]
 position = Vector2(217, 683)
 scale = Vector2(0.185, 0.185)
@@ -1289,6 +1297,7 @@ color = Color(0, 0, 0, 0.32549)
 [connection signal="text_changed" from="Control/Options/Custom Cam2/Custom Name/Custom Button/Custom Cam Num/Special_1_Edit" to="Control/Options/Custom Cam2" method="_on_special_1_edit_text_changed"]
 [connection signal="item_selected" from="Control/Options/Team_Selection" to="." method="_on_team_selection_item_selected"]
 [connection signal="text_changed" from="Control/Options/Lap Total" to="." method="_on_lap_total_text_changed"]
+[connection signal="toggled" from="Control/Options/Disable_FPV" to="." method="_on_disable_fpv_toggled"]
 [connection signal="timeout" from="HeartbeatTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Text Renamer" to="." method="_on_text_renamer_timeout"]
 [connection signal="timeout" from="Polling Timer" to="." method="_on_polling_timer_timeout"]

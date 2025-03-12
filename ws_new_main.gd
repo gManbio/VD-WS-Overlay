@@ -57,6 +57,7 @@ var currently_spectating = "None"
 var current_spec_mode = "None"
 var current_fpv_viewer = 0000
 var spectator_changed = false
+var disable_fpv = false
 
 var timing_row = preload("res://TimingRow.tscn")
 
@@ -459,8 +460,9 @@ func track_director(gate, user_id):
 
 	if closest_trigger in director_dict.keys():
 		if director_dict[closest_trigger].to_lower() == "fpv":
-			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
-			current_spec_mode = "fpv"
+			if not disable_fpv:
+				ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+				current_spec_mode = "fpv"
 		#elif director_dict[gate] == "FOL":
 		#	ws.send_text('{ "command": "cameramode", "mode": "follow" }')
 		#	current_spec_mode = "follow"
@@ -942,3 +944,7 @@ func _on_head2head_toggled(toggled_on):
 		if current_spec_mode != "fpv":
 			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
 		#find_close_opponent()
+
+
+func _on_disable_fpv_toggled(toggled_on):
+	disable_fpv = toggled_on
