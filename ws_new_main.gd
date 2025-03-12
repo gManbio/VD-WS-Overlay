@@ -124,7 +124,8 @@ func _input(event):
 		$Control/Options/Head2Head_toggle.button_pressed = true
 		director_mode = false
 		$Control/Options/Cam_director_toggle.button_pressed = false
-		find_close_opponent()
+		# find_close_opponent()
+		spectator_changed = true # this should set the view immediately
 
 	if Input.is_action_just_pressed("Auto Director"):
 		director_mode = true
@@ -336,7 +337,7 @@ func make_leaderboard():
 								if head2head:
 									send_fpv_viewer(leader_uid)
 							spectator_changed = false
-			else:    
+			else:    	
 				if pilot["data"]["finished"] == "True":  # Sets the delta for first player
 					current_pos.set_delta(float(pilot["data"]["time"]))
 					current_pos.set_user_id(pilot["data"]["uid"])
@@ -352,14 +353,14 @@ func make_leaderboard():
 # this function is used to keep the team scores from changing order
 func initialize_scoreboard(scores):
 	team_order = scores.keys()
-	if not head2head:
-		if team_1 in team_order:
-			team_order.erase(team_1)
-			team_order.insert(0, team_1)
-	else:
-		if h2h_portrait.get_color() in team_order:
-			team_order.erase(h2h_portrait.get_color())
-			team_order.insert(0, h2h_portrait.get_color())
+	#if not head2head:
+	if team_1 in team_order:
+		team_order.erase(team_1)
+		team_order.insert(0, team_1)
+	#else:
+	#	if h2h_portrait.get_color() in team_order:
+	#		team_order.erase(h2h_portrait.get_color())
+	#		team_order.insert(0, h2h_portrait.get_color())
 	for team in team_order:
 		score_board[team] = 0
 	new_score = false
@@ -844,9 +845,9 @@ func update_h2h_portrait(lead_target_uid):
 			h2h_portrait.update_portrait(int(uid))
 			h2h_portrait.update_nametag(timing_row.get_pilot_name(), timing_row.get_hex_color(), uid)
 			h2h_portrait.update_position(str(timing_row.get_place()))
-			if head2head:
-					new_score = true
-					make_scoreboard()
+			#if head2head: # this might be unnessesary with the new OBS layout
+			#		new_score = true
+			#		make_scoreboard()
 			break
 
 
@@ -888,6 +889,7 @@ func _on_clicked_pilot(user_id, is_right_clicked, target_pilot):
 	if head2head:
 		send_fpv_viewer(target_pilot)
 
+
 func _on_lap_total_text_changed(new_text):
 	race_laps = int(new_text)
 	if race_laps == 0:
@@ -921,6 +923,7 @@ func _crop_helper_pressed():
 func send_fpv_viewer(uid):
 	var fpv_string = '{ "command": "cameraplayer", "uid": '+str(uid)+" }"
 	if current_fpv_viewer == uid:
+		update_h2h_portrait(uid)
 		return
 	elif ws_fpv.get_ready_state() == WebSocketPeer.STATE_OPEN:
 		ws_fpv.send_text(fpv_string)
@@ -934,4 +937,8 @@ func _on_head2head_toggled(toggled_on):
 	if toggled_on:
 		director_mode = false
 		$Control/Options/Cam_director_toggle.button_pressed = false
-		find_close_opponent()
+		spectator_changed = true
+		make_leaderboard()
+		if current_spec_mode != "fpv":
+			ws.send_text('{ "command": "cameramode", "mode": "fpv" }')
+		#find_close_opponent()
