@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cabx07be46v56"]
+[gd_scene load_steps=19 format=3 uid="uid://cabx07be46v56"]
 
 [ext_resource type="Script" path="res://ws_new_main.gd" id="1_hy1wg"]
 [ext_resource type="Theme" uid="uid://khcxakqnogv3" path="res://textlabeltheme.tres" id="2_640ds"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bawn0wmkdk2rh" path="res://LOGOS 64x64/tbs.jpg" id="14_lsthh"]
 [ext_resource type="Texture2D" uid="uid://dc34uie0cvmfw" path="res://LOGOS 64x64/vd.jpg" id="15_1k2cu"]
 [ext_resource type="Texture2D" uid="uid://ci8wtvhb0qoan" path="res://LOGOS 64x64/dmo.jpg" id="16_nv216"]
+[ext_resource type="PackedScene" uid="uid://dhleujmx3nvox" path="res://TimingRow.tscn" id="16_sjcrq"]
 
 [sub_resource type="Theme" id="Theme_h14tp"]
 LineEdit/styles/normal = ExtResource("3_pt8py")
@@ -38,7 +39,7 @@ color = Color(0, 0, 0, 1)
 anchors_preset = -1
 anchor_right = 1.067
 anchor_bottom = 1.04
-offset_right = -525.3
+offset_right = -550.3
 offset_bottom = -35.9999
 grow_horizontal = 2
 grow_vertical = 2
@@ -204,9 +205,9 @@ alignment = 1
 [node name="HSeparator2" type="HSeparator" parent="Control"]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 607.0
+offset_top = 599.0
 offset_right = 423.0
-offset_bottom = 623.0
+offset_bottom = 615.0
 
 [node name="HSeparator" type="HSeparator" parent="Control"]
 layout_mode = 0
@@ -606,19 +607,19 @@ text = "Cam"
 [node name="h2h Portrait label" type="Label" parent="Control/Options"]
 layout_mode = 2
 offset_left = 467.0
-offset_top = 618.0
+offset_top = 878.0
 offset_right = 617.0
-offset_bottom = 641.0
+offset_bottom = 901.0
 theme = ExtResource("6_oakrc")
 theme_override_fonts/font = ExtResource("8_85ijm")
 text = "Head2head Portrait"
 
 [node name="Primary Portrait label" type="Label" parent="Control/Options"]
 layout_mode = 2
-offset_left = 738.0
-offset_top = 618.0
-offset_right = 838.0
-offset_bottom = 641.0
+offset_left = 741.0
+offset_top = 878.0
+offset_right = 841.0
+offset_bottom = 901.0
 theme = ExtResource("6_oakrc")
 theme_override_fonts/font = ExtResource("8_85ijm")
 text = "Main Portrait"
@@ -1161,6 +1162,20 @@ layout_mode = 2
 custom_minimum_size = Vector2(7.415, 0)
 layout_mode = 2
 
+[node name="Main Timing" parent="Control" instance=ExtResource("16_sjcrq")]
+offset_left = 168.0
+offset_top = 620.0
+offset_right = 443.445
+offset_bottom = 655.0
+hide_progress_bar = true
+
+[node name="H2H Timing" parent="Control" instance=ExtResource("16_sjcrq")]
+offset_left = -80.0
+offset_top = 620.0
+offset_right = 195.445
+offset_bottom = 655.0
+hide_progress_bar = true
+
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 5.0
 
@@ -1169,7 +1184,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="Polling Timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.05
 
 [node name="Cooldown" type="Timer" parent="."]
 wait_time = 0.5

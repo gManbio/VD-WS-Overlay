@@ -19,7 +19,8 @@ var pilots = []
 @onready var fpv_input = $Control/Options/FPV_IP_Input
 @onready var fpv_connect_button = $"Control/Options/Connect FPV VD"
 @onready var fpv_dc_button = $"Control/Options/FPV_DC Button"
-
+@onready var main_timing = $"Control/Main Timing"
+@onready var h2h_timing = $"Control/H2H Timing"
 
 var team_color_dict = {
 	"533": "00FF00",
@@ -29,7 +30,6 @@ var team_color_dict = {
 	"TBS": "9F42FF",
 	"VD": "FFA300"
 }
-
 
 var ip_complete = false
 var connected = false
@@ -133,7 +133,6 @@ func _input(event):
 		$Control/Options/Cam_director_toggle.button_pressed = true
 		head2head = false
 		$Control/Options/Head2Head_toggle.button_pressed = false
-
 
 
 func _handle_websocket_messages():
@@ -318,7 +317,6 @@ func make_leaderboard():
 					lap_mod = 0
 				current_pos.set_progress(int(pilot["data"]["gate"]) + lap_mod, color)
 				
-			
 			if index != 0:   # Calculate deltas if pilots are not in first place.
 				if pilot["gate_key"] in pilots[index - 1]["gate_dict"]:
 					var leader_time = pilots[index - 1]["gate_dict"][pilot["gate_key"]]
@@ -337,6 +335,8 @@ func make_leaderboard():
 							if current_pos.get_spectating():
 								if head2head:
 									send_fpv_viewer(leader_uid)
+									#h2h_timing.set_delta(current_pos.get_delta())
+									#h2h_timing.set_pilot_name(current_pos.get_pilot_name(), color)
 							spectator_changed = false
 			else:    	
 				if pilot["data"]["finished"] == "True":  # Sets the delta for first player
@@ -349,7 +349,11 @@ func make_leaderboard():
 					current_pos.set_delta(0.000)
 					current_pos.set_user_id(pilot["data"]["uid"])
 			# gap_delta += current_pos.get_delta()
+			if current_pos.get_spectating:
+				main_timing.set_delta(current_pos.get_delta())
+				main_timing.set_pilot_name(current_pos.get_pilot_name(), color)
 			index += 1
+
 
 # this function is used to keep the team scores from changing order
 func initialize_scoreboard(scores):
@@ -497,8 +501,8 @@ func _on_Button_pressed():
 		connect_button.text = "Connect"
 		dc_button.visible = false
 		connect_button.visible = true
-	
-	
+
+
 func _on_fpv_connect_pressed():
 	var url = "ws://%s:60003/velocidrone" % fpv_input.text
 	var connect_error = ws_fpv.connect_to_url(url)
@@ -546,6 +550,7 @@ func _on_Total_Point_View_toggle_pressed(toggled_on):
 	else:
 		position_view = toggled_on
 	make_scoreboard()
+
 
 func _on_check_button_toggled(toggled_on):
 	if toggled_on:
@@ -613,7 +618,7 @@ func _on_menu_button_pressed():
 func _on_polling_timer_timeout():
 	ws.poll()
 	ws_fpv.poll()
-	
+
 
 func _on_ip_dropdown_item_selected(index):
 	ip_input.text = ip_dropdown.get_item_text(index)
@@ -684,12 +689,12 @@ func _on_save_button_pressed():
 
 func _on_load_button_pressed():
 	$"LoadFileDialog".popup_centered()
-	
-	
+
+
 func missing_pilot_alert():
 	$MissingPilotAlert.dialog_text = "\n".join(missing_list)
 	$MissingPilotAlert.popup_centered()
-	
+
 
 func _apply_director_dict_to_ui():
 	# 1) Get the container node holding all your gate/camera rows
@@ -700,7 +705,6 @@ func _apply_director_dict_to_ui():
 	var dict_keys = director_dict.keys()
 
 	# 3) Fill each child with the corresponding gate/camera pair
-
 	for i in range(min(children.size(), dict_keys.size())):
 		var child = children[i]
 		var gate_key = dict_keys[i]
@@ -847,6 +851,9 @@ func update_h2h_portrait(lead_target_uid):
 			h2h_portrait.update_portrait(int(uid))
 			h2h_portrait.update_nametag(timing_row.get_pilot_name(), timing_row.get_hex_color(), uid)
 			h2h_portrait.update_position(str(timing_row.get_place()))
+			var color = Color("#" + timing_row.get_hex_color())
+			h2h_timing.set_delta(timing_row.get_delta())
+			h2h_timing.set_pilot_name(timing_row.get_pilot_name(), color)
 			#if head2head: # this might be unnessesary with the new OBS layout
 			#		new_score = true
 			#		make_scoreboard()

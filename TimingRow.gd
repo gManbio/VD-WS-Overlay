@@ -30,6 +30,8 @@ extends Control
 
 @export var hide_mini_portrait = false
 
+@export var hide_progress_bar = false
+
 var bursted = false
 
 var first_bursted = false
@@ -62,7 +64,9 @@ func _ready():
 	connect("clicked_pilot", Callable(target_node, "_on_clicked_pilot"))
 	if hide_mini_portrait:
 		portrait.visible = false
-		
+	if hide_progress_bar:
+		progress_bar.visible = false
+
 
 func set_pilot_name(p_name, color):
 	pilot_name.text = str(p_name)
