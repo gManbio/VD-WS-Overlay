@@ -58,6 +58,8 @@ var chase_target = 0
 
 var is_spec = false
 
+var progress_bar_value = 0
+
 
 func _ready():
 	var target_node = $"../../../.."
@@ -110,11 +112,17 @@ func get_delta():
 func set_progress(prog_value, color):
 	progress_bar.value = prog_value
 	progress_bar.modulate = color
+	progress_bar_value = prog_value
 
 
 func set_progress_range(min, max):
 	progress_bar.min_value = min
 	progress_bar.max_value = max
+
+
+func get_progress():
+	return progress_bar_value
+
 
 
 func toggle_wittness(is_on):

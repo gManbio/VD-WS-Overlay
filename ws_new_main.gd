@@ -352,6 +352,8 @@ func make_leaderboard():
 			if current_pos.get_spectating:
 				main_timing.set_delta(current_pos.get_delta())
 				main_timing.set_pilot_name(current_pos.get_pilot_name(), color)
+				main_timing.set_progress(current_pos.get_progress(), color)
+				main_timing.set_portrait(portrait_box.get_image(pilot["data"]["uid"]))
 			index += 1
 
 
@@ -854,6 +856,8 @@ func update_h2h_portrait(lead_target_uid):
 			var color = Color("#" + timing_row.get_hex_color())
 			h2h_timing.set_delta(timing_row.get_delta())
 			h2h_timing.set_pilot_name(timing_row.get_pilot_name(), color)
+			h2h_timing.set_progress(timing_row.get_progress(), color)
+			h2h_timing.set_portrait(portrait_box.get_image(lead_target_uid))
 			#if head2head: # this might be unnessesary with the new OBS layout
 			#		new_score = true
 			#		make_scoreboard()
