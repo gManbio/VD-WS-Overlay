@@ -32,6 +32,8 @@ extends Control
 
 @export var hide_progress_bar = false
 
+@export var disable_click = false
+
 var bursted = false
 
 var first_bursted = false
@@ -62,8 +64,9 @@ var progress_bar_value = 0
 
 
 func _ready():
-	var target_node = $"../../../.."
-	connect("clicked_pilot", Callable(target_node, "_on_clicked_pilot"))
+	if not disable_click:
+		var target_node = $"../../../.."
+		connect("clicked_pilot", Callable(target_node, "_on_clicked_pilot"))
 	if hide_mini_portrait:
 		portrait.visible = false
 	if hide_progress_bar:
@@ -267,11 +270,12 @@ func set_crash(is_crashed):
 
 
 func _on_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == 1 and event.pressed:
-			emit_signal("clicked_pilot", user_id, false, chase_target)
-			accept_event()
-		if event.button_index == 2 and event.pressed:
-			emit_signal("clicked_pilot", user_id, true, chase_target)
-			accept_event()
+	if not disable_click:
+		if event is InputEventMouseButton:
+			if event.button_index == 1 and event.pressed:
+				emit_signal("clicked_pilot", user_id, false, chase_target)
+				accept_event()
+			if event.button_index == 2 and event.pressed:
+				emit_signal("clicked_pilot", user_id, true, chase_target)
+				accept_event()
 

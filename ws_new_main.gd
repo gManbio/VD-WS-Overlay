@@ -133,7 +133,7 @@ func _input(event):
 		$Control/Options/Cam_director_toggle.button_pressed = true
 		head2head = false
 		$Control/Options/Head2Head_toggle.button_pressed = false
-
+		spectator_changed = true
 
 func _handle_websocket_messages():
 	while ws.get_available_packet_count() > 0:
@@ -177,6 +177,7 @@ func _process_message(pilotdata):
 	elif "spectatorChange" in pilotdata:
 		currently_spectating = pilotdata["spectatorChange"]
 		spectator_changed = true
+		print(currently_spectating)
 		make_leaderboard() #this might break this
 	elif "ActivateError" in pilotdata:
 		_on_activate_error(pilotdata["ActivateError"]["UIDNotFound"])
@@ -337,6 +338,8 @@ func make_leaderboard():
 									send_fpv_viewer(leader_uid)
 									#h2h_timing.set_delta(current_pos.get_delta())
 									#h2h_timing.set_pilot_name(current_pos.get_pilot_name(), color)
+								else:
+									send_fpv_viewer(pilot["data"]["uid"])
 							spectator_changed = false
 			else:    	
 				if pilot["data"]["finished"] == "True":  # Sets the delta for first player
@@ -349,7 +352,7 @@ func make_leaderboard():
 					current_pos.set_delta(0.000)
 					current_pos.set_user_id(pilot["data"]["uid"])
 			# gap_delta += current_pos.get_delta()
-			if current_pos.get_spectating:
+			if current_pos.get_spectating():
 				main_timing.set_delta(current_pos.get_delta())
 				main_timing.set_pilot_name(current_pos.get_pilot_name(), color)
 				main_timing.set_progress(current_pos.get_progress(), color)
@@ -664,6 +667,7 @@ func _on_cam_director_toggle_toggled(toggled_on):
 		head2head = false
 		$Control/Options/Head2Head_toggle.button_pressed = false
 		new_score = true # this might break
+		current_spec_mode = "none"
 		make_scoreboard() #this might break
 
 
@@ -901,6 +905,7 @@ func _on_clicked_pilot(user_id, is_right_clicked, target_pilot):
 		current_spec_mode = "fpv"
 	if head2head:
 		send_fpv_viewer(target_pilot)
+	spectator_changed = true
 
 
 func _on_lap_total_text_changed(new_text):

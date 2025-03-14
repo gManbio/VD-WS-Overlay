@@ -329,10 +329,10 @@ text = "Disconnect"
 [node name="FPV_DC Button" type="Button" parent="Control/Options"]
 visible = false
 layout_mode = 1
-offset_left = 140.0
-offset_top = 112.0
-offset_right = 239.0
-offset_bottom = 152.0
+offset_left = 142.0
+offset_top = 77.0
+offset_right = 241.0
+offset_bottom = 117.0
 focus_mode = 0
 theme = ExtResource("6_oakrc")
 text = "Disconnect"
@@ -1168,6 +1168,7 @@ offset_top = 620.0
 offset_right = 443.445
 offset_bottom = 655.0
 hide_progress_bar = true
+disable_click = true
 
 [node name="H2H Timing" parent="Control" instance=ExtResource("16_sjcrq")]
 offset_left = -80.0
@@ -1175,6 +1176,7 @@ offset_top = 620.0
 offset_right = 195.445
 offset_bottom = 655.0
 hide_progress_bar = true
+disable_click = true
 
 [node name="HeartbeatTimer" type="Timer" parent="."]
 wait_time = 5.0
